@@ -1,4 +1,5 @@
 const String IMAGE_PATH = "assets/images";
+const String LOTTIE_ANIM_PATH = "assets/lottie_anim";
 
 class ImageAssets {
   static const String splashLogo = "$IMAGE_PATH/splash_logo.png";
@@ -10,4 +11,9 @@ class ImageAssets {
   static const String leftArrowIc = "$IMAGE_PATH/left_arrow_ic.svg";
   static const String rightarrowIc = "$IMAGE_PATH/right_arrow_ic.svg";
   static const String solidCircleIc = "$IMAGE_PATH/solid_circle_ic.svg";
+}
+
+class LottieAnimAssets {
+  static const String splashLogoAnim =
+      "$LOTTIE_ANIM_PATH/splash_logo_anim.json";
 }
