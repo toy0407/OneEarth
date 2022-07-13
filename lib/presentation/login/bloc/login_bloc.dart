@@ -1,8 +1,8 @@
 import 'package:bloc/bloc.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:one_earth/auth/auth_error.dart';
-import 'package:one_earth/bloc/app_event.dart';
-import 'package:one_earth/bloc/app_state.dart';
+import '../auth/auth_error.dart';
+import 'login_event.dart';
+import 'login_state.dart';
 
 class AppBloc extends Bloc<AppEvent, AppState> {
   AppBloc()

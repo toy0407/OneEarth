@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:one_earth/firebase_options.dart';
-import 'package:one_earth/presentation/login/auth_repository.dart';
 import 'package:one_earth/presentation/splash/splash_screen.dart';
 import 'package:firebase_core/firebase_core.dart';
 
@@ -20,13 +19,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: "One Earth",
-      home: MultiRepositoryProvider(
-        providers: [
-          RepositoryProvider<AuthRepository>(
-              create: (context) => AuthRepository()),
-        ],
-        child: const SplashScreen(),
-      ),
+      home: SplashScreen(),
     );
   }
 }

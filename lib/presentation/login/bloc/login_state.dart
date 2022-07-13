@@ -1,6 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart' show immutable;
-import 'package:one_earth/auth/auth_error.dart';
+import '../auth/auth_error.dart';
 
 @immutable
 abstract class AppState {
