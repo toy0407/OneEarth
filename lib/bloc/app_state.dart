@@ -7,7 +7,10 @@ abstract class AppState {
   final bool isLoading;
   final AuthError? authError;
 
-  const AppState({required this.isLoading, required this.authError});
+  const AppState({
+    required this.isLoading,
+    this.authError,
+  });
 }
 
 @immutable
@@ -16,7 +19,7 @@ class AppStateLoggedIn extends AppState {
 
   const AppStateLoggedIn({
     required bool isLoading,
-    required AuthError? authError,
+    AuthError? authError,
     required this.user,
   }) : super(
           isLoading: isLoading,
@@ -28,7 +31,7 @@ class AppStateLoggedIn extends AppState {
 class AppStateLoggedOut extends AppState {
   const AppStateLoggedOut({
     required bool isLoading,
-    required AuthError? authError,
+    AuthError? authError,
   }) : super(
           isLoading: isLoading,
           authError: authError,
@@ -39,7 +42,7 @@ class AppStateLoggedOut extends AppState {
 class AppStateIsInRegistrationView extends AppState {
   const AppStateIsInRegistrationView({
     required bool isLoading,
-    required AuthError? authError,
+    AuthError? authError,
   }) : super(
           isLoading: isLoading,
           authError: authError,
