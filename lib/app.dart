@@ -5,7 +5,9 @@ import 'package:one_earth/presentation/loading/loading_screen.dart';
 import 'package:one_earth/presentation/login/bloc/login_bloc.dart';
 import 'package:one_earth/presentation/login/bloc/login_event.dart';
 import 'package:one_earth/presentation/login/bloc/login_state.dart';
+import 'package:one_earth/presentation/login/login_screen.dart';
 import 'package:one_earth/presentation/login/register_view.dart';
+import 'package:one_earth/presentation/onboarding/onboarding_screen.dart';
 import 'package:one_earth/presentation/profile/profile_screen.dart';
 import 'package:one_earth/presentation/splash/splash_screen.dart';
 
@@ -48,6 +50,10 @@ class MyApp extends StatelessWidget {
               return const ProfileScreen();
             } else if (appState is AppStateIsInRegistrationView) {
               return const RegisterScreen();
+            } else if (appState is AppStateIsInOnBoardingView) {
+              return const OnboardingScreen();
+            } else if (appState is AppStateIsInLoginView) {
+              return const LoginScreen();
             } else {
               return Container();
             }

@@ -1,4 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:one_earth/presentation/login/bloc/login_bloc.dart';
+import 'package:one_earth/presentation/login/bloc/login_event.dart';
+import 'package:one_earth/presentation/login/login_screen.dart';
 
 class OnboardingScreen extends StatefulWidget {
   const OnboardingScreen({Key? key}) : super(key: key);
@@ -24,7 +28,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
         children: [
           _onboardingScreen1(),
           _onboardingScreen2(),
-          _onboardingScreen3()
+          const OnboardingScreen3()
         ],
       ),
       bottomSheet: Row(
@@ -63,11 +67,23 @@ Widget _onboardingScreen2() {
   );
 }
 
-Widget _onboardingScreen3() {
-  return Column(
-    mainAxisAlignment: MainAxisAlignment.center,
-    children: const [
-      Text('Page 3'),
-    ],
-  );
+// Widget _onboardingScreen3(BuildContext context) {
+// }
+
+class OnboardingScreen3 extends StatelessWidget {
+  const OnboardingScreen3({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        const Text('Page 3'),
+        TextButton(
+            onPressed: () =>
+                {context.read<AppBloc>().add(const AppEventGoToLogin())},
+            child: const Text('Get Started'))
+      ],
+    );
+  }
 }

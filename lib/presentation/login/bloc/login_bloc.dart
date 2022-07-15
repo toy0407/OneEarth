@@ -17,7 +17,7 @@ class AppBloc extends Bloc<AppEvent, AppState> {
       (event, emit) async {
         // start loading
         emit(
-          const AppStateLoggedOut(
+          const AppStateIsInLoginView(
             isLoading: true,
           ),
         );
@@ -25,7 +25,7 @@ class AppBloc extends Bloc<AppEvent, AppState> {
         await FirebaseAuth.instance.signOut();
         // log the user out in the UI as well
         emit(
-          const AppStateLoggedOut(
+          const AppStateIsInLoginView(
             isLoading: false,
           ),
         );
@@ -98,7 +98,7 @@ class AppBloc extends Bloc<AppEvent, AppState> {
     on<AppEventGoToLogin>(
       (event, emit) {
         emit(
-          const AppStateLoggedOut(
+          const AppStateIsInLoginView(
             isLoading: false,
           ),
         );
@@ -117,12 +117,24 @@ class AppBloc extends Bloc<AppEvent, AppState> {
       },
     );
 
+    // handle going to onboarding screen
+
+    on<AppEventGoToOnBoarding>(
+      (event, emit) {
+        emit(
+          const AppStateIsInOnBoardingView(
+            isLoading: false,
+          ),
+        );
+      },
+    );
+
     // hanlde logging in event
 
     on<AppEventLogIn>(
       (event, emit) async {
         emit(
-          const AppStateLoggedOut(
+          const AppStateIsInLoginView(
             isLoading: true,
           ),
         );
@@ -144,7 +156,7 @@ class AppBloc extends Bloc<AppEvent, AppState> {
           );
         } on FirebaseAuthException catch (e) {
           emit(
-            AppStateLoggedOut(
+            AppStateIsInLoginView(
               isLoading: false,
               authError: AuthError.from(e),
             ),

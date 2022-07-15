@@ -49,6 +49,26 @@ class AppStateIsInRegistrationView extends AppState {
         );
 }
 
+@immutable
+class AppStateIsInLoginView extends AppState {
+  const AppStateIsInLoginView({
+    required bool isLoading,
+    AuthError? authError,
+  }) : super(
+          isLoading: isLoading,
+          authError: authError,
+        );
+}
+
+@immutable
+class AppStateIsInOnBoardingView extends AppState {
+  const AppStateIsInOnBoardingView({
+    required bool isLoading,
+  }) : super(
+          isLoading: isLoading,
+        );
+}
+
 extension GetUser on AppState {
   User? get user {
     final cls = this;

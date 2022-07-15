@@ -46,3 +46,8 @@ class AppEventGoToRegistration implements AppEvent {
 class AppEventGoToLogin implements AppEvent {
   const AppEventGoToLogin();
 }
+
+@immutable
+class AppEventGoToOnBoarding implements AppEvent {
+  const AppEventGoToOnBoarding();
+}
