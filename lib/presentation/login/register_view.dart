@@ -5,8 +5,8 @@ import 'package:one_earth/presentation/extensions/if_debugging.dart';
 import 'package:one_earth/presentation/login/bloc/login_bloc.dart';
 import 'package:one_earth/presentation/login/bloc/login_event.dart';
 
-class LoginScreen extends HookWidget {
-  const LoginScreen({Key? key}) : super(key: key);
+class RegisterScreen extends HookWidget {
+  const RegisterScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -21,7 +21,7 @@ class LoginScreen extends HookWidget {
     return Scaffold(
       appBar: AppBar(
         title: const Text(
-          'Log in',
+          'Register',
         ),
       ),
       body: Padding(
@@ -47,24 +47,24 @@ class LoginScreen extends HookWidget {
                 final email = emailController.text;
                 final password = passwordController.text;
                 context.read<AppBloc>().add(
-                      AppEventLogIn(
+                      AppEventRegister(
                         email: email,
                         password: password,
                       ),
                     );
               },
               child: const Text(
-                'Log in',
+                'Register',
               ),
             ),
             TextButton(
               onPressed: () {
                 context.read<AppBloc>().add(
-                      const AppEventGoToRegistration(),
+                      const AppEventGoToLogin(),
                     );
               },
               child: const Text(
-                'Not registered yet? Register here!',
+                'Already registered? Log in here!',
               ),
             )
           ],
