@@ -1,23 +1,35 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
-import 'package:one_earth/presentation/extensions/if_debugging.dart';
+import 'package:one_earth/temp/if_debugging.dart';
 import 'package:one_earth/presentation/login/bloc/login_bloc.dart';
 import 'package:one_earth/presentation/login/bloc/login_event.dart';
 
-class RegisterScreen extends HookWidget {
+class RegisterScreen extends StatefulWidget {
   const RegisterScreen({Key? key}) : super(key: key);
 
   @override
+  State<RegisterScreen> createState() => _RegisterScreenState();
+}
+
+class _RegisterScreenState extends State<RegisterScreen> {
+  final emailController = useTextEditingController(
+    text: 'dasritwik73@gmail.com'.ifDebugging,
+  );
+
+  final passwordController = useTextEditingController(
+    text: 'password'.ifDebugging,
+  );
+
+  @override
+  void dispose() {
+    emailController.dispose();
+    passwordController.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
-    final emailController = useTextEditingController(
-      text: 'dasritwik73@gmail.com'.ifDebugging,
-    );
-
-    final passwordController = useTextEditingController(
-      text: 'password'.ifDebugging,
-    );
-
     return Scaffold(
       appBar: AppBar(
         title: const Text(

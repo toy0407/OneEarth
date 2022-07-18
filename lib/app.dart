@@ -6,9 +6,10 @@ import 'package:one_earth/presentation/login/bloc/login_bloc.dart';
 import 'package:one_earth/presentation/login/bloc/login_event.dart';
 import 'package:one_earth/presentation/login/bloc/login_state.dart';
 import 'package:one_earth/presentation/login/login_screen.dart';
-import 'package:one_earth/presentation/login/register_view.dart';
+import 'package:one_earth/presentation/login/register_screen.dart';
+import 'package:one_earth/presentation/main/main_screen.dart';
 import 'package:one_earth/presentation/onboarding/onboarding_screen.dart';
-import 'package:one_earth/presentation/profile/profile_screen.dart';
+import 'package:one_earth/presentation/resources/theme_manager.dart';
 import 'package:one_earth/presentation/splash/splash_screen.dart';
 
 class MyApp extends StatelessWidget {
@@ -23,6 +24,7 @@ class MyApp extends StatelessWidget {
         ),
       child: MaterialApp(
         title: "One Earth",
+        theme: getApplicationTheme(),
         debugShowCheckedModeBanner: false,
         home: BlocConsumer<AppBloc, AppState>(
           listener: (context, appState) {
@@ -47,13 +49,13 @@ class MyApp extends StatelessWidget {
             if (appState is AppStateLoggedOut) {
               return const SplashScreen();
             } else if (appState is AppStateLoggedIn) {
-              return const ProfileScreen();
+              return MainScreen();
             } else if (appState is AppStateIsInRegistrationView) {
               return const RegisterScreen();
             } else if (appState is AppStateIsInOnBoardingView) {
               return const OnboardingScreen();
             } else if (appState is AppStateIsInLoginView) {
-              return const LoginScreen();
+              return LoginScreen();
             } else {
               return Container();
             }

@@ -9,11 +9,11 @@ ThemeData getApplicationTheme() {
   return ThemeData(
       // main colors of the app
       primaryColor: ColorManager.primary,
-      primaryColorLight: ColorManager.primaryOpacity70,
+      primaryColorLight: ColorManager.primary2,
       primaryColorDark: ColorManager.darkPrimary,
       disabledColor: ColorManager.grey1,
       // ripple color
-      splashColor: ColorManager.primaryOpacity70,
+      splashColor: ColorManager.primary2,
       // will be used incase of disabled button for example
       accentColor: ColorManager.grey,
       // card view theme
@@ -25,16 +25,29 @@ ThemeData getApplicationTheme() {
       appBarTheme: AppBarTheme(
           centerTitle: true,
           color: ColorManager.primary,
-          elevation: AppSize.s4,
-          shadowColor: ColorManager.primaryOpacity70,
+          elevation: AppSize.s0,
+          shadowColor: ColorManager.primary2,
           titleTextStyle: getRegularStyle(
-              color: ColorManager.white, fontSize: FontSize.s16)),
+              color: ColorManager.white, fontSize: FontSize.s20)),
+
+      //BottomNavigationBar theme
+      bottomNavigationBarTheme: BottomNavigationBarThemeData(
+        selectedItemColor: ColorManager.darkPrimary,
+        unselectedItemColor: ColorManager.grey,
+      ),
+
+      //TabBar theme
+      tabBarTheme: TabBarTheme(
+        labelColor: ColorManager.darkPrimary,
+        unselectedLabelColor: ColorManager.grey,
+      ),
+
       // Button theme
       buttonTheme: ButtonThemeData(
           shape: StadiumBorder(),
           disabledColor: ColorManager.grey1,
           buttonColor: ColorManager.primary,
-          splashColor: ColorManager.primaryOpacity70),
+          splashColor: ColorManager.primary2),
 
       // elevated button theme
       elevatedButtonTheme: ElevatedButtonThemeData(
