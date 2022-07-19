@@ -9,7 +9,6 @@ import 'package:one_earth/presentation/login/login_screen.dart';
 import 'package:one_earth/presentation/login/register_screen.dart';
 import 'package:one_earth/presentation/main/main_screen.dart';
 import 'package:one_earth/presentation/onboarding/bloc/onboarding_bloc.dart';
-import 'package:one_earth/presentation/onboarding/bloc/onboarding_event.dart';
 import 'package:one_earth/presentation/onboarding/bloc/onboarding_state.dart';
 import 'package:one_earth/presentation/onboarding/onboarding_screen.dart';
 import 'package:one_earth/presentation/resources/theme_manager.dart';
