@@ -4,20 +4,20 @@ import '../auth/auth_error.dart';
 import 'login_event.dart';
 import 'login_state.dart';
 
-class AppBloc extends Bloc<AppEvent, AppState> {
-  AppBloc()
+class LoginBloc extends Bloc<LoginEvent, LoginState> {
+  LoginBloc()
       : super(
-          const AppStateLoggedOut(
+          const LoginStateLoggedOut(
             isLoading: false,
           ),
         ) {
     // handle logout event
 
-    on<AppEventLogOut>(
+    on<LoginEventLogOut>(
       (event, emit) async {
         // start loading
         emit(
-          const AppStateIsInLoginView(
+          const LoginStateIsInLoginView(
             isLoading: true,
           ),
         );
@@ -25,30 +25,30 @@ class AppBloc extends Bloc<AppEvent, AppState> {
         await FirebaseAuth.instance.signOut();
         // log the user out in the UI as well
         emit(
-          const AppStateIsInLoginView(
+          const LoginStateIsInLoginView(
             isLoading: false,
           ),
         );
       },
     );
 
-    // handle app initialize event
+    // handle Login initialize event
 
-    on<AppEventInitialize>(
+    on<LoginEventInitialize>(
       (event, emit) {
         // get the current user
         final user = FirebaseAuth.instance.currentUser;
         if (user == null) {
           // the user in logged out
           emit(
-            const AppStateLoggedOut(
+            const LoginStateLoggedOut(
               isLoading: false,
             ),
           );
         } else {
           // log the user in
           emit(
-            AppStateLoggedIn(
+            LoginStateLoggedIn(
               isLoading: false,
               user: user,
             ),
@@ -59,11 +59,11 @@ class AppBloc extends Bloc<AppEvent, AppState> {
 
     // handle register event
 
-    on<AppEventRegister>(
+    on<LoginEventRegister>(
       (event, emit) async {
         // start loading
         emit(
-          const AppStateIsInRegistrationView(
+          const LoginStateIsInRegistrationView(
             isLoading: true,
           ),
         );
@@ -77,14 +77,14 @@ class AppBloc extends Bloc<AppEvent, AppState> {
             password: password,
           );
           emit(
-            AppStateLoggedIn(
+            LoginStateLoggedIn(
               isLoading: false,
               user: credentials.user!,
             ),
           );
         } on FirebaseAuthException catch (e) {
           emit(
-            AppStateIsInRegistrationView(
+            LoginStateIsInRegistrationView(
               isLoading: false,
               authError: AuthError.from(e),
             ),
@@ -95,10 +95,10 @@ class AppBloc extends Bloc<AppEvent, AppState> {
 
     // handle going to login screen
 
-    on<AppEventGoToLogin>(
+    on<LoginEventGoToLogin>(
       (event, emit) {
         emit(
-          const AppStateIsInLoginView(
+          const LoginStateIsInLoginView(
             isLoading: false,
           ),
         );
@@ -107,22 +107,10 @@ class AppBloc extends Bloc<AppEvent, AppState> {
 
     // handle going to register screen
 
-    on<AppEventGoToRegistration>(
+    on<LoginEventGoToRegistration>(
       (event, emit) {
         emit(
-          const AppStateIsInRegistrationView(
-            isLoading: false,
-          ),
-        );
-      },
-    );
-
-    // handle going to onboarding screen
-
-    on<AppEventGoToOnBoarding>(
-      (event, emit) {
-        emit(
-          const AppStateIsInOnBoardingView(
+          const LoginStateIsInRegistrationView(
             isLoading: false,
           ),
         );
@@ -131,10 +119,10 @@ class AppBloc extends Bloc<AppEvent, AppState> {
 
     // hanlde logging in event
 
-    on<AppEventLogIn>(
+    on<LoginEventLogIn>(
       (event, emit) async {
         emit(
-          const AppStateIsInLoginView(
+          const LoginStateIsInLoginView(
             isLoading: true,
           ),
         );
@@ -149,14 +137,14 @@ class AppBloc extends Bloc<AppEvent, AppState> {
           );
           final user = userCredential.user!;
           emit(
-            AppStateLoggedIn(
+            LoginStateLoggedIn(
               isLoading: false,
               user: user,
             ),
           );
         } on FirebaseAuthException catch (e) {
           emit(
-            AppStateIsInLoginView(
+            LoginStateIsInLoginView(
               isLoading: false,
               authError: AuthError.from(e),
             ),

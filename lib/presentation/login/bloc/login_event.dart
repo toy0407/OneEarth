@@ -1,53 +1,48 @@
 import 'package:flutter/foundation.dart' show immutable;
 
 @immutable
-abstract class AppEvent {
-  const AppEvent();
+abstract class LoginEvent {
+  const LoginEvent();
 }
 
 @immutable
-class AppEventLogOut implements AppEvent {
-  const AppEventLogOut();
+class LoginEventLogOut implements LoginEvent {
+  const LoginEventLogOut();
 }
 
 @immutable
-class AppEventInitialize implements AppEvent {
-  const AppEventInitialize();
+class LoginEventInitialize implements LoginEvent {
+  const LoginEventInitialize();
 }
 
 @immutable
-class AppEventLogIn implements AppEvent {
+class LoginEventLogIn implements LoginEvent {
   final String email;
   final String password;
 
-  const AppEventLogIn({
+  const LoginEventLogIn({
     required this.email,
     required this.password,
   });
 }
 
 @immutable
-class AppEventRegister implements AppEvent {
+class LoginEventRegister implements LoginEvent {
   final String email;
   final String password;
 
-  const AppEventRegister({
+  const LoginEventRegister({
     required this.email,
     required this.password,
   });
 }
 
 @immutable
-class AppEventGoToRegistration implements AppEvent {
-  const AppEventGoToRegistration();
+class LoginEventGoToRegistration implements LoginEvent {
+  const LoginEventGoToRegistration();
 }
 
 @immutable
-class AppEventGoToLogin implements AppEvent {
-  const AppEventGoToLogin();
-}
-
-@immutable
-class AppEventGoToOnBoarding implements AppEvent {
-  const AppEventGoToOnBoarding();
+class LoginEventGoToLogin implements LoginEvent {
+  const LoginEventGoToLogin();
 }

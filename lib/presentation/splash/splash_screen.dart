@@ -5,6 +5,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:lottie/lottie.dart';
 import 'package:one_earth/presentation/login/bloc/login_bloc.dart';
 import 'package:one_earth/presentation/login/bloc/login_event.dart';
+import 'package:one_earth/presentation/onboarding/bloc/onboarding_bloc.dart';
+import 'package:one_earth/presentation/onboarding/bloc/onboarding_event.dart';
 import 'package:one_earth/presentation/resources/assets_manager.dart';
 
 class SplashScreen extends StatelessWidget {
@@ -15,7 +17,9 @@ class SplashScreen extends StatelessWidget {
     Timer(
       const Duration(milliseconds: 2500),
       (() {
-        context.read<AppBloc>().add(const AppEventGoToOnBoarding());
+        context
+            .read<OnboardingBloc>()
+            .add(const OnboardingEventGoToOnBoarding());
       }),
     );
     return Scaffold(

@@ -3,21 +3,21 @@ import 'package:flutter/foundation.dart' show immutable;
 import '../auth/auth_error.dart';
 
 @immutable
-abstract class AppState {
+abstract class LoginState {
   final bool isLoading;
   final AuthError? authError;
 
-  const AppState({
+  const LoginState({
     required this.isLoading,
     this.authError,
   });
 }
 
 @immutable
-class AppStateLoggedIn extends AppState {
+class LoginStateLoggedIn extends LoginState {
   final User user;
 
-  const AppStateLoggedIn({
+  const LoginStateLoggedIn({
     required bool isLoading,
     AuthError? authError,
     required this.user,
@@ -28,8 +28,8 @@ class AppStateLoggedIn extends AppState {
 }
 
 @immutable
-class AppStateLoggedOut extends AppState {
-  const AppStateLoggedOut({
+class LoginStateLoggedOut extends LoginState {
+  const LoginStateLoggedOut({
     required bool isLoading,
     AuthError? authError,
   }) : super(
@@ -39,8 +39,8 @@ class AppStateLoggedOut extends AppState {
 }
 
 @immutable
-class AppStateIsInRegistrationView extends AppState {
-  const AppStateIsInRegistrationView({
+class LoginStateIsInRegistrationView extends LoginState {
+  const LoginStateIsInRegistrationView({
     required bool isLoading,
     AuthError? authError,
   }) : super(
@@ -50,8 +50,8 @@ class AppStateIsInRegistrationView extends AppState {
 }
 
 @immutable
-class AppStateIsInLoginView extends AppState {
-  const AppStateIsInLoginView({
+class LoginStateIsInLoginView extends LoginState {
+  const LoginStateIsInLoginView({
     required bool isLoading,
     AuthError? authError,
   }) : super(
@@ -60,19 +60,19 @@ class AppStateIsInLoginView extends AppState {
         );
 }
 
-@immutable
-class AppStateIsInOnBoardingView extends AppState {
-  const AppStateIsInOnBoardingView({
-    required bool isLoading,
-  }) : super(
-          isLoading: isLoading,
-        );
-}
+// @immutable
+// class LoginStateIsInOnBoardingView extends LoginState {
+//   const LoginStateIsInOnBoardingView({
+//     required bool isLoading,
+//   }) : super(
+//           isLoading: isLoading,
+//         );
+// }
 
-extension GetUser on AppState {
+extension GetUser on LoginState {
   User? get user {
     final cls = this;
-    if (cls is AppStateLoggedIn) {
+    if (cls is LoginStateLoggedIn) {
       return cls.user;
     } else {
       return null;

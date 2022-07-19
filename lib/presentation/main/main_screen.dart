@@ -31,7 +31,7 @@ class _MainScreenState extends State<MainScreen> {
       drawer: Drawer(
         child: TextButton(
           onPressed: (() =>
-              {context.read<AppBloc>().add(const AppEventLogOut())}),
+              {context.read<LoginBloc>().add(const LoginEventLogOut())}),
           child: Text(
             'Log out',
             style: getMediumStyle(color: ColorManager.darkPrimary),

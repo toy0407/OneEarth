@@ -81,7 +81,7 @@ class OnboardingScreen3 extends StatelessWidget {
         const Text('Page 3'),
         TextButton(
             onPressed: () =>
-                {context.read<AppBloc>().add(const AppEventGoToLogin())},
+                {context.read<LoginBloc>().add(const LoginEventGoToLogin())},
             child: const Text('Get Started'))
       ],
     );

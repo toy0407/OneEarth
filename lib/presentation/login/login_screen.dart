@@ -59,8 +59,8 @@ class _LoginScreenState extends State<LoginScreen> {
               onPressed: () {
                 final email = _emailController.text;
                 final password = _passwordController.text;
-                context.read<AppBloc>().add(
-                      AppEventLogIn(
+                context.read<LoginBloc>().add(
+                      LoginEventLogIn(
                         email: email,
                         password: password,
                       ),
@@ -72,8 +72,8 @@ class _LoginScreenState extends State<LoginScreen> {
             ),
             TextButton(
               onPressed: () {
-                context.read<AppBloc>().add(
-                      const AppEventGoToRegistration(),
+                context.read<LoginBloc>().add(
+                      const LoginEventGoToRegistration(),
                     );
               },
               child: const Text(

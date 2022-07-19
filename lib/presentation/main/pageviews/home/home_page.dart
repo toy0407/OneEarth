@@ -53,7 +53,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
           Expanded(
             child: TabBarView(controller: _tabController, children: [
               LeaderboardTabView(),
-              MySpaceTabView(),
+              const MySpaceTab(),
               MyActivitiesTabView(),
             ]),
           ),
