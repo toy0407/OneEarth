@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:one_earth/temp/if_debugging.dart';
 import 'package:one_earth/presentation/login/bloc/login_bloc.dart';
 import 'package:one_earth/presentation/login/bloc/login_event.dart';
@@ -13,18 +12,20 @@ class RegisterScreen extends StatefulWidget {
 }
 
 class _RegisterScreenState extends State<RegisterScreen> {
-  final emailController = useTextEditingController(
-    text: 'dasritwik73@gmail.com'.ifDebugging,
-  );
+  final TextEditingController _emailController =
+      TextEditingController(text: 'dasritwik73@gmail.com'.ifDebugging);
+  final TextEditingController _passwordController =
+      TextEditingController(text: 'password'.ifDebugging);
 
-  final passwordController = useTextEditingController(
-    text: 'password'.ifDebugging,
-  );
+  @override
+  void initState() {
+    super.initState();
+  }
 
   @override
   void dispose() {
-    emailController.dispose();
-    passwordController.dispose();
+    _emailController.dispose();
+    _passwordController.dispose();
     super.dispose();
   }
 
@@ -41,14 +42,14 @@ class _RegisterScreenState extends State<RegisterScreen> {
         child: Column(
           children: [
             TextField(
-              controller: emailController,
+              controller: _emailController,
               decoration: const InputDecoration(
                 hintText: 'Enter your email here...',
               ),
               keyboardType: TextInputType.emailAddress,
             ),
             TextField(
-              controller: passwordController,
+              controller: _passwordController,
               decoration: const InputDecoration(
                 hintText: 'Enter your password here...',
               ),
@@ -56,8 +57,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
             ),
             TextButton(
               onPressed: () {
-                final email = emailController.text;
-                final password = passwordController.text;
+                final email = _emailController.text;
+                final password = _passwordController.text;
                 context.read<AppBloc>().add(
                       AppEventRegister(
                         email: email,
