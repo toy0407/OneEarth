@@ -70,10 +70,10 @@ class _MainScreenState extends State<MainScreen> {
         onTap: (value) {
           setState(() {
             _currentIndex = value;
+            _pageController.animateToPage(value,
+                duration: const Duration(milliseconds: 500),
+                curve: Curves.easeOut);
           });
-          _pageController.animateToPage(value,
-              duration: const Duration(milliseconds: 300),
-              curve: Curves.easeIn);
         },
       ),
     );
