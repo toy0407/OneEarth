@@ -77,11 +77,3 @@ class MyApp extends StatelessWidget {
     );
   }
 }
-
-// BlocProvider<AppBloc>(
-//       create: (_) => AppBloc()
-//         ..add(
-//           const AppEventInitialize(),
-//         ),
-//       child: 
-//     );

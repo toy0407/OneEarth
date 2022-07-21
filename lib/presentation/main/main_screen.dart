@@ -12,7 +12,7 @@ import 'package:one_earth/presentation/resources/strings_manager.dart';
 import 'package:one_earth/presentation/resources/styles_manager.dart';
 
 class MainScreen extends StatefulWidget {
-  MainScreen({Key? key}) : super(key: key);
+  const MainScreen({Key? key}) : super(key: key);
 
   @override
   State<MainScreen> createState() => _MainScreenState();
@@ -74,6 +74,7 @@ class _MainScreenState extends State<MainScreen> {
                 duration: const Duration(milliseconds: 500),
                 curve: Curves.easeOut);
           });
+          _pageController.jumpToPage(_currentIndex);
         },
       ),
     );

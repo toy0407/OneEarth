@@ -12,13 +12,15 @@ class LoginScreen extends StatefulWidget {
 }
 
 class _LoginScreenState extends State<LoginScreen> {
-  final TextEditingController _emailController =
-      TextEditingController(text: 'dasritwik73@gmail.com'.ifDebugging);
-  final TextEditingController _passwordController =
-      TextEditingController(text: 'password'.ifDebugging);
+  late TextEditingController _emailController;
+  late TextEditingController _passwordController;
 
   @override
   void initState() {
+    _emailController =
+        TextEditingController(text: 'dasritwik73@gmail.com'.ifDebugging);
+    _passwordController = TextEditingController(text: 'password'.ifDebugging);
+
     super.initState();
   }
 
