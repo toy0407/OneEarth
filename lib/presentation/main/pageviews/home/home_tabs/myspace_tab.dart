@@ -27,6 +27,6 @@ class _MySpaceTabState extends State<MySpaceTab> {
   @override
   Widget build(BuildContext context) {
     // getFacts();
-    return Container();
+    return Center(child: Text('My Spaces'));
   }
 }

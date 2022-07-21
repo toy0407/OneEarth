@@ -13,7 +13,13 @@ class SocialPage extends StatefulWidget {
 
 class _SocialPageState extends State<SocialPage> {
   @override
+  void initState() {
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
+    debugPrint('Social excuted');
     return Center(
       child: Text(
         'Social Page is coming soon !',

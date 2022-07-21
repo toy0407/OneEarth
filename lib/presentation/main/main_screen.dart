@@ -71,9 +71,7 @@ class _MainScreenState extends State<MainScreen> {
           setState(() {
             _currentIndex = value;
           });
-          _pageController.animateToPage(value,
-              duration: const Duration(milliseconds: 300),
-              curve: Curves.easeIn);
+          _pageController.jumpToPage(_currentIndex);
         },
       ),
     );
