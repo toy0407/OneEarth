@@ -60,15 +60,6 @@ class LoginStateIsInLoginView extends LoginState {
         );
 }
 
-// @immutable
-// class LoginStateIsInOnBoardingView extends LoginState {
-//   const LoginStateIsInOnBoardingView({
-//     required bool isLoading,
-//   }) : super(
-//           isLoading: isLoading,
-//         );
-// }
-
 extension GetUser on LoginState {
   User? get user {
     final cls = this;
