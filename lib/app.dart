@@ -7,6 +7,7 @@ import 'package:one_earth/presentation/login/bloc/login_event.dart';
 import 'package:one_earth/presentation/login/bloc/login_state.dart';
 import 'package:one_earth/presentation/login/login_screen.dart';
 import 'package:one_earth/presentation/login/register_screen.dart';
+import 'package:one_earth/presentation/main/bloc/main_bloc.dart';
 import 'package:one_earth/presentation/main/main_screen.dart';
 import 'package:one_earth/presentation/onboarding/bloc/onboarding_bloc.dart';
 import 'package:one_earth/presentation/onboarding/bloc/onboarding_state.dart';
@@ -23,7 +24,8 @@ class MyApp extends StatelessWidget {
       providers: [
         BlocProvider(
             create: (_) => LoginBloc()..add(const LoginEventInitialize())),
-        BlocProvider(create: (_) => OnboardingBloc())
+        BlocProvider(create: (_) => OnboardingBloc()),
+        BlocProvider(create: (_) => BottomNavigationBloc())
       ],
       child: MaterialApp(
         title: "One Earth",

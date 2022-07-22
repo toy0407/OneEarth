@@ -2,44 +2,42 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:one_earth/presentation/main/bloc/main_event.dart';
 import 'package:one_earth/presentation/main/bloc/main_state.dart';
 
-class MainBloc extends Bloc<MainEvent, MainState> {
-  MainBloc() : super(const MainStateIsInHomePage()) {
-    on<MainEventGoToTutorial>(
+class BottomNavigationBloc
+    extends Bloc<BottomNavigationEvent, BottomNavigationState> {
+  int currentIndex = 0;
+  BottomNavigationBloc() : super(HomePageLoaded()) {
+    on<TutorialPageTapped>(
       (event, emit) {
         emit(
-          const MainStateIsInTutorialPage(),
+          TutorialPageLoaded(),
         );
       },
     );
-
-    on<MainEventGoToSocial>(
+    on<SocialPageTapped>(
       (event, emit) {
         emit(
-          const MainStateIsInSocialPage(),
+          SocialPageLoaded(),
         );
       },
     );
-
-    on<MainEventGoToHome>(
+    on<HomePageTapped>(
       (event, emit) {
         emit(
-          const MainStateIsInHomePage(),
+          HomePageLoaded(),
         );
       },
     );
-
-    on<MainEventGoToNews>(
+    on<NewsPageTapped>(
       (event, emit) {
         emit(
-          const MainStateIsInNewsPage(),
+          NewsPageLoaded(),
         );
       },
     );
-
-    on<MainEventGoToEvents>(
+    on<EventsPageTapped>(
       (event, emit) {
         emit(
-          const MainStateIsInEventsPage(),
+          EventsPageLoaded(),
         );
       },
     );

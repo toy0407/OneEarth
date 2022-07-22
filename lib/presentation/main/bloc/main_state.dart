@@ -1,31 +1,43 @@
 import 'package:flutter/foundation.dart' show immutable;
 
 @immutable
-abstract class MainState {
-  const MainState();
+abstract class BottomNavigationState {
+  const BottomNavigationState();
+}
+
+// class CurrentIndexChanged extends BottomNavigationState {
+//   final int currentIndex;
+
+//   CurrentIndexChanged({required this.currentIndex}) : super();
+
+//   @override
+//   String toString() => 'CurrentIndexChanged to $currentIndex';
+
+//   @override
+//   List<Object?> get props => throw UnimplementedError();
+// }
+
+@immutable
+class TutorialPageLoaded extends BottomNavigationState {
+  final int itemIndex = 0;
 }
 
 @immutable
-class MainStateIsInTutorialPage extends MainState {
-  const MainStateIsInTutorialPage() : super();
+class SocialPageLoaded extends BottomNavigationState {
+  final int itemIndex = 1;
 }
 
 @immutable
-class MainStateIsInSocialPage extends MainState {
-  const MainStateIsInSocialPage() : super();
+class HomePageLoaded extends BottomNavigationState {
+  final int itemIndex = 2;
 }
 
 @immutable
-class MainStateIsInHomePage extends MainState {
-  const MainStateIsInHomePage() : super();
+class NewsPageLoaded extends BottomNavigationState {
+  final int itemIndex = 3;
 }
 
 @immutable
-class MainStateIsInNewsPage extends MainState {
-  const MainStateIsInNewsPage() : super();
-}
-
-@immutable
-class MainStateIsInEventsPage extends MainState {
-  const MainStateIsInEventsPage() : super();
+class EventsPageLoaded extends BottomNavigationState {
+  final int itemIndex = 4;
 }

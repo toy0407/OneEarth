@@ -1,31 +1,51 @@
 import 'package:flutter/foundation.dart' show immutable;
 
 @immutable
-abstract class MainEvent {
-  const MainEvent();
+abstract class BottomNavigationEvent {
+  const BottomNavigationEvent([List props = const []]);
 }
 
-@immutable
-class MainEventGoToTutorial implements MainEvent {
-  const MainEventGoToTutorial();
+class TutorialPageTapped extends BottomNavigationEvent {
+  // final int index;
+
+  const TutorialPageTapped() : super();
+
+  // @override
+  // String toString() => 'TutorialPageTapped';
 }
 
-@immutable
-class MainEventGoToSocial implements MainEvent {
-  const MainEventGoToSocial();
+class SocialPageTapped extends BottomNavigationEvent {
+  // final int index;
+
+  const SocialPageTapped() : super();
+
+  // @override
+  // String toString() => 'TutorialPageTapped';
 }
 
-@immutable
-class MainEventGoToHome implements MainEvent {
-  const MainEventGoToHome();
+class HomePageTapped extends BottomNavigationEvent {
+  // final int index;
+
+  const HomePageTapped() : super();
+
+  // @override
+  // String toString() => 'TutorialPageTapped';
 }
 
-@immutable
-class MainEventGoToNews implements MainEvent {
-  const MainEventGoToNews();
+class NewsPageTapped extends BottomNavigationEvent {
+  // final int index;
+
+  const NewsPageTapped() : super();
+
+  // @override
+  // String toString() => 'TutorialPageTapped';
 }
 
-@immutable
-class MainEventGoToEvents implements MainEvent {
-  const MainEventGoToEvents();
+class EventsPageTapped extends BottomNavigationEvent {
+  // final int index;
+
+  const EventsPageTapped() : super();
+
+  // @override
+  // String toString() => 'TutorialPageTapped';
 }
