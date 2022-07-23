@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:one_earth/data/home/home_data.dart';
 import 'package:one_earth/presentation/dialogs/show_auth_error.dart';
 import 'package:one_earth/presentation/loading/loading_screen.dart';
 import 'package:one_earth/presentation/login/bloc/login_bloc.dart';
@@ -7,8 +8,11 @@ import 'package:one_earth/presentation/login/bloc/login_event.dart';
 import 'package:one_earth/presentation/login/bloc/login_state.dart';
 import 'package:one_earth/presentation/login/login_screen.dart';
 import 'package:one_earth/presentation/login/register_screen.dart';
-import 'package:one_earth/presentation/main/bloc/main_bloc.dart';
+import 'package:one_earth/presentation/main/bloc/bottom_navigation_bloc.dart';
 import 'package:one_earth/presentation/main/main_screen.dart';
+import 'package:one_earth/presentation/main/pageviews/home/bloc/leaderboard_tab_cubit.dart';
+import 'package:one_earth/presentation/main/pageviews/home/bloc/my_activities_cubit.dart';
+import 'package:one_earth/presentation/main/pageviews/home/bloc/my_space_tab_cubit.dart';
 import 'package:one_earth/presentation/onboarding/bloc/onboarding_bloc.dart';
 import 'package:one_earth/presentation/onboarding/bloc/onboarding_state.dart';
 import 'package:one_earth/presentation/onboarding/onboarding_screen.dart';
@@ -16,7 +20,9 @@ import 'package:one_earth/presentation/resources/theme_manager.dart';
 import 'package:one_earth/presentation/splash/splash_screen.dart';
 
 class MyApp extends StatelessWidget {
-  const MyApp({Key? key}) : super(key: key);
+  MyApp({Key? key}) : super(key: key);
+
+  final HomeRepository homeRepository = HomeRepository();
 
   @override
   Widget build(BuildContext context) {
@@ -25,7 +31,19 @@ class MyApp extends StatelessWidget {
         BlocProvider(
             create: (_) => LoginBloc()..add(const LoginEventInitialize())),
         BlocProvider(create: (_) => OnboardingBloc()),
-        BlocProvider(create: (_) => BottomNavigationBloc())
+        BlocProvider(create: (_) => BottomNavigationBloc()),
+        BlocProvider<LeaderboardTabCubit>(
+          create: (context) =>
+              LeaderboardTabCubit(homeRepository: homeRepository)..load(),
+        ),
+        BlocProvider<MySpaceTabCubit>(
+          create: (context) =>
+              MySpaceTabCubit(homeRepository: homeRepository)..load(),
+        ),
+        BlocProvider<MyActivitiesTabCubit>(
+          create: (context) =>
+              MyActivitiesTabCubit(homeRepository: homeRepository)..load(),
+        ),
       ],
       child: MaterialApp(
         title: "One Earth",

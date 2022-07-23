@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:one_earth/presentation/login/bloc/login_bloc.dart';
 import 'package:one_earth/presentation/login/bloc/login_event.dart';
-import 'package:one_earth/presentation/main/bloc/main_bloc.dart';
-import 'package:one_earth/presentation/main/bloc/main_event.dart';
+import 'package:one_earth/presentation/main/bloc/bottom_navigation_bloc.dart';
+import 'package:one_earth/presentation/main/bloc/bottom_bavigation_event.dart';
 import 'package:one_earth/presentation/main/pageviews/events/events_page.dart';
 import 'package:one_earth/presentation/main/pageviews/home/home_page.dart';
 import 'package:one_earth/presentation/main/pageviews/news/news_page.dart';
@@ -13,7 +13,7 @@ import 'package:one_earth/presentation/resources/color_manager.dart';
 import 'package:one_earth/presentation/resources/strings_manager.dart';
 import 'package:one_earth/presentation/resources/styles_manager.dart';
 
-import 'bloc/main_state.dart';
+import 'bloc/bottom_navigation_state.dart';
 
 class MainScreen extends StatefulWidget {
   const MainScreen({Key? key}) : super(key: key);

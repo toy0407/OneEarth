@@ -1,13 +1,20 @@
 import 'package:flutter/material.dart';
-import 'package:one_earth/presentation/resources/color_manager.dart';
-import 'package:one_earth/presentation/resources/styles_manager.dart';
-import 'package:one_earth/presentation/resources/values_manager.dart';
 
-Widget LeaderboardTabView() {
-  return Center(
-      child: Text('Leaderboard is coming soon !',
-          style: getRegularStyle(
-            fontSize: AppSize.s16,
-            color: ColorManager.grey,
-          )));
+import '../../../../resources/color_manager.dart';
+import '../../../../resources/styles_manager.dart';
+import '../../../../resources/values_manager.dart';
+
+class LeaderboardTabView extends StatelessWidget {
+  final String text;
+  const LeaderboardTabView({Key? key, required this.text}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Center(
+        child: Text(text,
+            style: getRegularStyle(
+              fontSize: AppSize.s16,
+              color: ColorManager.grey,
+            )));
+  }
 }

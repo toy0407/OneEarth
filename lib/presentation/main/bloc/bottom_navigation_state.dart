@@ -5,18 +5,6 @@ abstract class BottomNavigationState {
   const BottomNavigationState();
 }
 
-// class CurrentIndexChanged extends BottomNavigationState {
-//   final int currentIndex;
-
-//   CurrentIndexChanged({required this.currentIndex}) : super();
-
-//   @override
-//   String toString() => 'CurrentIndexChanged to $currentIndex';
-
-//   @override
-//   List<Object?> get props => throw UnimplementedError();
-// }
-
 @immutable
 class TutorialPageLoaded extends BottomNavigationState {
   final int itemIndex = 0;

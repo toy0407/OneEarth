@@ -1,5 +1,9 @@
-//TODO
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:one_earth/presentation/main/pageviews/home/bloc/home_state.dart';
+import 'package:one_earth/presentation/main/pageviews/home/bloc/leaderboard_tab_cubit.dart';
+import 'package:one_earth/presentation/main/pageviews/home/bloc/my_activities_cubit.dart';
+import 'package:one_earth/presentation/main/pageviews/home/bloc/my_space_tab_cubit.dart';
 import 'package:one_earth/presentation/main/pageviews/home/home_tabs/leaderboard_tab.dart';
 import 'package:one_earth/presentation/main/pageviews/home/home_tabs/myactivities_tab.dart';
 import 'package:one_earth/presentation/main/pageviews/home/home_tabs/myspace_tab.dart';
@@ -52,9 +56,53 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
               ]),
           Expanded(
             child: TabBarView(controller: _tabController, children: [
-              LeaderboardTabView(),
-              const MySpaceTab(),
-              MyActivitiesTabView(),
+              // LEADERBOARD TAB
+
+              BlocBuilder<LeaderboardTabCubit, HomeGenericState>(
+                builder: (context, state) {
+                  if (state.isFailed) {
+                    return const Text("Failed to fetch leaderboard text.");
+                  }
+
+                  if (state.isLoading) {
+                    return const Text("Loading leaderboard text...");
+                  }
+
+                  return LeaderboardTabView(text: state.text);
+                },
+              ),
+
+              // MY SPACE TAB
+
+              BlocBuilder<MySpaceTabCubit, HomeGenericState>(
+                builder: (context, state) {
+                  if (state.isFailed) {
+                    return const Text("Failed to fetch my space text.");
+                  }
+
+                  if (state.isLoading) {
+                    return const Text("Loading my space text...");
+                  }
+
+                  return MySpaceTabView(text: state.text);
+                },
+              ),
+
+              // MY ACTIVITIES TAB
+
+              BlocBuilder<MyActivitiesTabCubit, HomeGenericState>(
+                builder: (context, state) {
+                  if (state.isFailed) {
+                    return const Text("Failed to fetch my activities text.");
+                  }
+
+                  if (state.isLoading) {
+                    return const Text("Loading my activities text...");
+                  }
+
+                  return MyActivitiesTabView(text: state.text);
+                },
+              ),
             ]),
           ),
         ],

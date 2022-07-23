@@ -1,6 +1,6 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:one_earth/presentation/main/bloc/main_event.dart';
-import 'package:one_earth/presentation/main/bloc/main_state.dart';
+import 'package:one_earth/presentation/main/bloc/bottom_bavigation_event.dart';
+import 'package:one_earth/presentation/main/bloc/bottom_navigation_state.dart';
 
 class BottomNavigationBloc
     extends Bloc<BottomNavigationEvent, BottomNavigationState> {
