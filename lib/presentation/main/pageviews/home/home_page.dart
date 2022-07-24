@@ -55,55 +55,58 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                 Tab(text: 'My Activities')
               ]),
           Expanded(
-            child: TabBarView(controller: _tabController, children: [
-              // LEADERBOARD TAB
+            child: Padding(
+              padding: const EdgeInsets.all(AppSize.s8),
+              child: TabBarView(controller: _tabController, children: [
+                // LEADERBOARD TAB
 
-              BlocBuilder<LeaderboardTabCubit, HomeGenericState>(
-                builder: (context, state) {
-                  if (state.isFailed) {
-                    return const Text("Failed to fetch leaderboard text.");
-                  }
+                BlocBuilder<LeaderboardTabCubit, HomeGenericState>(
+                  builder: (context, state) {
+                    if (state.isFailed) {
+                      return const Text("Failed to fetch leaderboard text.");
+                    }
 
-                  if (state.isLoading) {
-                    return const Text("Loading leaderboard text...");
-                  }
+                    if (state.isLoading) {
+                      return const Text("Loading leaderboard text...");
+                    }
 
-                  return LeaderboardTabView(text: state.text);
-                },
-              ),
+                    return LeaderboardTabView(data: state.data);
+                  },
+                ),
 
-              // MY SPACE TAB
+                // MY SPACE TAB
 
-              BlocBuilder<MySpaceTabCubit, HomeGenericState>(
-                builder: (context, state) {
-                  if (state.isFailed) {
-                    return const Text("Failed to fetch my space text.");
-                  }
+                BlocBuilder<MySpaceTabCubit, HomeGenericState>(
+                  builder: (context, state) {
+                    if (state.isFailed) {
+                      return const Text("Failed to fetch my space text.");
+                    }
 
-                  if (state.isLoading) {
-                    return const Text("Loading my space text...");
-                  }
+                    if (state.isLoading) {
+                      return const Text("Loading my space text...");
+                    }
 
-                  return MySpaceTabView(text: state.text);
-                },
-              ),
+                    return MySpaceTabView(data: state.data);
+                  },
+                ),
 
-              // MY ACTIVITIES TAB
+                // MY ACTIVITIES TAB
 
-              BlocBuilder<MyActivitiesTabCubit, HomeGenericState>(
-                builder: (context, state) {
-                  if (state.isFailed) {
-                    return const Text("Failed to fetch my activities text.");
-                  }
+                BlocBuilder<MyActivitiesTabCubit, HomeGenericState>(
+                  builder: (context, state) {
+                    if (state.isFailed) {
+                      return const Text("Failed to fetch my activities text.");
+                    }
 
-                  if (state.isLoading) {
-                    return const Text("Loading my activities text...");
-                  }
+                    if (state.isLoading) {
+                      return const Text("Loading my activities text...");
+                    }
 
-                  return MyActivitiesTabView(text: state.text);
-                },
-              ),
-            ]),
+                    return MyActivitiesTabView(data: state.data);
+                  },
+                ),
+              ]),
+            ),
           ),
         ],
       ),

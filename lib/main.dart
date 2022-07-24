@@ -11,3 +11,15 @@ void main() async {
   );
   runApp(MyApp());
 }
+
+/**
+ * class Trivia
+ * class AQI
+ * class Graph
+ * 
+ * Trivia trivia = <- trivia
+ * AQI aqi = <- aqi
+ * 
+ * 
+ */
+// List<Dynamic> data = [trivia];

@@ -2,7 +2,7 @@ class HomeGenericState {
   ///
   /// Categories data
   ///
-  final String text;
+  final List data;
 
   ///
   /// Tells the data is loading or not
@@ -15,5 +15,5 @@ class HomeGenericState {
   final bool isFailed;
 
   HomeGenericState(
-      {required this.text, this.isLoading = false, this.isFailed = false});
+      {required this.data, this.isLoading = false, this.isFailed = false});
 }

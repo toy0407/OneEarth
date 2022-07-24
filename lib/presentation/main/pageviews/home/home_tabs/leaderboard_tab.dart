@@ -5,13 +5,13 @@ import '../../../../resources/styles_manager.dart';
 import '../../../../resources/values_manager.dart';
 
 class LeaderboardTabView extends StatelessWidget {
-  final String text;
-  const LeaderboardTabView({Key? key, required this.text}) : super(key: key);
+  final List data;
+  const LeaderboardTabView({Key? key, required this.data}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Center(
-        child: Text(text,
+        child: Text(data.toString(),
             style: getRegularStyle(
               fontSize: AppSize.s16,
               color: ColorManager.grey,

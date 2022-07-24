@@ -1,71 +1,70 @@
 import 'dart:math';
-
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:flutter/cupertino.dart';
 
 class HomeRepository {
-
-  late String question;
-  late int answerIndex;
-  late List<String> options;
-
-  getTrivia() async {
-
-    String _question = 'NULL';
-    int _answer = -1;
-    List<String> _options = [];
-    int randomTriviaId = Random().nextInt(2) + 1;
-    FirebaseFirestore firestore = FirebaseFirestore.instance;
-    CollectionReference _collectionRef =
-    FirebaseFirestore.instance.collection('Trivia');
-    QuerySnapshot querySnapshot = await _collectionRef.where('id', isEqualTo: randomTriviaId).limit(1).get();
-    final allData = querySnapshot.docs.map((doc) => doc.data()).toList();
-    print(allData);
-    // triviaReference
-    //     // .where('id', isEqualTo: randomTriviaId)
-    //     // .limit(1)
-    //     .then((snapshot) =>
-    // {
-    //   // print(snapshot.size);
-    //   if (snapshot.size > 0)
-    //     {
-    //       snapshot.docs.forEach((element) {
-    //         print(element);
-    //         _question = element['question'];
-    //         _answer = element['answer'];
-    //         _options = element['options'];
-    //       })
-    //     }
-    // });
-    // debugPrint("Question $_question ; AnswerIndex $_answer ; options $_options");
-  }
-
-  Future<String> getData(String type) async {
+  Future<List> getData(String type) async {
     // Emulate network delay
-    return await Future.delayed(const Duration(seconds: 2)).then((_) {
+    return await Future.delayed(const Duration(seconds: 2)).then((_) async {
       switch (type) {
         case "leaderboard":
-          return "leaderboard is coming !";
+          List leaderBoardData = [];
+          return leaderBoardData;
 
         case "my_space":
-          print("hi");
-          getTrivia();
-          return "My Space";
+          List allMySpaceData = [];
+          Trivia trivia = Trivia();
+          await trivia.getTrivia();
+          // print('Question =' +
+          //     trivia.getQuestion() +
+          //     'Answer =' +
+          //     trivia.getAnswer().toString());
+          allMySpaceData.add(trivia);
+          return allMySpaceData;
 
         case "my_activities":
+          List myActivitiesData = [];
+          return myActivitiesData;
+
         default:
-          return "My Activities is coming !";
+          return [];
       }
     });
   }
 }
 
 class Trivia {
+  late String _question = '';
+  late int _answer = -1;
+  late List<String> _options = [];
 
+  Trivia() {}
 
-  Trivia({required String question,
-    required int answerIndex,
-    required List<String> options});
+  String getQuestion() {
+    return _question;
+  }
 
+  int getAnswer() {
+    return _answer;
+  }
 
+  List<String> getOptions() {
+    return _options;
+  }
+
+  getTrivia() async {
+    int randomTriviaId = Random().nextInt(2) + 1;
+    CollectionReference _collectionRef =
+        FirebaseFirestore.instance.collection('Trivia');
+
+    QuerySnapshot querySnapshot = await _collectionRef
+        .where('id', isEqualTo: randomTriviaId)
+        .limit(1)
+        .get();
+
+    final triviaData = querySnapshot.docs.map((doc) => doc.data()).toList();
+
+    _question = ((triviaData[0] as dynamic)['question']);
+    _answer = ((triviaData[0] as dynamic)['answer']);
+    _options = List<String>.from(((triviaData[0] as dynamic)['options']));
+  }
 }
