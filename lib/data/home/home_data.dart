@@ -52,7 +52,7 @@ class Trivia {
   }
 
   getTrivia() async {
-    int randomTriviaId = Random().nextInt(2) + 1;
+    int randomTriviaId = Random().nextInt(3) + 1;
     CollectionReference _collectionRef =
         FirebaseFirestore.instance.collection('Trivia');
 

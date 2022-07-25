@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:one_earth/presentation/resources/color_manager.dart';
+import 'package:one_earth/presentation/resources/values_manager.dart';
 
 class NewsListTile extends StatelessWidget {
   late String heading, description, imageUrl, newsUrl, pubDate;
@@ -14,10 +15,11 @@ class NewsListTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ListTile(
-      tileColor: ColorManager.primary,
       leading: Text(imageUrl),
       title: Text(heading),
       subtitle: Text(description),
+      shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(AppSize.s16)),
       isThreeLine: true,
     );
   }

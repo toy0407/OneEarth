@@ -51,9 +51,7 @@ class _MainScreenState extends State<MainScreen> {
       body: PageView(
         controller: _pageController,
         onPageChanged: (value) {
-          if (value == 0) {
-            _bottomNavigationBloc.add(const TutorialPageTapped());
-          }
+          if (value == 0) _bottomNavigationBloc.add(const TutorialPageTapped());
           if (value == 1) _bottomNavigationBloc.add(const SocialPageTapped());
           if (value == 2) _bottomNavigationBloc.add(const HomePageTapped());
           if (value == 3) _bottomNavigationBloc.add(const NewsPageTapped());
@@ -89,7 +87,8 @@ class _MainScreenState extends State<MainScreen> {
             if (value == 2) _bottomNavigationBloc.add(const HomePageTapped());
             if (value == 3) _bottomNavigationBloc.add(const NewsPageTapped());
             if (value == 4) _bottomNavigationBloc.add(const EventsPageTapped());
-            _pageController.jumpToPage(value);
+            _pageController.animateToPage(value,
+                curve: Curves.easeIn, duration: Duration(milliseconds: 350));
           }),
     );
   }

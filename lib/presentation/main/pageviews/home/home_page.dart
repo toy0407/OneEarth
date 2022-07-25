@@ -25,32 +25,39 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
 
   @override
   void initState() {
-    _tabController = TabController(length: 3, vsync: this);
+    _tabController = TabController(length: 3, initialIndex: 1, vsync: this);
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.all(8.0),
+      padding: EdgeInsets.all(AppSize.s8),
       child: Column(
         children: [
-          const CircleAvatar(
-            radius: AppSize.s40,
-            backgroundImage: AssetImage(ImageAssets.profileAvatar),
+          Row(
+            children: [
+              const CircleAvatar(
+                radius: AppSize.s40,
+                backgroundImage: AssetImage(ImageAssets.profileAvatar),
+              ),
+              const SizedBox(
+                width: 12,
+              ),
+              Text(
+                AppStrings.welcomeMessage,
+                style: getMediumStyle(color: ColorManager.darkPrimary),
+              ),
+            ],
           ),
-          const SizedBox(
-            height: 12,
-          ),
-          Text(
-            AppStrings.welcomeMessage,
-            style: getRegularStyle(color: ColorManager.darkPrimary),
-          ),
+          SizedBox(height: 12),
           TabBar(
               controller: _tabController,
               indicatorColor: ColorManager.darkPrimary,
               tabs: const [
-                Tab(text: 'Leaderboard'),
+                Tab(
+                  text: 'Leaderboard',
+                ),
                 Tab(text: 'My Space'),
                 Tab(text: 'My Activities')
               ]),
@@ -63,11 +70,11 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                 BlocBuilder<LeaderboardTabCubit, HomeGenericState>(
                   builder: (context, state) {
                     if (state.isFailed) {
-                      return const Text("Failed to fetch leaderboard text.");
+                      return const Text("Failed to fetch Leaderboard");
                     }
 
                     if (state.isLoading) {
-                      return const Text("Loading leaderboard text...");
+                      return const Text("Loading Leaderboard...");
                     }
 
                     return LeaderboardTabView(data: state.data);
@@ -79,11 +86,11 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                 BlocBuilder<MySpaceTabCubit, HomeGenericState>(
                   builder: (context, state) {
                     if (state.isFailed) {
-                      return const Text("Failed to fetch my space text.");
+                      return const Text("Failed to fetch My Space.");
                     }
 
                     if (state.isLoading) {
-                      return const Text("Loading my space text...");
+                      return const Text("Loading My Space...");
                     }
 
                     return MySpaceTabView(data: state.data);
@@ -95,11 +102,11 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                 BlocBuilder<MyActivitiesTabCubit, HomeGenericState>(
                   builder: (context, state) {
                     if (state.isFailed) {
-                      return const Text("Failed to fetch my activities text.");
+                      return const Text("Failed to fetch My Activities");
                     }
 
                     if (state.isLoading) {
-                      return const Text("Loading my activities text...");
+                      return const Text("Loading My Activities...");
                     }
 
                     return MyActivitiesTabView(data: state.data);

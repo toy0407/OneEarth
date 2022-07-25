@@ -33,13 +33,13 @@ ThemeData getApplicationTheme() {
       //BottomNavigationBar theme
       bottomNavigationBarTheme: BottomNavigationBarThemeData(
         selectedItemColor: ColorManager.darkPrimary,
-        unselectedItemColor: ColorManager.grey,
+        unselectedItemColor: ColorManager.darkGrey,
       ),
 
       //TabBar theme
       tabBarTheme: TabBarTheme(
         labelColor: ColorManager.darkPrimary,
-        unselectedLabelColor: ColorManager.grey,
+        unselectedLabelColor: ColorManager.darkGrey,
       ),
 
       // Button theme
