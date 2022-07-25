@@ -4,7 +4,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 class HomeRepository {
   Future<List> getData(String type) async {
     // Emulate network delay
-    return await Future.delayed(const Duration(seconds: 2)).then((_) async {
+    return await Future.delayed(const Duration(seconds: 0)).then((_) async {
       switch (type) {
         case "leaderboard":
           List leaderBoardData = [];

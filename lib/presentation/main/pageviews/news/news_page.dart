@@ -1,5 +1,10 @@
-//TODO
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:one_earth/presentation/main/pageviews/news/bloc/energy_tab_cubit.dart';
+import 'package:one_earth/presentation/main/pageviews/news/bloc/local_tab_cubit.dart';
+import 'package:one_earth/presentation/main/pageviews/news/bloc/news_state.dart';
+import 'package:one_earth/presentation/main/pageviews/news/bloc/soil_tab_cubit.dart';
+import 'package:one_earth/presentation/main/pageviews/news/bloc/water_tab_cubit.dart';
 import 'package:one_earth/presentation/main/pageviews/news/news_tabs/energy_tab.dart';
 import 'package:one_earth/presentation/main/pageviews/news/news_tabs/local_tab.dart';
 import 'package:one_earth/presentation/main/pageviews/news/news_tabs/soil_tab.dart';
@@ -37,11 +42,70 @@ class _NewsPageState extends State<NewsPage> with TickerProviderStateMixin {
           ],
         ),
         Expanded(
-          child: TabBarView(controller: _tabController, children: const [
-            LocalTabView(),
-            EnergyTabView(),
-            WaterTabView(),
-            SoilTabView()
+          child: TabBarView(controller: _tabController, children: [
+            // LOCAL NEWS TAB
+
+            BlocBuilder<LocalTabCubit, NewsGenericState>(
+              builder: (context, state) {
+                if (state.isFailed) {
+                  return const Text("Failed to fetch Local News");
+                }
+
+                if (state.isLoading) {
+                  return const Text("Loading Local News...");
+                }
+
+                return LocalTabView(data: state.data);
+              },
+            ),
+
+            // ENERGY NEWS TAB
+
+            BlocBuilder<EnergyTabCubit, NewsGenericState>(
+              builder: (context, state) {
+                if (state.isFailed) {
+                  return const Text("Failed to fetch Energy News");
+                }
+
+                if (state.isLoading) {
+                  return const Text("Loading Energy News...");
+                }
+
+                return EnergyTabView(data: state.data);
+              },
+            ),
+
+            // WATER NEWS TAB
+
+            BlocBuilder<WaterTabCubit, NewsGenericState>(
+              builder: (context, state) {
+                if (state.isFailed) {
+                  return const Text("Failed to fetch Water News");
+                }
+
+                if (state.isLoading) {
+                  return const Text("Loading Water News...");
+                }
+
+                return WaterTabView(data: state.data);
+              },
+            ),
+
+            // SOIL NEWS TAB
+
+            BlocBuilder<SoilTabCubit, NewsGenericState>(
+              builder: (context, state) {
+                if (state.isFailed) {
+                  return const Text("Failed to fetch Soil News");
+                }
+
+                if (state.isLoading) {
+                  return const Text("Loading Soil News...");
+                }
+
+                return SoilTabView(data: state.data);
+              },
+            ),
           ]),
         )
       ],

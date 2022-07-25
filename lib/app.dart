@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:one_earth/data/home/home_data.dart';
+import 'package:one_earth/data/news/news_data.dart';
 import 'package:one_earth/presentation/dialogs/show_auth_error.dart';
 import 'package:one_earth/presentation/loading/loading_screen.dart';
 import 'package:one_earth/presentation/login/bloc/login_bloc.dart';
@@ -13,6 +14,10 @@ import 'package:one_earth/presentation/main/main_screen.dart';
 import 'package:one_earth/presentation/main/pageviews/home/bloc/leaderboard_tab_cubit.dart';
 import 'package:one_earth/presentation/main/pageviews/home/bloc/my_activities_cubit.dart';
 import 'package:one_earth/presentation/main/pageviews/home/bloc/my_space_tab_cubit.dart';
+import 'package:one_earth/presentation/main/pageviews/news/bloc/energy_tab_cubit.dart';
+import 'package:one_earth/presentation/main/pageviews/news/bloc/local_tab_cubit.dart';
+import 'package:one_earth/presentation/main/pageviews/news/bloc/soil_tab_cubit.dart';
+import 'package:one_earth/presentation/main/pageviews/news/bloc/water_tab_cubit.dart';
 import 'package:one_earth/presentation/onboarding/bloc/onboarding_bloc.dart';
 import 'package:one_earth/presentation/onboarding/bloc/onboarding_state.dart';
 import 'package:one_earth/presentation/onboarding/onboarding_screen.dart';
@@ -23,6 +28,7 @@ class MyApp extends StatelessWidget {
   MyApp({Key? key}) : super(key: key);
 
   final HomeRepository homeRepository = HomeRepository();
+  final NewsRepository newsRepository = NewsRepository();
 
   @override
   Widget build(BuildContext context) {
@@ -43,6 +49,22 @@ class MyApp extends StatelessWidget {
         BlocProvider<MyActivitiesTabCubit>(
           create: (context) =>
               MyActivitiesTabCubit(homeRepository: homeRepository)..load(),
+        ),
+        BlocProvider<LocalTabCubit>(
+          create: (context) =>
+              LocalTabCubit(newsRepository: newsRepository)..load(),
+        ),
+        BlocProvider<EnergyTabCubit>(
+          create: (context) =>
+              EnergyTabCubit(newsRepository: newsRepository)..load(),
+        ),
+        BlocProvider<SoilTabCubit>(
+          create: (context) =>
+              SoilTabCubit(newsRepository: newsRepository)..load(),
+        ),
+        BlocProvider<WaterTabCubit>(
+          create: (context) =>
+              WaterTabCubit(newsRepository: newsRepository)..load(),
         ),
       ],
       child: MaterialApp(
