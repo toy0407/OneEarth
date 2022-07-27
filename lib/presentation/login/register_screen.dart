@@ -1,8 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:one_earth/presentation/resources/assets_manager.dart';
+import 'package:one_earth/presentation/resources/values_manager.dart';
 import 'package:one_earth/temp/if_debugging.dart';
 import 'package:one_earth/presentation/login/bloc/login_bloc.dart';
 import 'package:one_earth/presentation/login/bloc/login_event.dart';
+
+import '../resources/color_manager.dart';
+import '../resources/font_manager.dart';
+import '../resources/styles_manager.dart';
 
 class RegisterScreen extends StatefulWidget {
   const RegisterScreen({Key? key}) : super(key: key);
@@ -12,10 +18,11 @@ class RegisterScreen extends StatefulWidget {
 }
 
 class _RegisterScreenState extends State<RegisterScreen> {
-  final TextEditingController _emailController =
-      TextEditingController(text: 'dasritwik73@gmail.com'.ifDebugging);
-  final TextEditingController _passwordController =
-      TextEditingController(text: 'password'.ifDebugging);
+  final TextEditingController _nameController = TextEditingController();
+  final TextEditingController _emailController = TextEditingController();
+  final TextEditingController _passwordController = TextEditingController();
+  final TextEditingController _confirmPasswordController =
+      TextEditingController();
 
   @override
   void initState() {
@@ -31,31 +38,63 @@ class _RegisterScreenState extends State<RegisterScreen> {
 
   @override
   Widget build(BuildContext context) {
+    var mediaQuery = MediaQuery.of(context).size;
     return Scaffold(
-      appBar: AppBar(
-        title: const Text(
-          'Register',
-        ),
-      ),
+      resizeToAvoidBottomInset: false,
       body: Padding(
-        padding: const EdgeInsets.all(8.0),
+        padding: const EdgeInsets.all(AppPadding.p20),
         child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            TextField(
-              controller: _emailController,
+            Image.asset(ImageAssets.companyLogo),
+            SizedBox(height: mediaQuery.height * 0.08),
+            Text('Register',
+                style: getLightStyle(
+                    color: ColorManager.black, fontSize: FontSize.s40)),
+            SizedBox(height: mediaQuery.height * 0.05),
+            TextFormField(
+              controller: _nameController,
+              style: getRegularStyle(color: ColorManager.black),
               decoration: const InputDecoration(
-                hintText: 'Enter your email here...',
-              ),
+                  labelText: 'Name',
+                  border: OutlineInputBorder(),
+                  prefixIcon: Icon(Icons.person_outlined)),
               keyboardType: TextInputType.emailAddress,
             ),
-            TextField(
-              controller: _passwordController,
+            SizedBox(height: mediaQuery.height * 0.03),
+            TextFormField(
+              controller: _emailController,
+              style: getRegularStyle(color: ColorManager.black),
               decoration: const InputDecoration(
-                hintText: 'Enter your password here...',
-              ),
+                  labelText: 'Email',
+                  border: OutlineInputBorder(),
+                  prefixIcon: Icon(Icons.email_outlined)),
+              keyboardType: TextInputType.emailAddress,
+            ),
+            SizedBox(height: mediaQuery.height * 0.03),
+            TextFormField(
+              controller: _passwordController,
+              style: getRegularStyle(color: ColorManager.black),
+              decoration: const InputDecoration(
+                  labelText: 'Password',
+                  border: OutlineInputBorder(),
+                  prefixIcon: Icon(Icons.password_outlined)),
+              keyboardType: TextInputType.visiblePassword,
               obscureText: true,
             ),
-            TextButton(
+            SizedBox(height: mediaQuery.height * 0.03),
+            TextFormField(
+              controller: _confirmPasswordController,
+              style: getRegularStyle(color: ColorManager.black),
+              decoration: const InputDecoration(
+                  labelText: 'Confirm Password',
+                  border: OutlineInputBorder(),
+                  prefixIcon: Icon(Icons.password_outlined)),
+              keyboardType: TextInputType.visiblePassword,
+              obscureText: true,
+            ),
+            SizedBox(height: mediaQuery.height * 0.03),
+            ElevatedButton(
               onPressed: () {
                 final email = _emailController.text;
                 final password = _passwordController.text;
@@ -66,10 +105,14 @@ class _RegisterScreenState extends State<RegisterScreen> {
                       ),
                     );
               },
-              child: const Text(
+              child: Text(
                 'Register',
+                style: getRegularStyle(
+                    color: ColorManager.white, fontSize: FontSize.s18),
               ),
             ),
+            SizedBox(height: mediaQuery.height * 0.07),
+            const Text('Already have an account?'),
             TextButton(
               onPressed: () {
                 context.read<LoginBloc>().add(
@@ -77,7 +120,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     );
               },
               child: const Text(
-                'Already registered? Log in here!',
+                'Login here!',
               ),
             )
           ],

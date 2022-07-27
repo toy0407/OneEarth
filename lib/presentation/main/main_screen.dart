@@ -37,16 +37,12 @@ class _MainScreenState extends State<MainScreen> {
     return Scaffold(
       appBar: AppBar(
         title: const Text(AppStrings.appName),
-      ),
-      drawer: Drawer(
-        child: TextButton(
-          onPressed: (() =>
-              {context.read<LoginBloc>().add(const LoginEventLogOut())}),
-          child: Text(
-            'Log out',
-            style: getMediumStyle(color: ColorManager.darkPrimary),
-          ),
-        ),
+        actions: [
+          TextButton(
+              onPressed: (() =>
+                  {context.read<LoginBloc>().add(const LoginEventLogOut())}),
+              child: Icon(Icons.logout_outlined, color: ColorManager.white)),
+        ],
       ),
       body: PageView(
         controller: _pageController,
@@ -80,9 +76,8 @@ class _MainScreenState extends State<MainScreen> {
                 icon: Icon(Icons.calendar_month_outlined), label: 'Events')
           ],
           onTap: (value) {
-            if (value == 0) {
+            if (value == 0)
               _bottomNavigationBloc.add(const TutorialPageTapped());
-            }
             if (value == 1) _bottomNavigationBloc.add(const SocialPageTapped());
             if (value == 2) _bottomNavigationBloc.add(const HomePageTapped());
             if (value == 3) _bottomNavigationBloc.add(const NewsPageTapped());

@@ -7,7 +7,7 @@ class ImageAssets {
   static const String onboardingLogo2 = "$IMAGE_PATH/onboarding_logo2.svg";
   static const String onboardingLogo3 = "$IMAGE_PATH/onboarding_logo3.svg";
   static const String onboardingLogo4 = "$IMAGE_PATH/onboarding_logo4.svg";
-
+  static const String companyLogo = "$IMAGE_PATH/company_logo.png";
   static const String profileAvatar = "$IMAGE_PATH/blank_profile_image.png";
 }
 

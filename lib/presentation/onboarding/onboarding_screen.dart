@@ -2,6 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:one_earth/presentation/login/bloc/login_bloc.dart';
 import 'package:one_earth/presentation/login/bloc/login_event.dart';
+import 'package:one_earth/presentation/resources/assets_manager.dart';
+import 'package:one_earth/presentation/resources/color_manager.dart';
+import 'package:one_earth/presentation/resources/font_manager.dart';
+import 'package:one_earth/presentation/resources/styles_manager.dart';
+import 'package:one_earth/presentation/resources/values_manager.dart';
 
 class OnboardingScreen extends StatefulWidget {
   const OnboardingScreen({Key? key}) : super(key: key);
@@ -22,28 +27,31 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: PageView(
-        controller: pageController,
-        children: [
-          _onboardingScreen1(),
-          _onboardingScreen2(),
-          const OnboardingScreen3()
-        ],
+      body: Padding(
+        padding: const EdgeInsets.all(AppPadding.p20),
+        child: PageView(
+          controller: pageController,
+          children: const [
+            // _onboardingScreen1(),
+            // _onboardingScreen2(),
+            OnboardingScreen3()
+          ],
+        ),
       ),
-      bottomSheet: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          TextButton(
-            onPressed: () => pageController.previousPage(
-                duration: Duration(milliseconds: 500), curve: Curves.easeIn),
-            child: Text('< PREVIOUS'),
-          ),
-          TextButton(
-              onPressed: () => pageController.nextPage(
-                  duration: Duration(milliseconds: 500), curve: Curves.easeIn),
-              child: Text('NEXT >')),
-        ],
-      ),
+      // bottomSheet: Row(
+      //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      //   children: [
+      //     TextButton(
+      //       onPressed: () => pageController.previousPage(
+      //           duration: Duration(milliseconds: 500), curve: Curves.easeIn),
+      //       child: Text('< PREVIOUS'),
+      //     ),
+      //     TextButton(
+      //         onPressed: () => pageController.nextPage(
+      //             duration: Duration(milliseconds: 500), curve: Curves.easeIn),
+      //         child: Text('NEXT >')),
+      //   ],
+      // ),
     );
   }
 }
@@ -74,14 +82,32 @@ class OnboardingScreen3 extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var mediaQuery = MediaQuery.of(context).size;
     return Column(
-      mainAxisAlignment: MainAxisAlignment.center,
+      mainAxisAlignment: MainAxisAlignment.spaceAround,
       children: [
-        const Text('Page 3'),
-        TextButton(
-            onPressed: () =>
-                {context.read<LoginBloc>().add(const LoginEventGoToLogin())},
-            child: const Text('Get Started'))
+        Image.asset(ImageAssets.companyLogo),
+        Column(
+          children: [
+            Text('Let\'s get started',
+                style: getLightStyle(
+                    color: ColorManager.black, fontSize: FontSize.s25)),
+            SizedBox(
+              height: mediaQuery.height * 0.02,
+            ),
+            TextButton(
+                onPressed: () => {
+                      context.read<LoginBloc>().add(const LoginEventGoToLogin())
+                    },
+                style: OutlinedButton.styleFrom(
+                  shape: const CircleBorder(),
+                ),
+                child: const Icon(
+                  Icons.arrow_forward,
+                  size: AppSize.s100,
+                )),
+          ],
+        )
       ],
     );
   }

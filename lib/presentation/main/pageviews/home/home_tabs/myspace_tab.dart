@@ -33,17 +33,17 @@ class MySpaceTabView extends StatelessWidget {
               style: getBoldStyle(color: ColorManager.black),
             ),
           ]),
-          SizedBox(height: AppSize.s16),
+          const SizedBox(height: AppSize.s16),
           Text(trivia.getQuestion(),
               style: getBoldStyle(
                 color: ColorManager.darkGrey,
               )),
-          SizedBox(height: AppSize.s12),
+          const SizedBox(height: AppSize.s12),
           ListView.separated(
               shrinkWrap: true,
               itemCount: trivia.getOptions().length,
-              physics: NeverScrollableScrollPhysics(),
-              separatorBuilder: ((ctx, index) => const SizedBox(height: 12)),
+              physics: const NeverScrollableScrollPhysics(),
+              separatorBuilder: ((ctx, index) => const SizedBox(height: 1)),
               itemBuilder: (ctx, index) {
                 return OutlinedButton(
                   onPressed: () => print('object'),

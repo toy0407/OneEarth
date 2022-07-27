@@ -24,7 +24,7 @@ ThemeData getApplicationTheme() {
       // App bar theme
       appBarTheme: AppBarTheme(
           centerTitle: true,
-          color: ColorManager.primary,
+          color: ColorManager.darkPrimary,
           elevation: AppSize.s0,
           shadowColor: ColorManager.primary2,
           titleTextStyle: getRegularStyle(
@@ -44,7 +44,7 @@ ThemeData getApplicationTheme() {
 
       // Button theme
       buttonTheme: ButtonThemeData(
-          shape: StadiumBorder(),
+          shape: const StadiumBorder(),
           disabledColor: ColorManager.grey1,
           buttonColor: ColorManager.primary,
           splashColor: ColorManager.primary2),
@@ -53,9 +53,21 @@ ThemeData getApplicationTheme() {
       elevatedButtonTheme: ElevatedButtonThemeData(
           style: ElevatedButton.styleFrom(
               textStyle: getRegularStyle(color: ColorManager.white),
-              primary: ColorManager.primary,
+              primary: ColorManager.darkPrimary,
               shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(AppSize.s12)))),
+
+      //text button theme
+      textButtonTheme: TextButtonThemeData(
+          style: TextButton.styleFrom(
+              textStyle: getRegularStyle(color: ColorManager.darkPrimary),
+              primary: ColorManager.darkPrimary)),
+
+      //outlined button theme
+      outlinedButtonTheme: OutlinedButtonThemeData(
+          style: OutlinedButton.styleFrom(
+              textStyle: getRegularStyle(color: ColorManager.darkPrimary),
+              primary: ColorManager.darkPrimary)),
 
       // Text theme
       textTheme: TextTheme(
@@ -70,36 +82,27 @@ ThemeData getApplicationTheme() {
       // input decoration theme (text form field)
 
       inputDecorationTheme: InputDecorationTheme(
-        contentPadding: EdgeInsets.all(AppPadding.p8),
+        contentPadding: const EdgeInsets.all(AppPadding.p8),
         // hint style
         hintStyle: getRegularStyle(color: ColorManager.grey1),
-
-        // label style
-        labelStyle: getMediumStyle(color: ColorManager.darkGrey),
-        // error style
+        iconColor: ColorManager.darkPrimary,
+        labelStyle: getMediumStyle(color: ColorManager.darkPrimary),
         errorStyle: getRegularStyle(color: ColorManager.error),
-
-        // enabled border
         enabledBorder: OutlineInputBorder(
-            borderSide:
-                BorderSide(color: ColorManager.grey, width: AppSize.s1_5),
-            borderRadius: BorderRadius.all(Radius.circular(AppSize.s8))),
-
-        // focused border
+            borderSide: BorderSide(
+                color: ColorManager.darkPrimary, width: AppSize.s1_5),
+            borderRadius: const BorderRadius.all(Radius.circular(AppSize.s8))),
         focusedBorder: OutlineInputBorder(
-            borderSide:
-                BorderSide(color: ColorManager.primary, width: AppSize.s1_5),
-            borderRadius: BorderRadius.all(Radius.circular(AppSize.s8))),
-
-        // error border
+            borderSide: BorderSide(
+                color: ColorManager.darkPrimary, width: AppSize.s1_5),
+            borderRadius: const BorderRadius.all(Radius.circular(AppSize.s8))),
         errorBorder: OutlineInputBorder(
             borderSide:
                 BorderSide(color: ColorManager.error, width: AppSize.s1_5),
-            borderRadius: BorderRadius.all(Radius.circular(AppSize.s8))),
-        // focused error border
+            borderRadius: const BorderRadius.all(Radius.circular(AppSize.s8))),
         focusedErrorBorder: OutlineInputBorder(
-            borderSide:
-                BorderSide(color: ColorManager.primary, width: AppSize.s1_5),
-            borderRadius: BorderRadius.all(Radius.circular(AppSize.s8))),
+            borderSide: BorderSide(
+                color: ColorManager.darkPrimary, width: AppSize.s1_5),
+            borderRadius: const BorderRadius.all(Radius.circular(AppSize.s8))),
       ));
 }
