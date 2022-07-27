@@ -5,7 +5,6 @@ import 'package:one_earth/data/news/news_data.dart';
 import 'package:one_earth/presentation/dialogs/show_auth_error.dart';
 import 'package:one_earth/presentation/loading/loading_screen.dart';
 import 'package:one_earth/presentation/login/bloc/login_bloc.dart';
-import 'package:one_earth/presentation/login/bloc/login_event.dart';
 import 'package:one_earth/presentation/login/bloc/login_state.dart';
 import 'package:one_earth/presentation/login/login_screen.dart';
 import 'package:one_earth/presentation/login/register_screen.dart';

@@ -109,6 +109,6 @@ class AuthErrorEmailAlreadyInUse extends AuthError {
   const AuthErrorEmailAlreadyInUse()
       : super(
           dialogTitle: 'Email already in use',
-          dialogDescription: 'Please choose another email to register with',
+          dialogDescription: 'Email already in use!! Login instead',
         );
 }
