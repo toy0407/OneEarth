@@ -34,8 +34,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiBlocProvider(
       providers: [
-        BlocProvider(
-            create: (_) => LoginBloc()..add(const LoginEventInitialize())),
+        BlocProvider(create: (_) => LoginBloc()),
         BlocProvider(create: (_) => OnboardingBloc()),
         BlocProvider(create: (_) => BottomNavigationBloc()),
         BlocProvider<LeaderboardTabCubit>(
