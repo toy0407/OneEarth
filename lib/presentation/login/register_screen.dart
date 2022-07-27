@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:one_earth/presentation/resources/assets_manager.dart';
 import 'package:one_earth/presentation/resources/values_manager.dart';
 import 'package:one_earth/presentation/login/bloc/login_bloc.dart';
 import 'package:one_earth/presentation/login/bloc/login_event.dart';
 import 'package:email_validator/email_validator.dart';
 import 'package:string_validator/string_validator.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
 import '../resources/color_manager.dart';
 import '../resources/font_manager.dart';
@@ -24,6 +26,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
   final TextEditingController _passwordController = TextEditingController();
   final TextEditingController _confirmPasswordController =
       TextEditingController();
+
+  final FirebaseAuth auth = FirebaseAuth.instance;
 
   final formKey = GlobalKey<FormState>();
   bool isValid = false;
@@ -150,16 +154,17 @@ class _RegisterScreenState extends State<RegisterScreen> {
 
                 SizedBox(height: mediaQuery.height * 0.03),
 
+                // Register Button
+
                 ElevatedButton(
                   onPressed: () {
                     if (formKey.currentState!.validate()) {
                       final email = _emailController.text;
                       final password = _passwordController.text;
+                      final name = _nameController.text;
                       context.read<LoginBloc>().add(
                             LoginEventRegister(
-                              email: email,
-                              password: password,
-                            ),
+                                email: email, password: password, name: name),
                           );
                     } else {
                       ScaffoldMessenger.of(context).showSnackBar(
@@ -174,7 +179,11 @@ class _RegisterScreenState extends State<RegisterScreen> {
                         color: ColorManager.white, fontSize: FontSize.s18),
                   ),
                 ),
+
                 SizedBox(height: mediaQuery.height * 0.07),
+
+                // Go to Login button
+
                 const Text('Already have an account?'),
                 TextButton(
                   onPressed: () {

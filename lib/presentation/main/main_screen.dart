@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:one_earth/presentation/dialogs/logout_dialog.dart';
 import 'package:one_earth/presentation/login/bloc/login_bloc.dart';
 import 'package:one_earth/presentation/login/bloc/login_event.dart';
 import 'package:one_earth/presentation/main/bloc/bottom_navigation_bloc.dart';
@@ -27,6 +28,8 @@ class _MainScreenState extends State<MainScreen> {
 
   late BottomNavigationBloc _bottomNavigationBloc;
 
+  // late bool val;
+
   @override
   void initState() {
     super.initState();
@@ -39,8 +42,13 @@ class _MainScreenState extends State<MainScreen> {
         title: const Text(AppStrings.appName),
         actions: [
           TextButton(
-              onPressed: (() =>
-                  {context.read<LoginBloc>().add(const LoginEventLogOut())}),
+              onPressed: (() => {
+                    showLogOutDialog(context).then((value) => value == true
+                        ? context.read<LoginBloc>().add(
+                              const LoginEventLogOut(),
+                            )
+                        : null),
+                  }),
               child: Icon(Icons.logout_outlined, color: ColorManager.white)),
         ],
       ),
