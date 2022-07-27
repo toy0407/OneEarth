@@ -63,7 +63,6 @@ class _RegisterScreenState extends State<RegisterScreen> {
       resizeToAvoidBottomInset: false,
       body: Form(
         key: formKey,
-        // autovalidateMode: AutovalidateMode.onUserInteraction,
         child: Padding(
           padding: const EdgeInsets.all(AppPadding.p20),
           child: SingleChildScrollView(
@@ -153,14 +152,21 @@ class _RegisterScreenState extends State<RegisterScreen> {
 
                 ElevatedButton(
                   onPressed: () {
-                    final email = _emailController.text;
-                    final password = _passwordController.text;
-                    context.read<LoginBloc>().add(
-                          LoginEventRegister(
-                            email: email,
-                            password: password,
-                          ),
-                        );
+                    if (formKey.currentState!.validate()) {
+                      final email = _emailController.text;
+                      final password = _passwordController.text;
+                      context.read<LoginBloc>().add(
+                            LoginEventRegister(
+                              email: email,
+                              password: password,
+                            ),
+                          );
+                    } else {
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        const SnackBar(
+                            content: Text('Check all the fields!!!')),
+                      );
+                    }
                   },
                   child: Text(
                     'Register',

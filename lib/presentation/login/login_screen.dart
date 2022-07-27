@@ -115,14 +115,20 @@ class _LoginScreenState extends State<LoginScreen> {
               SizedBox(height: mediaQuery.height * 0.03),
               ElevatedButton(
                 onPressed: () {
-                  final email = _emailController.text;
-                  final password = _passwordController.text;
-                  context.read<LoginBloc>().add(
-                        LoginEventLogIn(
-                          email: email,
-                          password: password,
-                        ),
-                      );
+                  if (formKey.currentState!.validate()) {
+                    final email = _emailController.text;
+                    final password = _passwordController.text;
+                    context.read<LoginBloc>().add(
+                          LoginEventLogIn(
+                            email: email,
+                            password: password,
+                          ),
+                        );
+                  } else {
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      const SnackBar(content: Text('Check all the fields!!!')),
+                    );
+                  }
                 },
                 child: Text(
                   'Login',
