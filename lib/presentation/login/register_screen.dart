@@ -69,134 +69,130 @@ class _RegisterScreenState extends State<RegisterScreen> {
         key: formKey,
         child: Padding(
           padding: const EdgeInsets.all(AppPadding.p20),
-          child: SingleChildScrollView(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Image.asset(ImageAssets.companyLogo),
-                SizedBox(height: mediaQuery.height * 0.08),
-                Text('Register',
-                    style: getLightStyle(
-                        color: ColorManager.black, fontSize: FontSize.s40)),
-                SizedBox(height: mediaQuery.height * 0.05),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Image.asset(ImageAssets.companyLogo),
+              SizedBox(height: mediaQuery.height * 0.06),
+              Text('Register',
+                  style: getLightStyle(
+                      color: ColorManager.black, fontSize: FontSize.s40)),
+              SizedBox(height: mediaQuery.height * 0.04),
 
-                // Name text field
+              // Name text field
 
-                TextFormField(
-                  autovalidateMode: AutovalidateMode.onUserInteraction,
-                  controller: _nameController,
-                  style: getRegularStyle(color: ColorManager.black),
-                  validator: (value) => value!.isEmpty || !isAlpha(value)
-                      ? 'Enter valid name'
-                      : null,
-                  decoration: const InputDecoration(
-                      labelText: 'Name',
-                      border: OutlineInputBorder(),
-                      prefixIcon: Icon(Icons.person_outlined)),
-                  keyboardType: TextInputType.emailAddress,
-                ),
+              TextFormField(
+                autovalidateMode: AutovalidateMode.onUserInteraction,
+                controller: _nameController,
+                style: getRegularStyle(color: ColorManager.black),
+                validator: (value) => value!.isEmpty || !isAlpha(value)
+                    ? 'Enter valid name'
+                    : null,
+                decoration: const InputDecoration(
+                    labelText: 'Name',
+                    border: OutlineInputBorder(),
+                    prefixIcon: Icon(Icons.person_outlined)),
+                keyboardType: TextInputType.emailAddress,
+              ),
 
-                SizedBox(height: mediaQuery.height * 0.03),
+              SizedBox(height: mediaQuery.height * 0.02),
 
-                // Email text field
+              // Email text field
 
-                TextFormField(
-                  autovalidateMode: AutovalidateMode.onUserInteraction,
-                  validator: ((value) => !EmailValidator.validate(value!)
-                      ? 'Enter a valid email'
-                      : null),
-                  controller: _emailController,
-                  style: getRegularStyle(color: ColorManager.black),
-                  decoration: const InputDecoration(
-                      labelText: 'Email',
-                      border: OutlineInputBorder(),
-                      prefixIcon: Icon(Icons.email_outlined)),
-                  keyboardType: TextInputType.emailAddress,
-                ),
+              TextFormField(
+                autovalidateMode: AutovalidateMode.onUserInteraction,
+                validator: ((value) => !EmailValidator.validate(value!)
+                    ? 'Enter a valid email'
+                    : null),
+                controller: _emailController,
+                style: getRegularStyle(color: ColorManager.black),
+                decoration: const InputDecoration(
+                    labelText: 'Email',
+                    border: OutlineInputBorder(),
+                    prefixIcon: Icon(Icons.email_outlined)),
+                keyboardType: TextInputType.emailAddress,
+              ),
 
-                SizedBox(height: mediaQuery.height * 0.03),
+              SizedBox(height: mediaQuery.height * 0.02),
 
-                // Password text field
+              // Password text field
 
-                TextFormField(
-                  autovalidateMode: AutovalidateMode.onUserInteraction,
-                  controller: _passwordController,
-                  style: getRegularStyle(color: ColorManager.black),
-                  validator: (value) => value!.length < 8
-                      ? 'Password must be 8 characters'
-                      : null,
-                  decoration: const InputDecoration(
-                      labelText: 'Password',
-                      border: OutlineInputBorder(),
-                      prefixIcon: Icon(Icons.password_outlined)),
-                  keyboardType: TextInputType.visiblePassword,
-                  obscureText: true,
-                ),
+              TextFormField(
+                autovalidateMode: AutovalidateMode.onUserInteraction,
+                controller: _passwordController,
+                style: getRegularStyle(color: ColorManager.black),
+                validator: (value) =>
+                    value!.length < 8 ? 'Password must be 8 characters' : null,
+                decoration: const InputDecoration(
+                    labelText: 'Password',
+                    border: OutlineInputBorder(),
+                    prefixIcon: Icon(Icons.password_outlined)),
+                keyboardType: TextInputType.visiblePassword,
+                obscureText: true,
+              ),
 
-                SizedBox(height: mediaQuery.height * 0.03),
+              SizedBox(height: mediaQuery.height * 0.02),
 
-                // Confirm password field
+              // Confirm password field
 
-                TextFormField(
-                  autovalidateMode: AutovalidateMode.onUserInteraction,
-                  controller: _confirmPasswordController,
-                  style: getRegularStyle(color: ColorManager.black),
-                  validator: (value) => value! != _passwordController.text
-                      ? 'Your password does not match'
-                      : null,
-                  decoration: const InputDecoration(
-                      labelText: 'Confirm Password',
-                      border: OutlineInputBorder(),
-                      prefixIcon: Icon(Icons.password_outlined)),
-                  keyboardType: TextInputType.visiblePassword,
-                  obscureText: true,
-                ),
+              TextFormField(
+                autovalidateMode: AutovalidateMode.onUserInteraction,
+                controller: _confirmPasswordController,
+                style: getRegularStyle(color: ColorManager.black),
+                validator: (value) => value! != _passwordController.text
+                    ? 'Your password does not match'
+                    : null,
+                decoration: const InputDecoration(
+                    labelText: 'Confirm Password',
+                    border: OutlineInputBorder(),
+                    prefixIcon: Icon(Icons.password_outlined)),
+                keyboardType: TextInputType.visiblePassword,
+                obscureText: true,
+              ),
 
-                SizedBox(height: mediaQuery.height * 0.03),
+              SizedBox(height: mediaQuery.height * 0.02),
 
-                // Register Button
+              // Register Button
 
-                ElevatedButton(
-                  onPressed: () {
-                    if (formKey.currentState!.validate()) {
-                      final email = _emailController.text;
-                      final password = _passwordController.text;
-                      final name = _nameController.text;
-                      context.read<LoginBloc>().add(
-                            LoginEventRegister(
-                                email: email, password: password, name: name),
-                          );
-                    } else {
-                      ScaffoldMessenger.of(context).showSnackBar(
-                        const SnackBar(
-                            content: Text('Check all the fields!!!')),
-                      );
-                    }
-                  },
-                  child: Text(
-                    'Register',
-                    style: getRegularStyle(
-                        color: ColorManager.white, fontSize: FontSize.s18),
-                  ),
-                ),
-
-                SizedBox(height: mediaQuery.height * 0.07),
-
-                // Go to Login button
-
-                const Text('Already have an account?'),
-                TextButton(
-                  onPressed: () {
+              ElevatedButton(
+                onPressed: () {
+                  if (formKey.currentState!.validate()) {
+                    final email = _emailController.text;
+                    final password = _passwordController.text;
+                    final name = _nameController.text;
                     context.read<LoginBloc>().add(
-                          const LoginEventGoToLogin(),
+                          LoginEventRegister(
+                              email: email, password: password, name: name),
                         );
-                  },
-                  child: const Text(
-                    'Login here!',
-                  ),
-                )
-              ],
-            ),
+                  } else {
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      const SnackBar(content: Text('Check all the fields!!!')),
+                    );
+                  }
+                },
+                child: Text(
+                  'Register',
+                  style: getRegularStyle(
+                      color: ColorManager.white, fontSize: FontSize.s18),
+                ),
+              ),
+
+              SizedBox(height: mediaQuery.height * 0.04),
+
+              // Go to Login button
+
+              const Text('Already have an account?'),
+              TextButton(
+                onPressed: () {
+                  context.read<LoginBloc>().add(
+                        const LoginEventGoToLogin(),
+                      );
+                },
+                child: const Text(
+                  'Login here!',
+                ),
+              )
+            ],
           ),
         ),
       ),

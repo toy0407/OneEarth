@@ -71,7 +71,7 @@ class _NewsPageState extends State<NewsPage> with TickerProviderStateMixin {
                   return const Text("Loading Energy News...");
                 }
 
-                return EnergyTabView(data: state.data);
+                return EnergyTabView(data: state.data!);
               },
             ),
 
@@ -87,7 +87,7 @@ class _NewsPageState extends State<NewsPage> with TickerProviderStateMixin {
                   return const Text("Loading Water News...");
                 }
 
-                return WaterTabView(data: state.data);
+                return WaterTabView(data: state.data!);
               },
             ),
 
@@ -103,7 +103,7 @@ class _NewsPageState extends State<NewsPage> with TickerProviderStateMixin {
                   return const Text("Loading Soil News...");
                 }
 
-                return SoilTabView(data: state.data);
+                return SoilTabView(data: state.data!);
               },
             ),
           ]),

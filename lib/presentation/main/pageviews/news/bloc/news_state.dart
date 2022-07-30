@@ -1,8 +1,10 @@
+import 'package:one_earth/data/news/news_data.dart';
+
 class NewsGenericState {
   ///
   /// Categories data
   ///
-  final List data;
+  final List<Result>? data;
 
   ///
   /// Tells the data is loading or not

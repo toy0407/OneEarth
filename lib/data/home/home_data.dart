@@ -14,10 +14,6 @@ class HomeRepository {
           List allMySpaceData = [];
           Trivia trivia = Trivia();
           await trivia.getTrivia();
-          // print('Question =' +
-          //     trivia.getQuestion() +
-          //     'Answer =' +
-          //     trivia.getAnswer().toString());
           allMySpaceData.add(trivia);
           return allMySpaceData;
 

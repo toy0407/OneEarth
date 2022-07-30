@@ -31,10 +31,10 @@ class EnergyTabCubit extends Cubit<NewsGenericState> {
 
     try {
       // Wait for data from repository
-      List data = await newsRepository.getData("energyNews");
+      List<Result>? data = await newsRepository.getData("energyNews");
 
       // Send a success state
-      emit(NewsGenericState(data: data, isFailed: false));
+      emit(NewsGenericState(data: data!, isFailed: false));
     } catch (e) {
       // For debugging
       print(e);
