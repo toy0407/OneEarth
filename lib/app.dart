@@ -93,20 +93,91 @@ class MyApp extends StatelessWidget {
               return BlocBuilder<OnboardingBloc, OnboardingState>(
                   builder: (context, onboardingState) {
                 if (onboardingState is OnboardingStateIsInSplashView) {
-                  return const SplashScreen();
+                  return AnimatedSwitcher(
+                      transitionBuilder:
+                          (Widget child, Animation<double> animation) {
+                        return SlideTransition(
+                          position: Tween<Offset>(
+                            begin: const Offset(1.0, 0.0),
+                            end: Offset.zero,
+                          ).animate(animation),
+                          child: child,
+                        );
+                      },
+                      switchOutCurve: Threshold(0),
+                      duration: Duration(milliseconds: 500),
+                      child: const SplashScreen());
                 } else if (onboardingState
                     is OnboardingStateIsInOnBoardingView) {
-                  return const OnboardingScreen();
+                  return AnimatedSwitcher(
+                      transitionBuilder:
+                          (Widget child, Animation<double> animation) {
+                        return SlideTransition(
+                          position: Tween<Offset>(
+                            begin: const Offset(1.0, 0.0),
+                            end: Offset.zero,
+                          ).animate(animation),
+                          child: child,
+                        );
+                      },
+                      switchOutCurve: Threshold(0),
+                      duration: Duration(milliseconds: 500),
+                      child: const OnboardingScreen());
                 } else {
                   return Container();
                 }
               });
             } else if (appState is LoginStateLoggedIn) {
-              return MainScreen();
+              return AnimatedSwitcher(
+                  transitionBuilder:
+                      (Widget child, Animation<double> animation) {
+                    return SlideTransition(
+                      position: Tween<Offset>(
+                        begin: const Offset(1.0, 0.0),
+                        end: Offset.zero,
+                      ).animate(animation),
+                      child: child,
+                    );
+                  },
+                  switchOutCurve: Threshold(0),
+                  duration: Duration(milliseconds: 500),
+                  child: MainScreen(
+                    key: UniqueKey(),
+                  ));
             } else if (appState is LoginStateIsInRegistrationView) {
-              return const RegisterScreen();
+              return AnimatedSwitcher(
+                  transitionBuilder:
+                      (Widget child, Animation<double> animation) {
+                    return SlideTransition(
+                      position: Tween<Offset>(
+                        begin: const Offset(1.0, 0.0),
+                        end: Offset.zero,
+                      ).animate(animation),
+                      child: child,
+                    );
+                  },
+                  switchOutCurve: Threshold(0),
+                  duration: const Duration(milliseconds: 500),
+                  child: RegisterScreen(
+                      // key: UniqueKey(),
+                      ));
             } else if (appState is LoginStateIsInLoginView) {
-              return const LoginScreen();
+              return AnimatedSwitcher(
+                  transitionBuilder:
+                      (Widget child, Animation<double> animation) {
+                    return SlideTransition(
+                      position: Tween<Offset>(
+                        begin: const Offset(1.0, 0.0),
+                        end: Offset.zero,
+                      ).animate(animation),
+                      child: child,
+                    );
+                  },
+                  switchOutCurve: Threshold(0),
+                  duration: Duration(milliseconds: 500),
+                  child: LoginScreen(
+                      // key: UniqueKey(),
+                      ));
             } else {
               return Container();
             }
