@@ -4,61 +4,83 @@ import 'package:one_earth/presentation/resources/color_manager.dart';
 import 'package:one_earth/presentation/resources/styles_manager.dart';
 import 'package:one_earth/presentation/resources/values_manager.dart';
 
-class MySpaceTabView extends StatelessWidget {
+class MySpaceTabView extends StatefulWidget {
   final List data;
+  const MySpaceTabView({Key? key, required this.data}) : super(key: key);
+
+  @override
+  State<MySpaceTabView> createState() => _MySpaceTabViewState();
+}
+
+class _MySpaceTabViewState extends State<MySpaceTabView> {
   late Trivia trivia;
-  MySpaceTabView({Key? key, required this.data}) : super(key: key);
+
+  @override
+  void initState() {
+    super.initState();
+    trivia = widget.data[0];
+  }
 
   @override
   Widget build(BuildContext context) {
-    trivia = data[0];
     return ListView(
       children: [
-        QuizWidget(),
+        quizWidget(),
       ],
     );
   }
 
-  Widget QuizWidget() {
+  Widget quizWidget() {
     return Card(
       elevation: AppSize.s4,
       shape: const RoundedRectangleBorder(
           borderRadius: BorderRadius.all(Radius.circular(AppSize.s16))),
       child: Padding(
         padding: const EdgeInsets.all(AppMargin.m12),
-        child: Column(crossAxisAlignment: CrossAxisAlignment.center, children: [
-          Row(mainAxisAlignment: MainAxisAlignment.start, children: [
+        child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+          Row(mainAxisAlignment: MainAxisAlignment.center, children: [
             Text(
               'Did you know?',
               style: getBoldStyle(color: ColorManager.black),
             ),
           ]),
           const SizedBox(height: AppSize.s16),
-          Text(trivia.getQuestion(),
-              style: getBoldStyle(
+          Text('Q. ' + trivia.getQuestion(),
+              style: getMediumStyle(
                 color: ColorManager.darkGrey,
               )),
           const SizedBox(height: AppSize.s12),
-          ListView.separated(
-              shrinkWrap: true,
-              itemCount: trivia.getOptions().length,
-              physics: const NeverScrollableScrollPhysics(),
-              separatorBuilder: ((ctx, index) => const SizedBox(height: 1)),
-              itemBuilder: (ctx, index) {
-                return OutlinedButton(
-                  onPressed: () => print('object'),
-                  style: ButtonStyle(
-                      shape: MaterialStateProperty.all(RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(AppSize.s16)))),
-                  child: Padding(
-                    padding: const EdgeInsets.all(AppPadding.p8),
-                    child: Text(
-                      trivia.getOptions()[index],
-                      style: getMediumStyle(color: ColorManager.darkGrey),
-                    ),
-                  ),
-                );
-              })
+          Text('A. ' + trivia.getOptions()[trivia.getAnswer()],
+              style: getMediumStyle(
+                color: ColorManager.darkGrey,
+              )),
+          // ListView.separated(
+          //     shrinkWrap: true,
+          //     itemCount: trivia.getOptions().length,
+          //     physics: const NeverScrollableScrollPhysics(),
+          //     separatorBuilder: ((ctx, index) => const SizedBox(height: 1)),
+          //     itemBuilder: (ctx, index) {
+          //       return OutlinedButton(
+          //         onPressed: () {
+          //           if (index == trivia.getAnswer()) {
+          //             //Correct
+          //           } else {
+          //             //Wrong
+          //           }
+          //         },
+          //         style: ButtonStyle(
+          //           shape: MaterialStateProperty.all(RoundedRectangleBorder(
+          //               borderRadius: BorderRadius.circular(AppSize.s16))),
+          //         ),
+          //         child: Padding(
+          //           padding: const EdgeInsets.all(AppPadding.p8),
+          //           child: Text(
+          //             trivia.getOptions()[index],
+          //             style: getMediumStyle(color: ColorManager.darkGrey),
+          //           ),
+          //         ),
+          //       );
+          //     })
         ]),
       ),
     );

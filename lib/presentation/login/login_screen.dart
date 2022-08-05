@@ -20,30 +20,20 @@ class LoginScreen extends StatefulWidget {
   State<LoginScreen> createState() => _LoginScreenState();
 }
 
-class _LoginScreenState extends State<LoginScreen> {
+class _LoginScreenState extends State<LoginScreen>
+    with TickerProviderStateMixin {
   late TextEditingController _emailController;
   late TextEditingController _passwordController;
+  late AnimationController _animationController;
 
   final formKey = GlobalKey<FormState>();
+  late var _animation;
   bool isValid = false;
 
   @override
   void initState() {
     _emailController = TextEditingController();
     _passwordController = TextEditingController();
-
-    super.initState();
-  }
-
-  @override
-  void dispose() {
-    _emailController.dispose();
-    _passwordController.dispose();
-    super.dispose();
-  }
-
-  @override
-  Widget build(BuildContext context) {
     _emailController.addListener(
       () {
         if (EmailValidator.validate(_emailController.text)) {
@@ -60,6 +50,18 @@ class _LoginScreenState extends State<LoginScreen> {
       },
     );
 
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    _emailController.dispose();
+    _passwordController.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
     var mediaQuery = MediaQuery.of(context).size;
     return Form(
       key: formKey,

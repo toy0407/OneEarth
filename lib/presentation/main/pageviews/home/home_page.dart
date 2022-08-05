@@ -9,6 +9,7 @@ import 'package:one_earth/presentation/main/pageviews/home/home_tabs/myactivitie
 import 'package:one_earth/presentation/main/pageviews/home/home_tabs/myspace_tab.dart';
 import 'package:one_earth/presentation/resources/assets_manager.dart';
 import 'package:one_earth/presentation/resources/color_manager.dart';
+import 'package:one_earth/presentation/resources/font_manager.dart';
 import 'package:one_earth/presentation/resources/strings_manager.dart';
 import 'package:one_earth/presentation/resources/styles_manager.dart';
 import 'package:one_earth/presentation/resources/values_manager.dart';
@@ -22,7 +23,6 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
   late TabController _tabController;
-
   @override
   void initState() {
     _tabController = TabController(length: 3, initialIndex: 1, vsync: this);
@@ -32,25 +32,33 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: EdgeInsets.all(AppSize.s8),
+      padding: const EdgeInsets.all(AppSize.s8),
       child: Column(
         children: [
           Row(
             children: [
-              const CircleAvatar(
+              CircleAvatar(
                 radius: AppSize.s40,
-                backgroundImage: AssetImage(ImageAssets.profileAvatar),
+                backgroundColor: Colors.grey[50],
+                backgroundImage: const AssetImage(ImageAssets.profileAvatar),
               ),
               const SizedBox(
                 width: 12,
               ),
               Text(
-                AppStrings.welcomeMessage,
-                style: getMediumStyle(color: ColorManager.darkPrimary),
+                'Hi OneEarthineer',
+                style: getLightStyle(
+                    color: ColorManager.black, fontSize: FontSize.s30),
               ),
             ],
           ),
-          SizedBox(height: 12),
+          const SizedBox(height: 12),
+          Text(
+            AppStrings.welcomeMessage,
+            style: getMediumStyle(color: ColorManager.darkPrimary),
+            textAlign: TextAlign.center,
+          ),
+          const SizedBox(height: 12),
           TabBar(
               controller: _tabController,
               indicatorColor: ColorManager.darkPrimary,

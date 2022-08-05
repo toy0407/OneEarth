@@ -33,7 +33,7 @@ class Trivia {
   late int _answer = -1;
   late List<String> _options = [];
 
-  Trivia() {}
+  Trivia();
 
   String getQuestion() {
     return _question;
@@ -48,7 +48,13 @@ class Trivia {
   }
 
   getTrivia() async {
-    int randomTriviaId = Random().nextInt(3) + 1;
+    int totalTrivia = 1;
+    await FirebaseFirestore.instance
+        .collection('Trivia')
+        .get()
+        .then((value) => totalTrivia = value.size);
+    print(totalTrivia);
+    int randomTriviaId = Random().nextInt(totalTrivia) + 1;
     CollectionReference _collectionRef =
         FirebaseFirestore.instance.collection('Trivia');
 

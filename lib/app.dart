@@ -68,7 +68,6 @@ class MyApp extends StatelessWidget {
       child: MaterialApp(
         title: "One Earth",
         theme: getApplicationTheme(),
-        debugShowCheckedModeBanner: false,
         home: BlocConsumer<LoginBloc, LoginState>(
           listener: (context, appState) {
             if (appState.isLoading) {
@@ -93,95 +92,23 @@ class MyApp extends StatelessWidget {
               return BlocBuilder<OnboardingBloc, OnboardingState>(
                   builder: (context, onboardingState) {
                 if (onboardingState is OnboardingStateIsInSplashView) {
-                  return AnimatedSwitcher(
-                      transitionBuilder:
-                          (Widget child, Animation<double> animation) {
-                        return SlideTransition(
-                          position: Tween<Offset>(
-                            begin: const Offset(1.0, 0.0),
-                            end: Offset.zero,
-                          ).animate(animation),
-                          child: child,
-                        );
-                      },
-                      switchOutCurve: Threshold(0),
-                      duration: Duration(milliseconds: 500),
-                      child: const SplashScreen());
+                  return const SplashScreen();
                 } else if (onboardingState
                     is OnboardingStateIsInOnBoardingView) {
-                  return AnimatedSwitcher(
-                      transitionBuilder:
-                          (Widget child, Animation<double> animation) {
-                        return SlideTransition(
-                          position: Tween<Offset>(
-                            begin: const Offset(1.0, 0.0),
-                            end: Offset.zero,
-                          ).animate(animation),
-                          child: child,
-                        );
-                      },
-                      switchOutCurve: Threshold(0),
-                      duration: Duration(milliseconds: 500),
-                      child: const OnboardingScreen());
+                  return const OnboardingScreen();
                 } else {
                   return Container();
                 }
               });
             } else if (appState is LoginStateLoggedIn) {
-              return AnimatedSwitcher(
-                  transitionBuilder:
-                      (Widget child, Animation<double> animation) {
-                    return SlideTransition(
-                      position: Tween<Offset>(
-                        begin: const Offset(1.0, 0.0),
-                        end: Offset.zero,
-                      ).animate(animation),
-                      child: child,
-                    );
-                  },
-                  switchOutCurve: Threshold(0),
-                  duration: Duration(milliseconds: 500),
-                  child: MainScreen(
-                    key: UniqueKey(),
-                  ));
+              return const MainScreen();
             } else if (appState is LoginStateIsInRegistrationView) {
-              return AnimatedSwitcher(
-                  transitionBuilder:
-                      (Widget child, Animation<double> animation) {
-                    return SlideTransition(
-                      position: Tween<Offset>(
-                        begin: const Offset(1.0, 0.0),
-                        end: Offset.zero,
-                      ).animate(animation),
-                      child: child,
-                    );
-                  },
-                  switchOutCurve: Threshold(0),
-                  duration: const Duration(milliseconds: 500),
-                  child: RegisterScreen(
-                      // key: UniqueKey(),
-                      ));
+              return const RegisterScreen();
             } else if (appState is LoginStateIsInLoginView) {
-              return AnimatedSwitcher(
-                  transitionBuilder:
-                      (Widget child, Animation<double> animation) {
-                    return SlideTransition(
-                      position: Tween<Offset>(
-                        begin: const Offset(1.0, 0.0),
-                        end: Offset.zero,
-                      ).animate(animation),
-                      child: child,
-                    );
-                  },
-                  switchOutCurve: Threshold(0),
-                  duration: Duration(milliseconds: 500),
-                  child: LoginScreen(
-                      // key: UniqueKey(),
-                      ));
+              return const LoginScreen();
             } else {
               return Container();
             }
-            // return const Text('Hello');
           },
         ),
       ),
