@@ -1,7 +1,5 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:http/http.dart';
 import 'package:one_earth/presentation/main/pageviews/home/bloc/home_state.dart';
 import 'package:one_earth/presentation/main/pageviews/home/bloc/leaderboard_tab_cubit.dart';
 import 'package:one_earth/presentation/main/pageviews/home/bloc/my_activities_cubit.dart';
@@ -18,7 +16,8 @@ import 'package:one_earth/presentation/resources/values_manager.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
 class HomePage extends StatefulWidget {
-  const HomePage({Key? key}) : super(key: key);
+  final String name;
+  const HomePage({Key? key, required this.name}) : super(key: key);
 
   @override
   State<HomePage> createState() => _HomePageState();
@@ -31,26 +30,13 @@ final uid = user?.uid;
 
 class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
   late TabController _tabController;
-  String name = "";
-
-  void getName() {
-    FirebaseFirestore.instance
-        .collection('Users')
-        .doc(uid)
-        .get()
-        .then((DocumentSnapshot documentSnapshot) {
-      if (documentSnapshot.exists) {
-        setState(() {
-          name = (documentSnapshot.data() as dynamic)["name"];
-        });
-      }
-    });
-  }
+  late String name;
 
   @override
   void initState() {
     _tabController = TabController(length: 3, initialIndex: 1, vsync: this);
-    getName();
+    name = widget.name;
+    print(name);
     super.initState();
   }
 

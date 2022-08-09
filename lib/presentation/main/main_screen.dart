@@ -17,7 +17,8 @@ import 'package:one_earth/presentation/resources/styles_manager.dart';
 import 'bloc/bottom_navigation_state.dart';
 
 class MainScreen extends StatefulWidget {
-  const MainScreen({Key? key}) : super(key: key);
+  final String name;
+  const MainScreen({Key? key, required this.name}) : super(key: key);
 
   @override
   State<MainScreen> createState() => _MainScreenState();
@@ -28,12 +29,15 @@ class _MainScreenState extends State<MainScreen> {
 
   late BottomNavigationBloc _bottomNavigationBloc;
 
+  late String name;
+
   // late bool val;
 
   @override
   void initState() {
     super.initState();
     _bottomNavigationBloc = BottomNavigationBloc();
+    name = widget.name;
   }
 
   Scaffold buildMainPage(int currentIndex) {
@@ -61,12 +65,14 @@ class _MainScreenState extends State<MainScreen> {
           if (value == 3) _bottomNavigationBloc.add(const NewsPageTapped());
           if (value == 4) _bottomNavigationBloc.add(const EventsPageTapped());
         },
-        children: const [
-          TutorialPage(),
-          SocialPage(),
-          HomePage(),
-          NewsPage(),
-          EventsPage()
+        children: [
+          const TutorialPage(),
+          const SocialPage(),
+          HomePage(
+            name: name,
+          ),
+          const NewsPage(),
+          const EventsPage()
         ],
       ),
       bottomNavigationBar: BottomNavigationBar(

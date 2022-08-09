@@ -40,8 +40,8 @@ class LoginPageRoute extends CupertinoPageRoute {
 }
 
 class MainPageRoute extends CupertinoPageRoute {
-  MainPageRoute()
-      : super(builder: (BuildContext context) => const MainScreen());
+  MainPageRoute({required String name})
+      : super(builder: (BuildContext context) => MainScreen(name: name));
 
   @override
   Duration get transitionDuration => const Duration(milliseconds: 2000);
@@ -118,7 +118,8 @@ class MyApp extends StatelessWidget {
             }
 
             if (appState is LoginStateLoggedIn) {
-              Navigator.of(context).push(MainPageRoute());
+              Navigator.of(context)
+                  .pushReplacement(MainPageRoute(name: appState.name));
             }
 
             if (appState is LoginStateIsInOnBoardingView) {
@@ -159,9 +160,10 @@ class MyApp extends StatelessWidget {
             if (appState is LoginStateLoggedOut) {
               return const SplashScreen();
             }
-            if (appState is LoginStateLoggedIn) {
-              return const MainScreen();
-            } else {
+            // if (appState is LoginStateLoggedIn) {
+            //   return const MainScreen();
+            //}
+            else {
               return Container();
             }
           },

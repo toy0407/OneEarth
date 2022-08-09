@@ -41,9 +41,10 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
     // handle Login initialize event
 
     on<LoginEventInitialize>(
-      (event, emit) {
+      (event, emit) async {
         // get the current user
         final user = FirebaseAuth.instance.currentUser;
+        var name;
         if (user == null) {
           // the user in logged out
           emit(
@@ -53,12 +54,21 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
           );
         } else {
           // log the user in
-          emit(
-            LoginStateLoggedIn(
-              isLoading: false,
-              user: user,
-            ),
-          );
+          await FirebaseFirestore.instance
+              .collection('Users')
+              .doc(user.uid)
+              .get()
+              .then((DocumentSnapshot documentSnapshot) {
+            if (documentSnapshot.exists) {
+              name = (documentSnapshot.data() as dynamic)["name"];
+              emit(
+                LoginStateLoggedIn(
+                  isLoading: false,
+                  name: name,
+                ),
+              );
+            }
+          });
         }
       },
     );
@@ -90,10 +100,11 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
               .collection('Users')
               .doc(user)
               .set({'name': name});
+
           emit(
             LoginStateLoggedIn(
               isLoading: false,
-              user: credentials.user!,
+              name: name,
             ),
           );
         } on FirebaseAuthException catch (e) {
@@ -145,16 +156,26 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
         try {
           final email = event.email;
           final password = event.password;
+          var name;
           final userCredential =
               await FirebaseAuth.instance.signInWithEmailAndPassword(
             email: email,
             password: password,
           );
           final user = userCredential.user!;
+          FirebaseFirestore.instance
+              .collection('Users')
+              .doc(user.uid)
+              .get()
+              .then((DocumentSnapshot documentSnapshot) {
+            if (documentSnapshot.exists) {
+              name = (documentSnapshot.data() as dynamic)["name"];
+            }
+          });
           emit(
             LoginStateLoggedIn(
               isLoading: false,
-              user: user,
+              name: name,
             ),
           );
         } on FirebaseAuthException catch (e) {
