@@ -21,11 +21,12 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
     on<LoginEventLogOut>(
       (event, emit) async {
         // start loading
-        emit(
-          const LoginStateIsInLoginView(
-            isLoading: true,
-          ),
-        );
+        // emit(
+        //   const LoginStateIsInLoginView(
+        //     isLoading: true,
+        //   ),
+        // );
+        emit(const Load(isLoading: true));
         // log the user out
         await FirebaseAuth.instance.signOut();
         // log the user out in the UI as well
@@ -46,7 +47,7 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
         if (user == null) {
           // the user in logged out
           emit(
-            const LoginStateLoggedOut(
+            const LoginStateIsInOnBoardingView(
               isLoading: false,
             ),
           );
@@ -67,11 +68,12 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
     on<LoginEventRegister>(
       (event, emit) async {
         // start loading
-        emit(
-          const LoginStateIsInRegistrationView(
-            isLoading: true,
-          ),
-        );
+        // emit(
+        //   const LoginStateIsInRegistrationView(
+        //     isLoading: true,
+        //   ),
+        // );
+        emit(const Load(isLoading: true));
         final email = event.email;
         final password = event.password;
         final name = event.name;
@@ -133,11 +135,12 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
 
     on<LoginEventLogIn>(
       (event, emit) async {
-        emit(
-          const LoginStateIsInLoginView(
-            isLoading: true,
-          ),
-        );
+        // emit(
+        //   const LoginStateIsInLoginView(
+        //     isLoading: true,
+        //   ),
+        // );
+        emit(const Load(isLoading: true));
         // log the user in
         try {
           final email = event.email;
@@ -162,6 +165,14 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
             ),
           );
         }
+      },
+    );
+
+    on<LoginEventGoToOnBoarding>(
+      (event, emit) {
+        emit(
+          const LoginStateIsInOnBoardingView(isLoading: false),
+        );
       },
     );
   }

@@ -17,11 +17,51 @@ import 'package:one_earth/presentation/main/pageviews/news/bloc/energy_tab_cubit
 import 'package:one_earth/presentation/main/pageviews/news/bloc/local_tab_cubit.dart';
 import 'package:one_earth/presentation/main/pageviews/news/bloc/soil_tab_cubit.dart';
 import 'package:one_earth/presentation/main/pageviews/news/bloc/water_tab_cubit.dart';
-import 'package:one_earth/presentation/onboarding/bloc/onboarding_bloc.dart';
-import 'package:one_earth/presentation/onboarding/bloc/onboarding_state.dart';
 import 'package:one_earth/presentation/onboarding/onboarding_screen.dart';
 import 'package:one_earth/presentation/resources/theme_manager.dart';
 import 'package:one_earth/presentation/splash/splash_screen.dart';
+
+import 'package:flutter/cupertino.dart';
+
+class RegisterPageRoute extends CupertinoPageRoute {
+  RegisterPageRoute()
+      : super(builder: (BuildContext context) => const RegisterScreen());
+
+  @override
+  Duration get transitionDuration => const Duration(milliseconds: 2000);
+}
+
+class LoginPageRoute extends CupertinoPageRoute {
+  LoginPageRoute()
+      : super(builder: (BuildContext context) => const LoginScreen());
+
+  @override
+  Duration get transitionDuration => const Duration(milliseconds: 2000);
+}
+
+class MainPageRoute extends CupertinoPageRoute {
+  MainPageRoute()
+      : super(builder: (BuildContext context) => const MainScreen());
+
+  @override
+  Duration get transitionDuration => const Duration(milliseconds: 2000);
+}
+
+class OnboardingPageRoute extends CupertinoPageRoute {
+  OnboardingPageRoute()
+      : super(builder: (BuildContext context) => const OnboardingScreen());
+
+  @override
+  Duration get transitionDuration => const Duration(milliseconds: 2000);
+}
+
+class SplashPageRoute extends CupertinoPageRoute {
+  SplashPageRoute()
+      : super(builder: (BuildContext context) => const SplashScreen());
+
+  @override
+  Duration get transitionDuration => const Duration(milliseconds: 2000);
+}
 
 class MyApp extends StatelessWidget {
   MyApp({Key? key}) : super(key: key);
@@ -34,7 +74,6 @@ class MyApp extends StatelessWidget {
     return MultiBlocProvider(
       providers: [
         BlocProvider(create: (_) => LoginBloc()),
-        BlocProvider(create: (_) => OnboardingBloc()),
         BlocProvider(create: (_) => BottomNavigationBloc()),
         BlocProvider<LeaderboardTabCubit>(
           create: (context) =>
@@ -70,6 +109,35 @@ class MyApp extends StatelessWidget {
         theme: getApplicationTheme(),
         home: BlocConsumer<LoginBloc, LoginState>(
           listener: (context, appState) {
+            if (appState is LoginStateIsInRegistrationView) {
+              Navigator.of(context).push(RegisterPageRoute());
+            }
+
+            if (appState is LoginStateIsInLoginView) {
+              Navigator.of(context).push(LoginPageRoute());
+            }
+
+            if (appState is LoginStateLoggedIn) {
+              Navigator.of(context).push(MainPageRoute());
+            }
+
+            if (appState is LoginStateIsInOnBoardingView) {
+              Navigator.of(context).push(OnboardingPageRoute());
+            }
+
+            if (appState is LoginStateIsInSplashView) {
+              Navigator.of(context).push(SplashPageRoute());
+            }
+
+            if (appState is Load) {
+              LoadingScreen.instance().show(
+                context: context,
+                text: 'Loading...',
+              );
+            } else {
+              LoadingScreen.instance().hide();
+            }
+
             if (appState.isLoading) {
               LoadingScreen.instance().show(
                 context: context,
@@ -89,23 +157,10 @@ class MyApp extends StatelessWidget {
           },
           builder: (context, appState) {
             if (appState is LoginStateLoggedOut) {
-              return BlocBuilder<OnboardingBloc, OnboardingState>(
-                  builder: (context, onboardingState) {
-                if (onboardingState is OnboardingStateIsInSplashView) {
-                  return const SplashScreen();
-                } else if (onboardingState
-                    is OnboardingStateIsInOnBoardingView) {
-                  return const OnboardingScreen();
-                } else {
-                  return Container();
-                }
-              });
-            } else if (appState is LoginStateLoggedIn) {
+              return const SplashScreen();
+            }
+            if (appState is LoginStateLoggedIn) {
               return const MainScreen();
-            } else if (appState is LoginStateIsInRegistrationView) {
-              return const RegisterScreen();
-            } else if (appState is LoginStateIsInLoginView) {
-              return const LoginScreen();
             } else {
               return Container();
             }

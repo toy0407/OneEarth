@@ -45,3 +45,8 @@ class LoginEventGoToRegistration implements LoginEvent {
 class LoginEventGoToLogin implements LoginEvent {
   const LoginEventGoToLogin();
 }
+
+@immutable
+class LoginEventGoToOnBoarding implements LoginEvent {
+  const LoginEventGoToOnBoarding();
+}

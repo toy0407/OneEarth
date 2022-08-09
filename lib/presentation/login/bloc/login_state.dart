@@ -14,6 +14,11 @@ abstract class LoginState {
 }
 
 @immutable
+class Load extends LoginState {
+  const Load({required bool isLoading}) : super(isLoading: isLoading);
+}
+
+@immutable
 class LoginStateLoggedIn extends LoginState {
   final User user;
 
@@ -58,6 +63,18 @@ class LoginStateIsInLoginView extends LoginState {
           isLoading: isLoading,
           authError: authError,
         );
+}
+
+@immutable
+class LoginStateIsInOnBoardingView extends LoginState {
+  const LoginStateIsInOnBoardingView({required bool isLoading})
+      : super(isLoading: isLoading);
+}
+
+@immutable
+class LoginStateIsInSplashView extends LoginState {
+  const LoginStateIsInSplashView({required bool isLoading})
+      : super(isLoading: isLoading);
 }
 
 extension GetUser on LoginState {

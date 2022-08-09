@@ -1,5 +1,7 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:http/http.dart';
 import 'package:one_earth/presentation/main/pageviews/home/bloc/home_state.dart';
 import 'package:one_earth/presentation/main/pageviews/home/bloc/leaderboard_tab_cubit.dart';
 import 'package:one_earth/presentation/main/pageviews/home/bloc/my_activities_cubit.dart';
@@ -13,6 +15,7 @@ import 'package:one_earth/presentation/resources/font_manager.dart';
 import 'package:one_earth/presentation/resources/strings_manager.dart';
 import 'package:one_earth/presentation/resources/styles_manager.dart';
 import 'package:one_earth/presentation/resources/values_manager.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -21,11 +24,33 @@ class HomePage extends StatefulWidget {
   State<HomePage> createState() => _HomePageState();
 }
 
+final FirebaseAuth auth = FirebaseAuth.instance;
+
+final User? user = auth.currentUser;
+final uid = user?.uid;
+
 class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
   late TabController _tabController;
+  String name = "";
+
+  void getName() {
+    FirebaseFirestore.instance
+        .collection('Users')
+        .doc(uid)
+        .get()
+        .then((DocumentSnapshot documentSnapshot) {
+      if (documentSnapshot.exists) {
+        setState(() {
+          name = (documentSnapshot.data() as dynamic)["name"];
+        });
+      }
+    });
+  }
+
   @override
   void initState() {
     _tabController = TabController(length: 3, initialIndex: 1, vsync: this);
+    getName();
     super.initState();
   }
 
@@ -46,7 +71,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                 width: 12,
               ),
               Text(
-                'Hi OneEarthineer',
+                'Hi ' + name,
                 style: getLightStyle(
                     color: ColorManager.black, fontSize: FontSize.s30),
               ),
