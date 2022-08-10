@@ -86,7 +86,7 @@ class OnboardingScreen3 extends StatelessWidget {
     return Column(
       mainAxisAlignment: MainAxisAlignment.spaceAround,
       children: [
-        Image.asset(ImageAssets.companyLogo),
+        Hero(tag: 'imageHero1', child: Image.asset(ImageAssets.companyLogo)),
         Column(
           children: [
             Text('Let\'s get started',

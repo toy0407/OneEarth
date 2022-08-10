@@ -22,12 +22,20 @@ class SplashScreen extends StatelessWidget {
       }),
     );
     return Scaffold(
-      body: Column(mainAxisAlignment: MainAxisAlignment.center, children: [
-        Lottie.asset(LottieAnimAssets.splashLogoAnim, repeat: false),
-        Text('One Earth',
+      body: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Hero(
+              tag: 'imageHero',
+              child:
+                  Lottie.asset(LottieAnimAssets.splashLogoAnim, repeat: false)),
+          Text(
+            'One Earth',
             style: getRegularStyle(
-                color: ColorManager.darkPrimary, fontSize: FontSize.s30))
-      ]),
+                color: ColorManager.darkPrimary, fontSize: FontSize.s30),
+          ),
+        ],
+      ),
     );
   }
 }

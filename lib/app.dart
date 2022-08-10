@@ -114,6 +114,7 @@ class MyApp extends StatelessWidget {
             }
 
             if (appState is LoginStateIsInLoginView) {
+              print(appState);
               Navigator.of(context).push(LoginPageRoute());
             }
 

@@ -2,7 +2,6 @@ import 'package:bloc/bloc.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_hooks/flutter_hooks.dart';
 import '../auth/auth_error.dart';
 import 'login_event.dart';
 import 'login_state.dart';
@@ -22,7 +21,7 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
       (event, emit) async {
         // start loading
         // emit(
-        //   const LoginStateIsInLoginView(
+        //   const LoginStateIsInSplashView(
         //     isLoading: true,
         //   ),
         // );
@@ -109,7 +108,7 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
           );
         } on FirebaseAuthException catch (e) {
           emit(
-            LoginStateIsInRegistrationView(
+            Error(
               isLoading: false,
               authError: AuthError.from(e),
             ),
@@ -156,14 +155,14 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
         try {
           final email = event.email;
           final password = event.password;
-          var name;
+          String name = "";
           final userCredential =
               await FirebaseAuth.instance.signInWithEmailAndPassword(
             email: email,
             password: password,
           );
           final user = userCredential.user!;
-          FirebaseFirestore.instance
+          await FirebaseFirestore.instance
               .collection('Users')
               .doc(user.uid)
               .get()
@@ -180,7 +179,7 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
           );
         } on FirebaseAuthException catch (e) {
           emit(
-            LoginStateIsInLoginView(
+            Error(
               isLoading: false,
               authError: AuthError.from(e),
             ),

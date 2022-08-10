@@ -19,6 +19,12 @@ class Load extends LoginState {
 }
 
 @immutable
+class Error extends LoginState {
+  const Error({required bool isLoading, AuthError? authError})
+      : super(isLoading: isLoading, authError: authError);
+}
+
+@immutable
 class LoginStateLoggedIn extends LoginState {
   final String name;
 
