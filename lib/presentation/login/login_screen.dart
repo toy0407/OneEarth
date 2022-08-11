@@ -95,6 +95,7 @@ class _LoginScreenState extends State<LoginScreen>
                     border: OutlineInputBorder(),
                     prefixIcon: Icon(Icons.email_outlined)),
                 keyboardType: TextInputType.emailAddress,
+                textInputAction: TextInputAction.next,
               ),
 
               SizedBox(height: mediaQuery.height * 0.03),
@@ -102,18 +103,20 @@ class _LoginScreenState extends State<LoginScreen>
               // Password text field
 
               TextFormField(
-                autovalidateMode: AutovalidateMode.onUserInteraction,
-                validator: (value) =>
-                    value!.length < 8 ? 'Password must be 8 characters' : null,
-                controller: _passwordController,
-                style: getRegularStyle(color: ColorManager.black),
-                decoration: const InputDecoration(
-                    labelText: 'Password',
-                    border: OutlineInputBorder(),
-                    prefixIcon: Icon(Icons.password_outlined)),
-                keyboardType: TextInputType.visiblePassword,
-                obscureText: true,
-              ),
+                  autovalidateMode: AutovalidateMode.onUserInteraction,
+                  validator: (value) => value!.length < 8
+                      ? 'Password must be 8 characters'
+                      : null,
+                  controller: _passwordController,
+                  style: getRegularStyle(color: ColorManager.black),
+                  decoration: const InputDecoration(
+                      labelText: 'Password',
+                      border: OutlineInputBorder(),
+                      prefixIcon: Icon(Icons.password_outlined)),
+                  keyboardType: TextInputType.visiblePassword,
+                  obscureText: true,
+                  textInputAction: TextInputAction.done),
+
               SizedBox(height: mediaQuery.height * 0.03),
               ElevatedButton(
                 onPressed: () {
@@ -142,6 +145,7 @@ class _LoginScreenState extends State<LoginScreen>
               const Text('Do not have an account yet?'),
               TextButton(
                 onPressed: () {
+                  FocusManager.instance.primaryFocus?.unfocus();
                   context.read<LoginBloc>().add(
                         const LoginEventGoToRegistration(),
                       );

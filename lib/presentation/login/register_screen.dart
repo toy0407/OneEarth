@@ -13,6 +13,8 @@ import '../resources/color_manager.dart';
 import '../resources/font_manager.dart';
 import '../resources/styles_manager.dart';
 
+String patttern = r'^[a-z A-Z,.\-]+$';
+
 class RegisterScreen extends StatefulWidget {
   const RegisterScreen({Key? key}) : super(key: key);
 
@@ -28,6 +30,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
       TextEditingController();
 
   final FirebaseAuth auth = FirebaseAuth.instance;
+
+  RegExp regExp = RegExp(patttern);
 
   final formKey = GlobalKey<FormState>();
   bool isValid = false;
@@ -81,73 +85,75 @@ class _RegisterScreenState extends State<RegisterScreen> {
               // Name text field
 
               TextFormField(
-                autovalidateMode: AutovalidateMode.onUserInteraction,
-                controller: _nameController,
-                style: getRegularStyle(color: ColorManager.black),
-                validator: (value) => value!.isEmpty || !isAlpha(value)
-                    ? 'Enter valid name'
-                    : null,
-                decoration: const InputDecoration(
-                    labelText: 'Name',
-                    border: OutlineInputBorder(),
-                    prefixIcon: Icon(Icons.person_outlined)),
-                keyboardType: TextInputType.emailAddress,
-              ),
+                  autovalidateMode: AutovalidateMode.onUserInteraction,
+                  controller: _nameController,
+                  style: getRegularStyle(color: ColorManager.black),
+                  validator: (value) =>
+                      value!.isEmpty || !regExp.hasMatch(value)
+                          ? 'Enter valid name'
+                          : null,
+                  decoration: const InputDecoration(
+                      labelText: 'Name',
+                      border: OutlineInputBorder(),
+                      prefixIcon: Icon(Icons.person_outlined)),
+                  keyboardType: TextInputType.emailAddress,
+                  textInputAction: TextInputAction.next),
 
               SizedBox(height: mediaQuery.height * 0.02),
 
               // Email text field
 
               TextFormField(
-                autovalidateMode: AutovalidateMode.onUserInteraction,
-                validator: ((value) => !EmailValidator.validate(value!)
-                    ? 'Enter a valid email'
-                    : null),
-                controller: _emailController,
-                style: getRegularStyle(color: ColorManager.black),
-                decoration: const InputDecoration(
-                    labelText: 'Email',
-                    border: OutlineInputBorder(),
-                    prefixIcon: Icon(Icons.email_outlined)),
-                keyboardType: TextInputType.emailAddress,
-              ),
+                  autovalidateMode: AutovalidateMode.onUserInteraction,
+                  validator: ((value) => !EmailValidator.validate(value!)
+                      ? 'Enter a valid email'
+                      : null),
+                  controller: _emailController,
+                  style: getRegularStyle(color: ColorManager.black),
+                  decoration: const InputDecoration(
+                      labelText: 'Email',
+                      border: OutlineInputBorder(),
+                      prefixIcon: Icon(Icons.email_outlined)),
+                  keyboardType: TextInputType.emailAddress,
+                  textInputAction: TextInputAction.next),
 
               SizedBox(height: mediaQuery.height * 0.02),
 
               // Password text field
 
               TextFormField(
-                autovalidateMode: AutovalidateMode.onUserInteraction,
-                controller: _passwordController,
-                style: getRegularStyle(color: ColorManager.black),
-                validator: (value) =>
-                    value!.length < 8 ? 'Password must be 8 characters' : null,
-                decoration: const InputDecoration(
-                    labelText: 'Password',
-                    border: OutlineInputBorder(),
-                    prefixIcon: Icon(Icons.password_outlined)),
-                keyboardType: TextInputType.visiblePassword,
-                obscureText: true,
-              ),
+                  autovalidateMode: AutovalidateMode.onUserInteraction,
+                  controller: _passwordController,
+                  style: getRegularStyle(color: ColorManager.black),
+                  validator: (value) => value!.length < 8
+                      ? 'Password must be 8 characters'
+                      : null,
+                  decoration: const InputDecoration(
+                      labelText: 'Password',
+                      border: OutlineInputBorder(),
+                      prefixIcon: Icon(Icons.password_outlined)),
+                  keyboardType: TextInputType.visiblePassword,
+                  obscureText: true,
+                  textInputAction: TextInputAction.next),
 
               SizedBox(height: mediaQuery.height * 0.02),
 
               // Confirm password field
 
               TextFormField(
-                autovalidateMode: AutovalidateMode.onUserInteraction,
-                controller: _confirmPasswordController,
-                style: getRegularStyle(color: ColorManager.black),
-                validator: (value) => value! != _passwordController.text
-                    ? 'Your password does not match'
-                    : null,
-                decoration: const InputDecoration(
-                    labelText: 'Confirm Password',
-                    border: OutlineInputBorder(),
-                    prefixIcon: Icon(Icons.password_outlined)),
-                keyboardType: TextInputType.visiblePassword,
-                obscureText: true,
-              ),
+                  autovalidateMode: AutovalidateMode.onUserInteraction,
+                  controller: _confirmPasswordController,
+                  style: getRegularStyle(color: ColorManager.black),
+                  validator: (value) => value! != _passwordController.text
+                      ? 'Your password does not match'
+                      : null,
+                  decoration: const InputDecoration(
+                      labelText: 'Confirm Password',
+                      border: OutlineInputBorder(),
+                      prefixIcon: Icon(Icons.password_outlined)),
+                  keyboardType: TextInputType.visiblePassword,
+                  obscureText: true,
+                  textInputAction: TextInputAction.done),
 
               SizedBox(height: mediaQuery.height * 0.02),
 
@@ -183,6 +189,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
               const Text('Already have an account?'),
               TextButton(
                 onPressed: () {
+                  FocusManager.instance.primaryFocus?.unfocus();
                   context.read<LoginBloc>().add(
                         const LoginEventGoToLogin(),
                       );

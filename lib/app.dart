@@ -40,8 +40,16 @@ class LoginPageRoute extends CupertinoPageRoute {
 }
 
 class MainPageRoute extends CupertinoPageRoute {
-  MainPageRoute({required String name})
-      : super(builder: (BuildContext context) => MainScreen(name: name));
+  MainPageRoute(
+      {required String name,
+      required String email,
+      required String profileImage})
+      : super(
+            builder: (BuildContext context) => MainScreen(
+                  name: name,
+                  email: email,
+                  profileImage: profileImage,
+                ));
 
   @override
   Duration get transitionDuration => const Duration(milliseconds: 2000);
@@ -119,8 +127,10 @@ class MyApp extends StatelessWidget {
             }
 
             if (appState is LoginStateLoggedIn) {
-              Navigator.of(context)
-                  .pushReplacement(MainPageRoute(name: appState.name));
+              Navigator.of(context).pushReplacement(MainPageRoute(
+                  name: appState.name,
+                  email: appState.email,
+                  profileImage: appState.profileImage));
             }
 
             if (appState is LoginStateIsInOnBoardingView) {

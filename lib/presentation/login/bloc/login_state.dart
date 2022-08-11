@@ -27,12 +27,16 @@ class Error extends LoginState {
 @immutable
 class LoginStateLoggedIn extends LoginState {
   final String name;
+  final String email;
+  final String profileImage;
 
-  const LoginStateLoggedIn({
-    required bool isLoading,
-    AuthError? authError,
-    required this.name,
-  }) : super(
+  const LoginStateLoggedIn(
+      {required bool isLoading,
+      AuthError? authError,
+      required this.name,
+      required this.email,
+      required this.profileImage})
+      : super(
           isLoading: isLoading,
           authError: authError,
         );

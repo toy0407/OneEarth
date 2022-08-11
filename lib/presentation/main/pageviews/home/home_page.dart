@@ -17,7 +17,14 @@ import 'package:firebase_auth/firebase_auth.dart';
 
 class HomePage extends StatefulWidget {
   final String name;
-  const HomePage({Key? key, required this.name}) : super(key: key);
+  final String email;
+  final String profileImage;
+  const HomePage(
+      {Key? key,
+      required this.name,
+      required this.email,
+      required this.profileImage})
+      : super(key: key);
 
   @override
   State<HomePage> createState() => _HomePageState();
@@ -31,12 +38,15 @@ final uid = user?.uid;
 class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
   late TabController _tabController;
   late String name;
+  late String email;
+  late String profileImage;
 
   @override
   void initState() {
     _tabController = TabController(length: 3, initialIndex: 1, vsync: this);
     name = widget.name;
-    print(name);
+    email = widget.email;
+    profileImage = widget.profileImage;
     super.initState();
   }
 

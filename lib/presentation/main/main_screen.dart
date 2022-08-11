@@ -18,7 +18,14 @@ import 'bloc/bottom_navigation_state.dart';
 
 class MainScreen extends StatefulWidget {
   final String name;
-  const MainScreen({Key? key, required this.name}) : super(key: key);
+  final String email;
+  final String profileImage;
+  const MainScreen(
+      {Key? key,
+      required this.name,
+      required this.email,
+      required this.profileImage})
+      : super(key: key);
 
   @override
   State<MainScreen> createState() => _MainScreenState();
@@ -30,6 +37,8 @@ class _MainScreenState extends State<MainScreen> {
   late BottomNavigationBloc _bottomNavigationBloc;
 
   late String name;
+  late String email;
+  late String profileImage;
 
   // late bool val;
 
@@ -38,6 +47,8 @@ class _MainScreenState extends State<MainScreen> {
     super.initState();
     _bottomNavigationBloc = BottomNavigationBloc();
     name = widget.name;
+    email = widget.email;
+    profileImage = widget.profileImage;
   }
 
   Scaffold buildMainPage(int currentIndex) {
@@ -68,9 +79,7 @@ class _MainScreenState extends State<MainScreen> {
         children: [
           const TutorialPage(),
           const SocialPage(),
-          HomePage(
-            name: name,
-          ),
+          HomePage(name: name, email: email, profileImage: profileImage),
           const NewsPage(),
           const EventsPage()
         ],

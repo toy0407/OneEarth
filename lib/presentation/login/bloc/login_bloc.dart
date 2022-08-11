@@ -43,7 +43,8 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
       (event, emit) async {
         // get the current user
         final user = FirebaseAuth.instance.currentUser;
-        var name;
+        String name = "";
+        String email = "";
         if (user == null) {
           // the user in logged out
           emit(
@@ -60,10 +61,13 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
               .then((DocumentSnapshot documentSnapshot) {
             if (documentSnapshot.exists) {
               name = (documentSnapshot.data() as dynamic)["name"];
+              email = (documentSnapshot.data() as dynamic)["email"];
               emit(
                 LoginStateLoggedIn(
                   isLoading: false,
                   name: name,
+                  email: email,
+                  profileImage: "",
                 ),
               );
             }
@@ -98,12 +102,14 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
           await FirebaseFirestore.instance
               .collection('Users')
               .doc(user)
-              .set({'name': name});
+              .set({'name': name, 'email': email});
 
           emit(
             LoginStateLoggedIn(
               isLoading: false,
               name: name,
+              email: email,
+              profileImage: "",
             ),
           );
         } on FirebaseAuthException catch (e) {
@@ -175,6 +181,8 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
             LoginStateLoggedIn(
               isLoading: false,
               name: name,
+              email: email,
+              profileImage: "",
             ),
           );
         } on FirebaseAuthException catch (e) {
