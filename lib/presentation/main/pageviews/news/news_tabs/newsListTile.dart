@@ -5,33 +5,56 @@ import 'package:one_earth/presentation/resources/styles_manager.dart';
 import 'package:one_earth/presentation/resources/values_manager.dart';
 
 class NewsListTile extends StatelessWidget {
-  late String? heading, description, imageUrl, newsUrl, pubDate;
+  late String heading, description, imageUrl, newsUrl, pubDate;
+  String dummyImageHolder = '';
 
-  NewsListTile({Key? key, this.heading, this.description, this.imageUrl})
+  NewsListTile(
+      {Key? key,
+      required this.heading,
+      required this.description,
+      required this.imageUrl})
       : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     var mediaQuery = MediaQuery.of(context).size;
-    return ListTile(
-      leading: CachedNetworkImage(
-        height: mediaQuery.height * 0.1,
-        width: mediaQuery.height * 0.1,
-        imageUrl: (imageUrl != null)
-            ? imageUrl!
-            : 'https://demofree.sirv.com/nope-not-here.jpg',
-        errorWidget: (context, url, error) => Icon(Icons.error),
-      ),
-      visualDensity: VisualDensity.comfortable,
-      style: ListTileStyle.list,
-      title: Text(heading!, style: getSemiBoldStyle(color: ColorManager.black)),
-      subtitle: Text(
-        description!,
-        style: getLightStyle(color: ColorManager.black),
-        maxLines: 2,
-      ),
-      shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(AppSize.s16)),
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      mainAxisAlignment: MainAxisAlignment.start,
+      children: <Widget>[
+        Container(
+          height: MediaQuery.of(context).size.height / 3,
+          width: double.infinity,
+          color: Colors.grey.withOpacity(0.2),
+          child: Image.network(
+            imageUrl,
+            fit: BoxFit.fill,
+          ),
+        ),
+        Padding(
+          padding: EdgeInsets.fromLTRB(16.0, 16.0, 16.0, 8.0),
+          child: Text(
+            heading,
+            style: TextStyle(fontWeight: FontWeight.w500, fontSize: 18.0),
+          ),
+        ),
+        Padding(
+            padding: EdgeInsets.symmetric(horizontal: 16.0),
+            child: Text(
+              description,
+              style: TextStyle(fontSize: 18.0, fontWeight: FontWeight.w300),
+            )),
+        Container(
+          padding: EdgeInsets.fromLTRB(16.0, 8.0, 16.0, 4.0),
+          child: Text(
+            "",
+            style: TextStyle(
+                fontWeight: FontWeight.w300,
+                fontSize: 12.0,
+                color: Colors.grey),
+          ),
+        ),
+      ],
     );
   }
 }
