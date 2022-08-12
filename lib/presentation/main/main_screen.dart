@@ -7,6 +7,8 @@ import 'package:one_earth/presentation/main/bloc/bottom_navigation_bloc.dart';
 import 'package:one_earth/presentation/main/bloc/bottom_bavigation_event.dart';
 import 'package:one_earth/presentation/main/pageviews/events/events_page.dart';
 import 'package:one_earth/presentation/main/pageviews/home/home_page.dart';
+import 'package:one_earth/presentation/main/pageviews/news/bloc/news_cubit.dart';
+import 'package:one_earth/presentation/main/pageviews/news/bloc/news_state.dart';
 import 'package:one_earth/presentation/main/pageviews/news/news_page.dart';
 import 'package:one_earth/presentation/main/pageviews/social/social_page.dart';
 import 'package:one_earth/presentation/main/pageviews/tutorial/tutorial_page.dart';
@@ -80,7 +82,19 @@ class _MainScreenState extends State<MainScreen> {
           const TutorialPage(),
           const SocialPage(),
           HomePage(name: name, email: email, profileImage: profileImage),
-          const NewsPage(),
+          BlocBuilder<NewsCubit, NewsGenericState>(
+            builder: (context, state) {
+              if (state.isFailed) {
+                return const Text("Failed to fetch Energy News");
+              }
+
+              if (state.isLoading) {
+                return const Text("Loading Energy News...");
+              }
+
+              return NewsPage(data: state.data!);
+            },
+          ),
           const EventsPage()
         ],
       ),

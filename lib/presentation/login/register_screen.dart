@@ -73,6 +73,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
         child: Padding(
           padding: const EdgeInsets.all(AppPadding.p20),
           child: Column(
+            key: ValueKey(1),
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Image.asset(ImageAssets.companyLogo),

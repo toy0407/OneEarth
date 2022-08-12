@@ -2,7 +2,7 @@ import 'package:bloc/bloc.dart';
 import 'package:one_earth/data/news/news_data.dart';
 import 'package:one_earth/presentation/main/pageviews/news/bloc/news_state.dart';
 
-class WaterTabCubit extends Cubit<NewsGenericState> {
+class NewsCubit extends Cubit<NewsGenericState> {
   ///
   /// Repository dependency
   ///
@@ -11,7 +11,7 @@ class WaterTabCubit extends Cubit<NewsGenericState> {
   ///
   /// Cubit constructor. Send a loading state as default.
   ///
-  WaterTabCubit({required this.newsRepository})
+  NewsCubit({required this.newsRepository})
       : super(NewsGenericState(isLoading: true, data: []));
 
   // ==================================
@@ -23,7 +23,7 @@ class WaterTabCubit extends Cubit<NewsGenericState> {
   ///
   void load() async {
     //#log
-    print("[EVENT] Popular Categories :: Load");
+    print("[EVENT] News :: Load");
 
     // Every time when try to load data from repository put the application
     // in a loading state
@@ -31,7 +31,7 @@ class WaterTabCubit extends Cubit<NewsGenericState> {
 
     try {
       // Wait for data from repository
-      List<Result>? data = await newsRepository.getData("waterNews");
+      List<Result>? data = await newsRepository.getData("news");
 
       // Send a success state
       emit(NewsGenericState(data: data!, isFailed: false));

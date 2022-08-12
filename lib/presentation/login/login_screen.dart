@@ -67,6 +67,7 @@ class _LoginScreenState extends State<LoginScreen>
       key: formKey,
       child: Scaffold(
         resizeToAvoidBottomInset: false,
+        key: ValueKey(0),
         body: Padding(
           padding: const EdgeInsets.all(AppPadding.p20),
           child: Column(

@@ -13,10 +13,7 @@ import 'package:one_earth/presentation/main/main_screen.dart';
 import 'package:one_earth/presentation/main/pageviews/home/bloc/leaderboard_tab_cubit.dart';
 import 'package:one_earth/presentation/main/pageviews/home/bloc/my_activities_cubit.dart';
 import 'package:one_earth/presentation/main/pageviews/home/bloc/my_space_tab_cubit.dart';
-import 'package:one_earth/presentation/main/pageviews/news/bloc/energy_tab_cubit.dart';
-import 'package:one_earth/presentation/main/pageviews/news/bloc/local_tab_cubit.dart';
-import 'package:one_earth/presentation/main/pageviews/news/bloc/soil_tab_cubit.dart';
-import 'package:one_earth/presentation/main/pageviews/news/bloc/water_tab_cubit.dart';
+import 'package:one_earth/presentation/main/pageviews/news/bloc/news_cubit.dart';
 import 'package:one_earth/presentation/onboarding/onboarding_screen.dart';
 import 'package:one_earth/presentation/resources/theme_manager.dart';
 import 'package:one_earth/presentation/splash/splash_screen.dart';
@@ -95,51 +92,38 @@ class MyApp extends StatelessWidget {
           create: (context) =>
               MyActivitiesTabCubit(homeRepository: homeRepository)..load(),
         ),
-        BlocProvider<LocalTabCubit>(
-          create: (context) =>
-              LocalTabCubit(newsRepository: newsRepository)..load(),
-        ),
-        BlocProvider<EnergyTabCubit>(
-          create: (context) =>
-              EnergyTabCubit(newsRepository: newsRepository)..load(),
-        ),
-        BlocProvider<SoilTabCubit>(
-          create: (context) =>
-              SoilTabCubit(newsRepository: newsRepository)..load(),
-        ),
-        BlocProvider<WaterTabCubit>(
-          create: (context) =>
-              WaterTabCubit(newsRepository: newsRepository)..load(),
-        ),
+        BlocProvider<NewsCubit>(
+            create: (context) =>
+                NewsCubit(newsRepository: newsRepository)..load())
       ],
       child: MaterialApp(
         title: "One Earth",
         theme: getApplicationTheme(),
         home: BlocConsumer<LoginBloc, LoginState>(
           listener: (context, appState) {
-            if (appState is LoginStateIsInRegistrationView) {
-              Navigator.of(context).push(RegisterPageRoute());
-            }
+            // if (appState is LoginStateIsInRegistrationView) {
+            //   Navigator.of(context).push(RegisterPageRoute());
+            // }
 
-            if (appState is LoginStateIsInLoginView) {
-              print(appState);
-              Navigator.of(context).push(LoginPageRoute());
-            }
+            // if (appState is LoginStateIsInLoginView) {
+            //   print(appState);
+            //   Navigator.of(context).push(LoginPageRoute());
+            // }
 
-            if (appState is LoginStateLoggedIn) {
-              Navigator.of(context).pushReplacement(MainPageRoute(
-                  name: appState.name,
-                  email: appState.email,
-                  profileImage: appState.profileImage));
-            }
+            // if (appState is LoginStateLoggedIn) {
+            //   Navigator.of(context).pushReplacement(MainPageRoute(
+            //       name: appState.name,
+            //       email: appState.email,
+            //       profileImage: appState.profileImage));
+            // }
 
-            if (appState is LoginStateIsInOnBoardingView) {
-              Navigator.of(context).push(OnboardingPageRoute());
-            }
+            // if (appState is LoginStateIsInOnBoardingView) {
+            //   Navigator.of(context).push(OnboardingPageRoute());
+            // }
 
-            if (appState is LoginStateIsInSplashView) {
-              Navigator.of(context).push(SplashPageRoute());
-            }
+            // if (appState is LoginStateIsInSplashView) {
+            //   Navigator.of(context).push(SplashPageRoute());
+            // }
 
             if (appState is Load) {
               LoadingScreen.instance().show(
@@ -169,12 +153,121 @@ class MyApp extends StatelessWidget {
           },
           builder: (context, appState) {
             if (appState is LoginStateLoggedOut) {
-              return const SplashScreen();
+              return AnimatedSwitcher(
+                transitionBuilder: (Widget child, Animation<double> animation) {
+                  return SlideTransition(
+                    position: Tween<Offset>(
+                      begin: const Offset(1.0, 0.0),
+                      end: Offset.zero,
+                    ).animate(animation),
+                    child: child,
+                  );
+                },
+                switchOutCurve: Threshold(0),
+                duration: const Duration(milliseconds: 500),
+                child: SplashScreen(
+                    // key: UniqueKey(),
+                    ),
+              );
             }
-            // if (appState is LoginStateLoggedIn) {
-            //   return const MainScreen();
-            //}
-            else {
+
+            if (appState is LoginStateIsInOnBoardingView) {
+              return AnimatedSwitcher(
+                transitionBuilder: (Widget child, Animation<double> animation) {
+                  return SlideTransition(
+                    position: Tween<Offset>(
+                      begin: const Offset(1.0, 0.0),
+                      end: Offset.zero,
+                    ).animate(animation),
+                    child: child,
+                  );
+                },
+                switchOutCurve: Threshold(0),
+                duration: const Duration(milliseconds: 500),
+                child: OnboardingScreen(
+                    // key: UniqueKey(),
+                    ),
+              );
+            }
+
+            if (appState is LoginStateIsInSplashView) {
+              return AnimatedSwitcher(
+                transitionBuilder: (Widget child, Animation<double> animation) {
+                  return SlideTransition(
+                    position: Tween<Offset>(
+                      begin: const Offset(1.0, 0.0),
+                      end: Offset.zero,
+                    ).animate(animation),
+                    child: child,
+                  );
+                },
+                switchOutCurve: Threshold(0),
+                duration: const Duration(milliseconds: 500),
+                child: SplashScreen(
+                    // key: UniqueKey(),
+                    ),
+              );
+            }
+
+            if (appState is LoginStateIsInRegistrationView) {
+              return AnimatedSwitcher(
+                transitionBuilder: (Widget child, Animation<double> animation) {
+                  return SlideTransition(
+                    position: Tween<Offset>(
+                      begin: const Offset(1.0, 0.0),
+                      end: Offset.zero,
+                    ).animate(animation),
+                    child: child,
+                  );
+                },
+                switchOutCurve: Threshold(0),
+                duration: const Duration(microseconds: 500),
+                child: RegisterScreen(
+                    // key: UniqueKey(),
+                    ),
+              );
+            }
+
+            if (appState is LoginStateIsInLoginView) {
+              return AnimatedSwitcher(
+                transitionBuilder: (Widget child, Animation<double> animation) {
+                  return SlideTransition(
+                    position: Tween<Offset>(
+                      begin: const Offset(1.0, 0.0),
+                      end: Offset.zero,
+                    ).animate(animation),
+                    child: child,
+                  );
+                },
+                switchOutCurve: Threshold(0),
+                duration: const Duration(milliseconds: 500),
+                child: LoginScreen(
+                    // key: UniqueKey(),
+                    ),
+              );
+            }
+
+            if (appState is LoginStateLoggedIn) {
+              return AnimatedSwitcher(
+                transitionBuilder: (Widget child, Animation<double> animation) {
+                  return SlideTransition(
+                    position: Tween<Offset>(
+                      begin: const Offset(1.0, 0.0),
+                      end: Offset.zero,
+                    ).animate(animation),
+                    child: child,
+                  );
+                },
+                switchOutCurve: Threshold(0),
+                duration: const Duration(milliseconds: 500),
+                child: MainScreen(
+                  // key: UniqueKey(),
+                  email: appState.email,
+                  name: appState.name,
+                  profileImage: appState.profileImage,
+                ),
+              );
+            } else {
               return Container();
             }
           },

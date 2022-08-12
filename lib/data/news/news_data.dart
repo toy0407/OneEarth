@@ -11,10 +11,10 @@ class NewsRepository {
   Future<List<Result>?> getData(String type) async {
     return await Future.delayed(const Duration(seconds: 0)).then((_) async {
       switch (type) {
-        case "localNews":
+        case "news":
           var localNews =
               await RemoteService().getLocalNews(++localCurrentPage);
-          print(localNews?.totalResults);
+          // print(localNews?.results?.elementAt(0));
           return localNews?.results;
 
         case "energyNews":

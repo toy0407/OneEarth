@@ -1,30 +1,29 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:one_earth/presentation/main/pageviews/news/bloc/energy_tab_cubit.dart';
-import 'package:one_earth/presentation/main/pageviews/news/bloc/local_tab_cubit.dart';
+import 'package:one_earth/data/news/news_data.dart';
 import 'package:one_earth/presentation/main/pageviews/news/bloc/news_state.dart';
-import 'package:one_earth/presentation/main/pageviews/news/bloc/soil_tab_cubit.dart';
-import 'package:one_earth/presentation/main/pageviews/news/bloc/water_tab_cubit.dart';
-import 'package:one_earth/presentation/main/pageviews/news/news_tabs/energy_tab.dart';
-import 'package:one_earth/presentation/main/pageviews/news/news_tabs/local_tab.dart';
-import 'package:one_earth/presentation/main/pageviews/news/news_tabs/soil_tab.dart';
-import 'package:one_earth/presentation/main/pageviews/news/news_tabs/water_tab.dart';
 import 'package:one_earth/presentation/resources/color_manager.dart';
 import 'package:one_earth/presentation/resources/styles_manager.dart';
 
+import '../../../resources/font_manager.dart';
+
 class NewsPage extends StatefulWidget {
-  const NewsPage({Key? key}) : super(key: key);
+  final List<Result>? data;
+  const NewsPage({Key? key, this.data}) : super(key: key);
 
   @override
   State<NewsPage> createState() => _NewsPageState();
 }
 
-class _NewsPageState extends State<NewsPage> with TickerProviderStateMixin {
-  late TabController _tabController;
+class _NewsPageState extends State<NewsPage> {
+  List<Result>? data;
+  int index = 0;
 
   @override
   void initState() {
-    _tabController = TabController(length: 4, vsync: this);
+    data = widget.data;
+    print(data);
     super.initState();
   }
 
@@ -33,94 +32,73 @@ class _NewsPageState extends State<NewsPage> with TickerProviderStateMixin {
     return Center(
       child: Text(
         'Generic News',
-        style: getBoldStyle(color: ColorManager.darkPrimary),
+        style: getMediumStyle(
+          color: ColorManager.darkPrimary,
+        ),
       ),
     );
+    // int prevIndex = index <= 0 ? 0 : index - 1;
+    // int nextIndex = index == widget.data!.length - 1 ? 0 : index + 1;
+    // if (widget.data == null) {
+    //   return Center(
+    //       child: Text(
+    //     'Unable to load data',
+    //     style: getLightStyle(color: ColorManager.black, fontSize: FontSize.s30),
+    //   ));
+    // }
+    // return Dismissible(
+    //   background: newsCard(prevIndex),
+    //   child: newsCard(index),
+    //   secondaryBackground: newsCard(nextIndex),
+    //   resizeDuration: Duration(milliseconds: 10),
+    //   key: Key(index.toString()),
+    //   direction: DismissDirection.vertical,
+    //   onDismissed: (direction) {
+    //     updateContent(direction);
+    //   },
+    // );
   }
+
+  // Widget newsCard(index) {
+  //   return Column(
+  //     children: [
+  //       widget.data[index].imageUrl == null
+  //           ? Image.asset()
+  //           : CachedNetworkImage(imageUrl: da)
+  //     ],
+  //   );
+  // }
+
+  // void updateIndex(newIndex) {
+  //   setState(() {
+  //     index = newIndex;
+  //   });
+  //   SharePreference.setLastIndex(newIndex);
+  // }
+
+  // void setupLastIndex() async {
+  //   int lastIndex = await SharePreference.getLastIndex();
+  //   if (lastIndex != null && lastIndex < newsModal.result.length - 1) {
+  //     updateIndex(lastIndex);
+  //   }
+  // }
+
+  // void updateContent(direction) {
+  //   if (index <= 0 && direction == DismissDirection.down) {
+  //     index = newsModal.result.length - 1;
+  //   } else if (index == newsModal.result.length - 1 &&
+  //       direction == DismissDirection.up) {
+  //     index = 0;
+  //   } else if (direction == DismissDirection.up) {
+  //     index++;
+  //   } else {
+  //     index--;
+  //   }
+  //   updateIndex(index);
+  // }
 
   @override
   void dispose() {
-    _tabController.dispose();
     super.dispose();
   }
 }
-
-
-
-// TabBar(
-        //   indicatorColor: ColorManager.darkPrimary,
-        //   controller: _tabController,
-        //   tabs: const [
-        //     Tab(text: 'Local'),
-        //     Tab(text: 'Energy'),
-        //     Tab(text: 'Water'),
-        //     Tab(text: 'Soil'),
-        //   ],
-        // ),
-        // Expanded(
-        //   child: TabBarView(controller: _tabController, children: [
-        //     // LOCAL NEWS TAB
-
-        //     BlocBuilder<LocalTabCubit, NewsGenericState>(
-        //       builder: (context, state) {
-        //         if (state.isFailed) {
-        //           return const Text("Failed to fetch Local News");
-        //         }
-
-        //         if (state.isLoading) {
-        //           return const Text("Loading Local News...");
-        //         }
-
-        //         return LocalTabView(data: state.data);
-        //       },
-        //     ),
-
-        //     // ENERGY NEWS TAB
-
-        //     BlocBuilder<EnergyTabCubit, NewsGenericState>(
-        //       builder: (context, state) {
-        //         if (state.isFailed) {
-        //           return const Text("Failed to fetch Energy News");
-        //         }
-
-        //         if (state.isLoading) {
-        //           return const Text("Loading Energy News...");
-        //         }
-
-        //         return EnergyTabView(data: state.data!);
-        //       },
-        //     ),
-
-        //     // WATER NEWS TAB
-
-        //     BlocBuilder<WaterTabCubit, NewsGenericState>(
-        //       builder: (context, state) {
-        //         if (state.isFailed) {
-        //           return const Text("Failed to fetch Water News");
-        //         }
-
-        //         if (state.isLoading) {
-        //           return const Text("Loading Water News...");
-        //         }
-
-        //         return WaterTabView(data: state.data!);
-        //       },
-        //     ),
-
-        //     // SOIL NEWS TAB
-
-        //     BlocBuilder<SoilTabCubit, NewsGenericState>(
-        //       builder: (context, state) {
-        //         if (state.isFailed) {
-        //           return const Text("Failed to fetch Soil News");
-        //         }
-
-        //         if (state.isLoading) {
-        //           return const Text("Loading Soil News...");
-        //         }
-
-        //         return SoilTabView(data: state.data!);
-        //       },
-        //     ),
-        //   ]),
-        // )

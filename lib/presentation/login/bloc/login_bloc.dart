@@ -25,7 +25,11 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
         //     isLoading: true,
         //   ),
         // );
-        emit(const Load(isLoading: true));
+        emit(
+          const LoginStateIsInLoginView(
+            isLoading: true,
+          ),
+        );
         // log the user out
         await FirebaseAuth.instance.signOut();
         // log the user out in the UI as well
@@ -86,7 +90,11 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
         //     isLoading: true,
         //   ),
         // );
-        emit(const Load(isLoading: true));
+        emit(
+          const LoginStateIsInRegistrationView(
+            isLoading: true,
+          ),
+        );
         final email = event.email;
         final password = event.password;
         final name = event.name;
@@ -114,7 +122,7 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
           );
         } on FirebaseAuthException catch (e) {
           emit(
-            Error(
+            LoginStateIsInRegistrationView(
               isLoading: false,
               authError: AuthError.from(e),
             ),
@@ -156,7 +164,11 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
         //     isLoading: true,
         //   ),
         // );
-        emit(const Load(isLoading: true));
+        emit(
+          const LoginStateIsInLoginView(
+            isLoading: true,
+          ),
+        );
         // log the user in
         try {
           final email = event.email;
@@ -187,7 +199,7 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
           );
         } on FirebaseAuthException catch (e) {
           emit(
-            Error(
+            LoginStateIsInLoginView(
               isLoading: false,
               authError: AuthError.from(e),
             ),
