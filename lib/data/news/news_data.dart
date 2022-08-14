@@ -38,9 +38,9 @@ class RemoteService {
     String apiKey = AppStrings.newsDataApiKey;
     String country = 'in';
     String language = 'en';
-    String query = 'sustainability';
+    String query = 'environment';
     String url =
-        'https://newsdata.io/api/1/news?apikey=$apiKey&country=$country&language=$language&q=$query&page=$nextPage';
+        'https://newsdata.io/api/1/news?apikey=$apiKey&language=$language&q=$query&page=$nextPage';
     var uri = Uri.parse(url);
     var response = await client.get(uri);
     if (response.statusCode == 200) {
@@ -86,6 +86,20 @@ class NewsData {
 }
 
 class Result {
+  String? title;
+  String? link;
+  List<String>? keywords;
+  List<String>? creator;
+  dynamic? videoUrl;
+  String? description;
+  String? content;
+  DateTime? pubDate;
+  String? imageUrl;
+  String? sourceId;
+  List<String>? country;
+  // List<Category>? category;
+  String? language;
+
   Result({
     this.title,
     this.link,
@@ -101,20 +115,6 @@ class Result {
     // this.category,
     this.language,
   });
-
-  String? title;
-  String? link;
-  List<String>? keywords;
-  List<String>? creator;
-  dynamic? videoUrl;
-  String? description;
-  String? content;
-  DateTime? pubDate;
-  String? imageUrl;
-  String? sourceId;
-  List<String>? country;
-  // List<Category>? category;
-  String? language;
 
   factory Result.fromJson(Map<String, dynamic> json) => Result(
         title: json["title"],

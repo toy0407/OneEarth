@@ -49,6 +49,7 @@ dependencies:
   email_validator: ^2.1.2
   string_validator: ^0.3.0
   cached_network_image: ^3.2.1
+  shared_preferences: ^2.0.15
 
 dev_dependencies:
   flutter_test:

@@ -9,6 +9,7 @@ class ImageAssets {
   static const String onboardingLogo4 = "$IMAGE_PATH/onboarding_logo4.svg";
   static const String companyLogo = "$IMAGE_PATH/company_logo.png";
   static const String profileAvatar = "$IMAGE_PATH/blank_profile_image.png";
+  static const String noImageAvailable = "$IMAGE_PATH/no_image.png";
 }
 
 class LottieAnimAssets {
