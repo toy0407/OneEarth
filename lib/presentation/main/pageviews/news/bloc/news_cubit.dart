@@ -31,7 +31,7 @@ class NewsCubit extends Cubit<NewsGenericState> {
 
     try {
       // Wait for data from repository
-      List<Result>? data = await newsRepository.getData("news");
+      List<Article>? data = await newsRepository.getData("news");
 
       // Send a success state
       emit(NewsGenericState(data: data!, isFailed: false));

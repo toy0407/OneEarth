@@ -8,14 +8,14 @@ class NewsRepository {
       waterCurrentPage = -1,
       soilCurrentPage = -1;
   List<NewsData> finalList = [];
-  Future<List<Result>?> getData(String type) async {
+  Future<List<Article>?> getData(String type) async {
     return await Future.delayed(const Duration(seconds: 0)).then((_) async {
       switch (type) {
         case "news":
           var localNews =
               await RemoteService().getLocalNews(++localCurrentPage);
           // print(localNews?.results?.elementAt(0));
-          return localNews?.results;
+          return localNews?.articles;
 
         case "energyNews":
 
@@ -38,9 +38,9 @@ class RemoteService {
     String apiKey = AppStrings.newsDataApiKey;
     String country = 'in';
     String language = 'en';
-    String query = 'environment';
+    String query = 'sustainability';
     String url =
-        'https://newsdata.io/api/1/news?apikey=$apiKey&language=$language&q=$query&page=$nextPage';
+        'https://newsapi.org/v2/everything?apiKey=$apiKey&language=$language&q=$query';
     var uri = Uri.parse(url);
     var response = await client.get(uri);
     if (response.statusCode == 200) {
@@ -54,125 +54,118 @@ class RemoteService {
 ///////////////////////////////////////////////// NewsData Model Class //////////////////////////////////
 
 NewsData newsDataFromJson(String str) => NewsData.fromJson(json.decode(str));
+
 String newsDataToJson(NewsData data) => json.encode(data.toJson());
 
 class NewsData {
   NewsData({
     this.status,
     this.totalResults,
-    this.results,
-    this.nextPage,
+    this.articles,
   });
 
   String? status;
   int? totalResults;
-  List<Result>? results;
-  int? nextPage;
+  List<Article>? articles;
 
   factory NewsData.fromJson(Map<String, dynamic> json) => NewsData(
         status: json["status"],
         totalResults: json["totalResults"],
-        results:
-            List<Result>.from(json["results"].map((x) => Result.fromJson(x))),
-        nextPage: json["nextPage"],
+        articles: List<Article>.from(
+            json["articles"].map((x) => Article.fromJson(x))),
       );
 
   Map<String, dynamic> toJson() => {
         "status": status,
         "totalResults": totalResults,
-        "results": List<dynamic>.from(results!.map((x) => x.toJson())),
-        "nextPage": nextPage,
+        "articles": List<dynamic>.from(articles!.map((x) => x.toJson())),
       };
 }
 
-class Result {
-  String? title;
-  String? link;
-  List<String>? keywords;
-  List<String>? creator;
-  dynamic? videoUrl;
-  String? description;
-  String? content;
-  DateTime? pubDate;
-  String? imageUrl;
-  String? sourceId;
-  List<String>? country;
-  // List<Category>? category;
-  String? language;
-
-  Result({
+class Article {
+  Article({
+    // this.source,
+    this.author,
     this.title,
-    this.link,
-    this.keywords,
-    this.creator,
-    this.videoUrl,
     this.description,
+    this.url,
+    this.urlToImage,
+    this.publishedAt,
     this.content,
-    this.pubDate,
-    this.imageUrl,
-    this.sourceId,
-    this.country,
-    // this.category,
-    this.language,
   });
 
-  factory Result.fromJson(Map<String, dynamic> json) => Result(
+  // Source? source;
+  String? author;
+  String? title;
+  String? description;
+  String? url;
+  String? urlToImage;
+  DateTime? publishedAt;
+  String? content;
+
+  factory Article.fromJson(Map<String, dynamic> json) => Article(
+        // source: Source.fromJson(json["source"]),
+        author: json["author"] == null ? null : json["author"],
         title: json["title"],
-        link: json["link"],
-        keywords: json["keywords"] == null
-            ? []
-            : List<String>.from(json["keywords"].map((x) => x)),
-        creator: json["creator"] == null
-            ? []
-            : List<String>.from(json["creator"].map((x) => x)),
-        videoUrl: json["video_url"],
-        description: json["description"] == null ? null : json["description"],
-        content: json["content"] == null ? null : json["content"],
-        pubDate: DateTime.parse(json["pubDate"]),
-        imageUrl: json["image_url"] == null ? null : json["image_url"],
-        sourceId: json["source_id"],
-        country: List<String>.from(json["country"].map((x) => x)),
-        // category: List<Category>.from(
-        //     json["category"].map((x) => categoryValues.map[x])),
-        language: json["language"],
+        description: json["description"],
+        url: json["url"],
+        urlToImage: json["urlToImage"],
+        publishedAt: DateTime.parse(json["publishedAt"]),
+        content: json["content"],
       );
 
   Map<String, dynamic> toJson() => {
+        // "source": source!.toJson(),
+        "author": author == null ? null : author,
         "title": title,
-        "link": link,
-        "keywords": keywords == null
-            ? null
-            : List<dynamic>.from(keywords!.map((x) => x)),
-        "creator":
-            creator == null ? null : List<dynamic>.from(creator!.map((x) => x)),
-        "video_url": videoUrl,
-        "description": description == null ? null : description,
-        "content": content == null ? null : content,
-        "pubDate": pubDate!.toIso8601String(),
-        "image_url": imageUrl == null ? null : imageUrl,
-        "source_id": sourceId,
-        "country": List<dynamic>.from(country!.map((x) => x)),
-        // "category":
-        //     List<dynamic>.from(category!.map((x) => categoryValues.reverse[x])),
-        "language": language,
+        "description": description,
+        "url": url,
+        "urlToImage": urlToImage,
+        "publishedAt": publishedAt!.toIso8601String(),
+        "content": content,
       };
 }
 
-// enum Category { SPORTS, TOP }
+// class Source {
+//     Source({
+//         this.id,
+//         this.name,
+//     });
 
-// final categoryValues =
-//     EnumValues({"sports": Category.SPORTS, "top": Category.TOP});
+//     Id? id;
+//     String? name;
+
+//     factory Source.fromJson(Map<String, dynamic> json) => Source(
+//         id: json["id"] == null ? null : idValues.map[json["id"]],
+//         name: json["name"],
+//     );
+
+//     Map<String, dynamic> toJson() => {
+//         "id": id == null ? null : idValues.reverse[id],
+//         "name": name,
+//     };
+// }
+
+// final idValues = EnumValues({
+//     "business-insider": Id.BUSINESS_INSIDER,
+//     "cnn": Id.CNN,
+//     "engadget": Id.ENGADGET,
+//     "reuters": Id.REUTERS,
+//     "the-verge": Id.THE_VERGE,
+//     "time": Id.TIME,
+//     "wired": Id.WIRED
+// });
 
 // class EnumValues<T> {
-//   Map<String, T> map;
-//   late Map<T, String> reverseMap;
+//     Map<String, T> map;
+//     Map<T, String> reverseMap;
 
-//   EnumValues(this.map);
+//     EnumValues(this.map);
 
-//   Map<T, String> get reverse {
-//     if (reverseMap == null) {
-//       reverseMap = map.map((k, v) => new MapEntry(v, k));
+//     Map<T, String> get reverse {
+//         if (reverseMap == null) {
+//             reverseMap = map.map((k, v) => new MapEntry(v, k));
+//         }
+//         return reverseMap;
 //     }
-//     return reverseMap;
-//   }
 // }

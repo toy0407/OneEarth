@@ -4,7 +4,7 @@ class NewsGenericState {
   ///
   /// Categories data
   ///
-  final List<Result>? data;
+  final List<Article>? data;
 
   ///
   /// Tells the data is loading or not

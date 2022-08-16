@@ -12,7 +12,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import '../../../resources/font_manager.dart';
 
 class NewsPage extends StatefulWidget {
-  final List<Result>? data;
+  final List<Article>? data;
   const NewsPage({Key? key, this.data}) : super(key: key);
 
   @override
@@ -20,7 +20,7 @@ class NewsPage extends StatefulWidget {
 }
 
 class _NewsPageState extends State<NewsPage> {
-  List<Result>? data;
+  List<Article>? data;
   int index = 0;
 
   @override
@@ -67,9 +67,9 @@ class _NewsPageState extends State<NewsPage> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
-        widget.data![index].imageUrl == null
+        widget.data![index].urlToImage == null
             ? Image.asset(ImageAssets.noImageAvailable)
-            : CachedNetworkImage(imageUrl: data![index].imageUrl.toString()),
+            : CachedNetworkImage(imageUrl: data![index].urlToImage.toString()),
         Padding(
           padding: const EdgeInsets.all(AppPadding.p12),
           child: Column(
@@ -79,8 +79,15 @@ class _NewsPageState extends State<NewsPage> {
                     color: ColorManager.black,
                     fontSize: FontSize.s20,
                   )),
-              SizedBox(height: AppSize.s12),
-              Text(data![index].description.toString()),
+              Text(
+                data![index].description.toString() + '...',
+                style: getRegularStyle(
+                  color: ColorManager.darkGrey,
+                  fontSize: FontSize.s16,
+                ),
+                maxLines: 5,
+              ),
+              TextButton(onPressed: null, child: Text('Read more here...')),
             ],
           ),
         ),

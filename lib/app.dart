@@ -20,53 +20,53 @@ import 'package:one_earth/presentation/splash/splash_screen.dart';
 
 import 'package:flutter/cupertino.dart';
 
-class RegisterPageRoute extends CupertinoPageRoute {
-  RegisterPageRoute()
-      : super(builder: (BuildContext context) => const RegisterScreen());
+// class RegisterPageRoute extends CupertinoPageRoute {
+//   RegisterPageRoute()
+//       : super(builder: (BuildContext context) => const RegisterScreen());
 
-  @override
-  Duration get transitionDuration => const Duration(milliseconds: 2000);
-}
+//   @override
+//   Duration get transitionDuration => const Duration(milliseconds: 2000);
+// }
 
-class LoginPageRoute extends CupertinoPageRoute {
-  LoginPageRoute()
-      : super(builder: (BuildContext context) => const LoginScreen());
+// class LoginPageRoute extends CupertinoPageRoute {
+//   LoginPageRoute()
+//       : super(builder: (BuildContext context) => const LoginScreen());
 
-  @override
-  Duration get transitionDuration => const Duration(milliseconds: 2000);
-}
+//   @override
+//   Duration get transitionDuration => const Duration(milliseconds: 2000);
+// }
 
-class MainPageRoute extends CupertinoPageRoute {
-  MainPageRoute(
-      {required String name,
-      required String email,
-      required String profileImage})
-      : super(
-            builder: (BuildContext context) => MainScreen(
-                  name: name,
-                  email: email,
-                  profileImage: profileImage,
-                ));
+// class MainPageRoute extends CupertinoPageRoute {
+//   MainPageRoute(
+//       {required String name,
+//       required String email,
+//       required String profileImage})
+//       : super(
+//             builder: (BuildContext context) => MainScreen(
+//                   name: name,
+//                   email: email,
+//                   profileImage: profileImage,
+//                 ));
 
-  @override
-  Duration get transitionDuration => const Duration(milliseconds: 2000);
-}
+//   @override
+//   Duration get transitionDuration => const Duration(milliseconds: 2000);
+// }
 
-class OnboardingPageRoute extends CupertinoPageRoute {
-  OnboardingPageRoute()
-      : super(builder: (BuildContext context) => const OnboardingScreen());
+// class OnboardingPageRoute extends CupertinoPageRoute {
+//   OnboardingPageRoute()
+//       : super(builder: (BuildContext context) => const OnboardingScreen());
 
-  @override
-  Duration get transitionDuration => const Duration(milliseconds: 2000);
-}
+//   @override
+//   Duration get transitionDuration => const Duration(milliseconds: 2000);
+// }
 
-class SplashPageRoute extends CupertinoPageRoute {
-  SplashPageRoute()
-      : super(builder: (BuildContext context) => const SplashScreen());
+// class SplashPageRoute extends CupertinoPageRoute {
+//   SplashPageRoute()
+//       : super(builder: (BuildContext context) => const SplashScreen());
 
-  @override
-  Duration get transitionDuration => const Duration(milliseconds: 2000);
-}
+//   @override
+//   Duration get transitionDuration => const Duration(milliseconds: 2000);
+// }
 
 class MyApp extends StatelessWidget {
   MyApp({Key? key}) : super(key: key);

@@ -16,7 +16,7 @@ class SplashScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     Timer(
-      const Duration(milliseconds: 5000),
+      const Duration(seconds: 4),
       (() {
         context.read<LoginBloc>().add(const LoginEventInitialize());
       }),
@@ -27,8 +27,7 @@ class SplashScreen extends StatelessWidget {
         children: [
           Hero(
               tag: 'imageHero',
-              child:
-                  Lottie.asset(LottieAnimAssets.splashLogoAnim, repeat: false)),
+              child: Lottie.asset(LottieAnimAssets.splashLogoAnim)),
           Text(
             'One Earth',
             style: getRegularStyle(
