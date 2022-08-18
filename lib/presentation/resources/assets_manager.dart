@@ -10,6 +10,7 @@ class ImageAssets {
   static const String companyLogo = "$IMAGE_PATH/company_logo.png";
   static const String profileAvatar = "$IMAGE_PATH/blank_profile_image.png";
   static const String noImageAvailable = "$IMAGE_PATH/no_image.png";
+  static const String placeholderImage = "$IMAGE_PATH/placeholder-image.png";
 }
 
 class LottieAnimAssets {

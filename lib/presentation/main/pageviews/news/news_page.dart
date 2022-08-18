@@ -1,4 +1,5 @@
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:one_earth/data/news/news_data.dart';
@@ -8,6 +9,7 @@ import 'package:one_earth/presentation/resources/color_manager.dart';
 import 'package:one_earth/presentation/resources/styles_manager.dart';
 import 'package:one_earth/presentation/resources/values_manager.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 import '../../../resources/font_manager.dart';
 
@@ -22,26 +24,25 @@ class NewsPage extends StatefulWidget {
 class _NewsPageState extends State<NewsPage> {
   List<Article>? data;
   int index = 0;
+  var connectivityResult;
 
   @override
   void initState() {
     data = widget.data;
-    print(data);
+    connectivityResult = Connectivity().checkConnectivity();
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
-    // return Center(
-    //   child: Text(
-    //     'Generic News',
-    //     style: getMediumStyle(
-    //       color: ColorManager.darkPrimary,
-    //     ),
-    //   ),
-    // );
+    if (connectivityResult == ConnectivityResult.none)
+      return Center(
+          child: Text('No Internet Connextion',
+              style: getLightStyle(
+                  color: ColorManager.black, fontSize: FontSize.s25)));
     int prevIndex = index <= 0 ? 0 : index - 1;
     int nextIndex = index == widget.data!.length - 1 ? 0 : index + 1;
+
     print(widget.data!.length);
     if (widget.data == null || widget.data!.length <= 2) {
       return Center(
@@ -67,9 +68,19 @@ class _NewsPageState extends State<NewsPage> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
-        widget.data![index].urlToImage == null
+        (widget.data![index].urlToImage == null)
             ? Image.asset(ImageAssets.noImageAvailable)
-            : CachedNetworkImage(imageUrl: data![index].urlToImage.toString()),
+            : CachedNetworkImage(
+                imageUrl: data![index].urlToImage.toString(),
+                placeholder: (ctx, str) {
+                  return Image.asset(ImageAssets.placeholderImage);
+                },
+                errorWidget: ((context, url, error) {
+                  return Image.asset(ImageAssets.placeholderImage);
+                }),
+                height: 220,
+                fit: BoxFit.fill,
+              ),
         Padding(
           padding: const EdgeInsets.all(AppPadding.p12),
           child: Column(
@@ -87,12 +98,20 @@ class _NewsPageState extends State<NewsPage> {
                 ),
                 maxLines: 5,
               ),
-              TextButton(onPressed: null, child: Text('Read more here...')),
+              TextButton(
+                  onPressed: () => _launchUrl(data![index].url.toString()),
+                  child: const Text('Read more here...')),
             ],
           ),
         ),
       ],
     );
+  }
+
+  Future<void> _launchUrl(String url) async {
+    if (!await launchUrl(Uri.parse(url), mode: LaunchMode.platformDefault)) {
+      throw 'Could not launch $url';
+    }
   }
 
   void updateIndex(newIndex) {
