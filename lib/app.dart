@@ -169,9 +169,7 @@ class MyApp extends StatelessWidget {
                     // key: UniqueKey(),
                     ),
               );
-            }
-
-            if (appState is LoginStateIsInOnBoardingView) {
+            } else if (appState is LoginStateIsInOnBoardingView) {
               return AnimatedSwitcher(
                 transitionBuilder: (Widget child, Animation<double> animation) {
                   return SlideTransition(
@@ -188,9 +186,7 @@ class MyApp extends StatelessWidget {
                     // key: UniqueKey(),
                     ),
               );
-            }
-
-            if (appState is LoginStateIsInSplashView) {
+            } else if (appState is LoginStateIsInSplashView) {
               return AnimatedSwitcher(
                 transitionBuilder: (Widget child, Animation<double> animation) {
                   return SlideTransition(
@@ -207,47 +203,41 @@ class MyApp extends StatelessWidget {
                     // key: UniqueKey(),
                     ),
               );
-            }
-
-            if (appState is LoginStateIsInRegistrationView) {
+            } else if (appState is LoginStateIsInRegistrationView) {
               return AnimatedSwitcher(
-                transitionBuilder: (Widget child, Animation<double> animation) {
-                  return SlideTransition(
-                    position: Tween<Offset>(
-                      begin: const Offset(1.0, 0.0),
-                      end: Offset.zero,
-                    ).animate(animation),
-                    child: child,
-                  );
-                },
-                switchOutCurve: Threshold(0),
-                duration: const Duration(microseconds: 500),
-                child: RegisterScreen(
-                    // key: UniqueKey(),
-                    ),
-              );
-            }
-
-            if (appState is LoginStateIsInLoginView) {
+                  transitionBuilder:
+                      (Widget child, Animation<double> animation) {
+                    return SlideTransition(
+                      position: Tween<Offset>(
+                        begin: const Offset(1.0, 0.0),
+                        end: Offset.zero,
+                      ).animate(animation),
+                      child: child,
+                    );
+                  },
+                  switchOutCurve: Threshold(0),
+                  duration: const Duration(milliseconds: 500),
+                  child: RegisterScreen(
+                      // key: UniqueKey(),
+                      ));
+            } else if (appState is LoginStateIsInLoginView) {
               return AnimatedSwitcher(
-                transitionBuilder: (Widget child, Animation<double> animation) {
-                  return SlideTransition(
-                    position: Tween<Offset>(
-                      begin: const Offset(1.0, 0.0),
-                      end: Offset.zero,
-                    ).animate(animation),
-                    child: child,
-                  );
-                },
-                switchOutCurve: Threshold(0),
-                duration: const Duration(milliseconds: 500),
-                child: LoginScreen(
-                    // key: UniqueKey(),
-                    ),
-              );
-            }
-
-            if (appState is LoginStateLoggedIn) {
+                  transitionBuilder:
+                      (Widget child, Animation<double> animation) {
+                    return SlideTransition(
+                      position: Tween<Offset>(
+                        begin: const Offset(1.0, 0.0),
+                        end: Offset.zero,
+                      ).animate(animation),
+                      child: child,
+                    );
+                  },
+                  switchOutCurve: Threshold(0),
+                  duration: Duration(milliseconds: 500),
+                  child: LoginScreen(
+                      // key: UniqueKey(),
+                      ));
+            } else if (appState is LoginStateLoggedIn) {
               return AnimatedSwitcher(
                 transitionBuilder: (Widget child, Animation<double> animation) {
                   return SlideTransition(
