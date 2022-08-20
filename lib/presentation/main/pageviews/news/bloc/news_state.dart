@@ -6,6 +6,8 @@ class NewsGenericState {
   ///
   final List<Article>? data;
 
+  final bool isConnection;
+
   ///
   /// Tells the data is loading or not
   ///
@@ -17,5 +19,8 @@ class NewsGenericState {
   final bool isFailed;
 
   NewsGenericState(
-      {required this.data, this.isLoading = false, this.isFailed = false});
+      {required this.data,
+      this.isLoading = false,
+      this.isFailed = false,
+      this.isConnection = true});
 }

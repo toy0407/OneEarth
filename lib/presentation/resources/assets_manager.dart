@@ -19,4 +19,6 @@ class LottieAnimAssets {
   static const String onboarding1Anim = "$LOTTIE_ANIM_PATH/onboarding-1.json";
   static const String onboarding2Anim = "$LOTTIE_ANIM_PATH/onboarding-2.json";
   static const String onboarding3Anim = "$LOTTIE_ANIM_PATH/onboarding-3.json";
+  static const String noInternetConnection =
+      "$LOTTIE_ANIM_PATH/no-internet-connection.json";
 }

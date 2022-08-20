@@ -15,7 +15,9 @@ import 'package:one_earth/presentation/main/pageviews/tutorial/tutorial_page.dar
 import 'package:one_earth/presentation/resources/color_manager.dart';
 import 'package:one_earth/presentation/resources/strings_manager.dart';
 import 'package:one_earth/presentation/resources/styles_manager.dart';
+import 'package:lottie/lottie.dart';
 
+import '../resources/assets_manager.dart';
 import 'bloc/bottom_navigation_state.dart';
 
 class MainScreen extends StatefulWidget {
@@ -35,6 +37,8 @@ class MainScreen extends StatefulWidget {
 
 class _MainScreenState extends State<MainScreen> {
   final PageController _pageController = PageController(initialPage: 2);
+  final GlobalKey<RefreshIndicatorState> _refreshIndicatorKey =
+      GlobalKey<RefreshIndicatorState>();
 
   late BottomNavigationBloc _bottomNavigationBloc;
 
@@ -54,21 +58,26 @@ class _MainScreenState extends State<MainScreen> {
   }
 
   Scaffold buildMainPage(int currentIndex) {
+    Future<void> _onRefresh() async {
+      context.read<NewsCubit>().load();
+    }
+
+    AppBar appBar = AppBar(
+      title: const Text(AppStrings.appName),
+      actions: [
+        TextButton(
+            onPressed: (() => {
+                  showLogOutDialog(context).then((value) => value == true
+                      ? context.read<LoginBloc>().add(
+                            const LoginEventLogOut(),
+                          )
+                      : null),
+                }),
+            child: Icon(Icons.logout_outlined, color: ColorManager.white)),
+      ],
+    );
     return Scaffold(
-      appBar: AppBar(
-        title: const Text(AppStrings.appName),
-        actions: [
-          TextButton(
-              onPressed: (() => {
-                    showLogOutDialog(context).then((value) => value == true
-                        ? context.read<LoginBloc>().add(
-                              const LoginEventLogOut(),
-                            )
-                        : null),
-                  }),
-              child: Icon(Icons.logout_outlined, color: ColorManager.white)),
-        ],
-      ),
+      appBar: appBar,
       body: PageView(
         controller: _pageController,
         onPageChanged: (value) {
@@ -85,11 +94,32 @@ class _MainScreenState extends State<MainScreen> {
           BlocBuilder<NewsCubit, NewsGenericState>(
             builder: (context, state) {
               if (state.isFailed) {
-                return const Text("Failed to fetch Energy News");
+                return const Text("Failed to fetch News");
+              }
+
+              if (state.isConnection == false) {
+                return LayoutBuilder(
+                  builder: ((context, constraints) => RefreshIndicator(
+                        onRefresh: () {
+                          return _onRefresh();
+                        },
+                        child: SingleChildScrollView(
+                          physics: const AlwaysScrollableScrollPhysics(),
+                          child: SizedBox(
+                            child: Center(
+                              child: Lottie.asset(
+                                  LottieAnimAssets.noInternetConnection),
+                            ),
+                            height: MediaQuery.of(context).size.height -
+                                appBar.preferredSize.height,
+                          ),
+                        ),
+                      )),
+                );
               }
 
               if (state.isLoading) {
-                return const Text("Loading Energy News...");
+                return const Text("Loading News...");
               }
 
               return NewsPage(data: state.data!);
