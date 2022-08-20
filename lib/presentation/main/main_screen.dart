@@ -14,7 +14,6 @@ import 'package:one_earth/presentation/main/pageviews/social/social_page.dart';
 import 'package:one_earth/presentation/main/pageviews/tutorial/tutorial_page.dart';
 import 'package:one_earth/presentation/resources/color_manager.dart';
 import 'package:one_earth/presentation/resources/strings_manager.dart';
-import 'package:one_earth/presentation/resources/styles_manager.dart';
 import 'package:lottie/lottie.dart';
 
 import '../resources/assets_manager.dart';
@@ -37,8 +36,8 @@ class MainScreen extends StatefulWidget {
 
 class _MainScreenState extends State<MainScreen> {
   final PageController _pageController = PageController(initialPage: 2);
-  final GlobalKey<RefreshIndicatorState> _refreshIndicatorKey =
-      GlobalKey<RefreshIndicatorState>();
+  // final GlobalKey<RefreshIndicatorState> _refreshIndicatorKey =
+  //     GlobalKey<RefreshIndicatorState>();
 
   late BottomNavigationBloc _bottomNavigationBloc;
 
@@ -100,6 +99,7 @@ class _MainScreenState extends State<MainScreen> {
               if (state.isConnection == false) {
                 return LayoutBuilder(
                   builder: ((context, constraints) => RefreshIndicator(
+                        color: ColorManager.darkPrimary,
                         onRefresh: () {
                           return _onRefresh();
                         },
@@ -119,7 +119,11 @@ class _MainScreenState extends State<MainScreen> {
               }
 
               if (state.isLoading) {
-                return const Text("Loading News...");
+                return Center(
+                  child: CircularProgressIndicator(
+                    color: ColorManager.darkPrimary,
+                  ),
+                );
               }
 
               return NewsPage(data: state.data!);
@@ -143,14 +147,16 @@ class _MainScreenState extends State<MainScreen> {
                 icon: Icon(Icons.calendar_month_outlined), label: 'Events')
           ],
           onTap: (value) {
-            if (value == 0)
+            if (value == 0) {
               _bottomNavigationBloc.add(const TutorialPageTapped());
+            }
             if (value == 1) _bottomNavigationBloc.add(const SocialPageTapped());
             if (value == 2) _bottomNavigationBloc.add(const HomePageTapped());
             if (value == 3) _bottomNavigationBloc.add(const NewsPageTapped());
             if (value == 4) _bottomNavigationBloc.add(const EventsPageTapped());
             _pageController.animateToPage(value,
-                curve: Curves.easeIn, duration: Duration(milliseconds: 350));
+                curve: Curves.easeIn,
+                duration: const Duration(milliseconds: 350));
           }),
     );
   }

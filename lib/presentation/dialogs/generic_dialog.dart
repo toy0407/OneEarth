@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:one_earth/presentation/resources/color_manager.dart';
+import 'package:one_earth/presentation/resources/font_manager.dart';
+import 'package:one_earth/presentation/resources/styles_manager.dart';
 
 typedef DialogOptionBuilder<T> = Map<String, T?> Function();
 
@@ -13,8 +16,18 @@ Future<T?> showGenericDialog<T>({
     context: context,
     builder: (context) {
       return AlertDialog(
-        title: Text(title),
-        content: Text(content),
+        title: Text(
+          title,
+          style: getSemiBoldStyle(
+            color: ColorManager.darkPrimary,
+            fontSize: FontSize.s18,
+          ),
+        ),
+        content: Text(
+          content,
+          style: getRegularStyle(
+              color: ColorManager.black, fontSize: FontSize.s16),
+        ),
         actions: options.keys.map((optionTitle) {
           final value = options[optionTitle];
           return TextButton(

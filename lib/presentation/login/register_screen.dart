@@ -1,12 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:one_earth/presentation/resources/assets_manager.dart';
 import 'package:one_earth/presentation/resources/values_manager.dart';
 import 'package:one_earth/presentation/login/bloc/login_bloc.dart';
 import 'package:one_earth/presentation/login/bloc/login_event.dart';
 import 'package:email_validator/email_validator.dart';
-import 'package:string_validator/string_validator.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
 import '../resources/color_manager.dart';
@@ -73,7 +71,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
         child: Padding(
           padding: const EdgeInsets.all(AppPadding.p20),
           child: Column(
-            key: ValueKey(1),
+            key: const ValueKey(1),
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Image.asset(ImageAssets.companyLogo),

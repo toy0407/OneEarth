@@ -18,8 +18,6 @@ import 'package:one_earth/presentation/onboarding/onboarding_screen.dart';
 import 'package:one_earth/presentation/resources/theme_manager.dart';
 import 'package:one_earth/presentation/splash/splash_screen.dart';
 
-import 'package:flutter/cupertino.dart';
-
 // class RegisterPageRoute extends CupertinoPageRoute {
 //   RegisterPageRoute()
 //       : super(builder: (BuildContext context) => const RegisterScreen());
@@ -163,11 +161,9 @@ class MyApp extends StatelessWidget {
                     child: child,
                   );
                 },
-                switchOutCurve: Threshold(0),
+                switchOutCurve: const Threshold(0),
                 duration: const Duration(milliseconds: 500),
-                child: SplashScreen(
-                    // key: UniqueKey(),
-                    ),
+                child: const SplashScreen(),
               );
             } else if (appState is LoginStateIsInOnBoardingView) {
               return AnimatedSwitcher(
@@ -180,11 +176,9 @@ class MyApp extends StatelessWidget {
                     child: child,
                   );
                 },
-                switchOutCurve: Threshold(0),
+                switchOutCurve: const Threshold(0),
                 duration: const Duration(milliseconds: 500),
-                child: OnboardingScreen(
-                    // key: UniqueKey(),
-                    ),
+                child: const OnboardingScreen(),
               );
             } else if (appState is LoginStateIsInSplashView) {
               return AnimatedSwitcher(
@@ -197,11 +191,9 @@ class MyApp extends StatelessWidget {
                     child: child,
                   );
                 },
-                switchOutCurve: Threshold(0),
+                switchOutCurve: const Threshold(0),
                 duration: const Duration(milliseconds: 500),
-                child: SplashScreen(
-                    // key: UniqueKey(),
-                    ),
+                child: const SplashScreen(),
               );
             } else if (appState is LoginStateIsInRegistrationView) {
               return AnimatedSwitcher(
@@ -215,11 +207,9 @@ class MyApp extends StatelessWidget {
                       child: child,
                     );
                   },
-                  switchOutCurve: Threshold(0),
+                  switchOutCurve: const Threshold(0),
                   duration: const Duration(milliseconds: 500),
-                  child: RegisterScreen(
-                      // key: UniqueKey(),
-                      ));
+                  child: const RegisterScreen());
             } else if (appState is LoginStateIsInLoginView) {
               return AnimatedSwitcher(
                   transitionBuilder:
@@ -232,11 +222,9 @@ class MyApp extends StatelessWidget {
                       child: child,
                     );
                   },
-                  switchOutCurve: Threshold(0),
-                  duration: Duration(milliseconds: 500),
-                  child: LoginScreen(
-                      // key: UniqueKey(),
-                      ));
+                  switchOutCurve: const Threshold(0),
+                  duration: const Duration(milliseconds: 500),
+                  child: const LoginScreen());
             } else if (appState is LoginStateLoggedIn) {
               return AnimatedSwitcher(
                 transitionBuilder: (Widget child, Animation<double> animation) {
@@ -248,10 +236,9 @@ class MyApp extends StatelessWidget {
                     child: child,
                   );
                 },
-                switchOutCurve: Threshold(0),
+                switchOutCurve: const Threshold(0),
                 duration: const Duration(milliseconds: 500),
                 child: MainScreen(
-                  // key: UniqueKey(),
                   email: appState.email,
                   name: appState.name,
                   profileImage: appState.profileImage,

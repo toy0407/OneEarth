@@ -1,3 +1,5 @@
+// ignore_for_file: constant_identifier_names
+
 const String IMAGE_PATH = "assets/images";
 const String LOTTIE_ANIM_PATH = "assets/lottie_anim";
 

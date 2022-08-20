@@ -1,5 +1,3 @@
-//TODO
-
 import 'package:flutter/material.dart';
 import 'package:one_earth/presentation/resources/color_manager.dart';
 import 'package:one_earth/presentation/resources/styles_manager.dart';

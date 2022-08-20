@@ -1,10 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:lottie/lottie.dart';
 import 'package:one_earth/data/news/news_data.dart';
-import 'package:one_earth/presentation/main/pageviews/news/bloc/news_state.dart';
 import 'package:one_earth/presentation/resources/assets_manager.dart';
 import 'package:one_earth/presentation/resources/color_manager.dart';
 import 'package:one_earth/presentation/resources/styles_manager.dart';
@@ -27,7 +24,6 @@ class NewsPage extends StatefulWidget {
 class _NewsPageState extends State<NewsPage> {
   List<Article>? data;
   int index = 0;
-  var connectivityResult;
 
   @override
   void initState() {
@@ -61,7 +57,7 @@ class _NewsPageState extends State<NewsPage> {
             background: newsCard(prevIndex),
             child: newsCard(index),
             secondaryBackground: newsCard(nextIndex),
-            resizeDuration: Duration(milliseconds: 10),
+            resizeDuration: const Duration(milliseconds: 10),
             key: Key(index.toString()),
             direction: DismissDirection.vertical,
             onDismissed: (direction) {

@@ -1,3 +1,5 @@
+// ignore_for_file: prefer_if_null_operators
+
 import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:one_earth/presentation/resources/strings_manager.dart';
@@ -36,7 +38,6 @@ class RemoteService {
   var client = http.Client();
   Future<NewsData?> getLocalNews(int nextPage) async {
     String apiKey = AppStrings.newsDataApiKey;
-    String country = 'in';
     String language = 'en';
     String query = 'sustainability';
     String url =

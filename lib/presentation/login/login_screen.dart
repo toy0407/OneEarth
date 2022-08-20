@@ -11,8 +11,6 @@ import 'package:one_earth/presentation/login/bloc/login_bloc.dart';
 import 'package:one_earth/presentation/login/bloc/login_event.dart';
 import 'package:email_validator/email_validator.dart';
 
-import 'auth/auth_error.dart';
-
 class LoginScreen extends StatefulWidget {
   const LoginScreen({Key? key}) : super(key: key);
 
@@ -24,10 +22,8 @@ class _LoginScreenState extends State<LoginScreen>
     with TickerProviderStateMixin {
   late TextEditingController _emailController;
   late TextEditingController _passwordController;
-  late AnimationController _animationController;
 
   final formKey = GlobalKey<FormState>();
-  late var _animation;
   bool isValid = false;
 
   @override
@@ -67,7 +63,7 @@ class _LoginScreenState extends State<LoginScreen>
       key: formKey,
       child: Scaffold(
         resizeToAvoidBottomInset: false,
-        key: ValueKey(0),
+        key: const ValueKey(0),
         body: Padding(
           padding: const EdgeInsets.all(AppPadding.p20),
           child: Column(

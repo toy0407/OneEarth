@@ -53,7 +53,6 @@ class Trivia {
         .collection('Trivia')
         .get()
         .then((value) => totalTrivia = value.size);
-    print(totalTrivia);
     int randomTriviaId = Random().nextInt(totalTrivia) + 1;
     CollectionReference _collectionRef =
         FirebaseFirestore.instance.collection('Trivia');

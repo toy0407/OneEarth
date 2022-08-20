@@ -115,11 +115,22 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                 BlocBuilder<MySpaceTabCubit, HomeGenericState>(
                   builder: (context, state) {
                     if (state.isFailed) {
-                      return const Text("Failed to fetch My Space.");
+                      return Center(
+                        child: Text(
+                          "Failed to fetch My Space.",
+                          style: getLightStyle(
+                            color: ColorManager.black,
+                            fontSize: FontSize.s20,
+                          ),
+                        ),
+                      );
                     }
 
                     if (state.isLoading) {
-                      return const Text("Loading My Space...");
+                      return Center(
+                        child: CircularProgressIndicator(
+                            color: ColorManager.darkPrimary),
+                      );
                     }
 
                     return MySpaceTabView(data: state.data);

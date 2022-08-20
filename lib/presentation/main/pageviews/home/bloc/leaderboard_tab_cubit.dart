@@ -23,7 +23,6 @@ class LeaderboardTabCubit extends Cubit<HomeGenericState> {
   ///
   void load() async {
     //#log
-    print("[EVENT] Popular Categories :: Load");
 
     // Every time when try to load data from repository put the application
     // in a loading state
@@ -37,7 +36,6 @@ class LeaderboardTabCubit extends Cubit<HomeGenericState> {
       emit(HomeGenericState(data: data, isFailed: false));
     } catch (e) {
       // For debugging
-      print(e);
       // For example purpose we do not have a message
       emit(HomeGenericState(isFailed: true, data: []));
     }

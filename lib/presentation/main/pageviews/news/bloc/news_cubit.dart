@@ -24,7 +24,6 @@ class NewsCubit extends Cubit<NewsGenericState> {
   ///
   void load() async {
     //#log
-    print("[EVENT] News :: Load");
 
     var connectivityResult = await Connectivity().checkConnectivity();
     if (connectivityResult == ConnectivityResult.none) {
@@ -42,7 +41,6 @@ class NewsCubit extends Cubit<NewsGenericState> {
         emit(NewsGenericState(data: data!, isFailed: false));
       } catch (e) {
         // For debugging
-        print(e);
         // For example purpose we do not have a message
         emit(NewsGenericState(isFailed: true, data: []));
       }
