@@ -11,6 +11,8 @@ import 'package:one_earth/presentation/main/pageviews/news/bloc/news_cubit.dart'
 import 'package:one_earth/presentation/main/pageviews/news/bloc/news_state.dart';
 import 'package:one_earth/presentation/main/pageviews/news/news_page.dart';
 import 'package:one_earth/presentation/main/pageviews/social/social_page.dart';
+import 'package:one_earth/presentation/main/pageviews/tutorial/bloc/tutorial_cubit.dart';
+import 'package:one_earth/presentation/main/pageviews/tutorial/bloc/tutorial_state.dart';
 import 'package:one_earth/presentation/main/pageviews/tutorial/tutorial_page.dart';
 import 'package:one_earth/presentation/resources/color_manager.dart';
 import 'package:one_earth/presentation/resources/strings_manager.dart';
@@ -87,7 +89,26 @@ class _MainScreenState extends State<MainScreen> {
           if (value == 4) _bottomNavigationBloc.add(const EventsPageTapped());
         },
         children: [
-          const TutorialPage(),
+          BlocBuilder<TutorialCubit, TutorialGenericState>(
+              builder: (context, state) {
+            // print(state.data);
+
+            if (state.isFailed) {
+              return const Text("Failed to fetch Tutorials");
+            }
+
+            if (state.isLoading) {
+              return Center(
+                child: CircularProgressIndicator(
+                  color: ColorManager.darkPrimary,
+                ),
+              );
+            }
+
+            return TutorialPage(
+              data: state.data,
+            );
+          }),
           const SocialPage(),
           HomePage(name: name, email: email, profileImage: profileImage),
           BlocBuilder<NewsCubit, NewsGenericState>(

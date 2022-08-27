@@ -3,13 +3,20 @@ import 'package:one_earth/presentation/resources/color_manager.dart';
 import 'package:one_earth/presentation/resources/styles_manager.dart';
 
 class TutorialPage extends StatefulWidget {
-  const TutorialPage({Key? key}) : super(key: key);
+  final List? data;
+  const TutorialPage({Key? key, this.data}) : super(key: key);
 
   @override
   State<TutorialPage> createState() => _TutorialPageState();
 }
 
 class _TutorialPageState extends State<TutorialPage> {
+  @override
+  void initState() {
+    print((widget.data![0] as dynamic)['title']);
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Center(
