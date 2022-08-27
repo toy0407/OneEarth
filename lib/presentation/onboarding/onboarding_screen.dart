@@ -33,38 +33,36 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
       body: SafeArea(
         child: Padding(
           padding: const EdgeInsets.all(AppPadding.p8),
-          child: Expanded(
-            child: Column(
-              children: [
-                Expanded(
-                  flex: 1,
-                  child: Image.asset(
-                    ImageAssets.companyLogo,
-                  ),
+          child: Column(
+            children: [
+              Expanded(
+                flex: 1,
+                child: Image.asset(
+                  ImageAssets.companyLogo,
                 ),
-                Expanded(
-                  flex: 10,
-                  child: PageView(
-                    controller: pageController,
-                    children: [
-                      _onboardingScreen1(context),
-                      _onboardingScreen2(context),
-                      _onboardingScreen3(context),
-                      const OnboardingScreen4()
-                    ],
-                  ),
-                ),
-                SmoothPageIndicator(
-                  count: 4,
+              ),
+              Expanded(
+                flex: 10,
+                child: PageView(
                   controller: pageController,
-                  effect: WormEffect(
-                      activeDotColor: ColorManager.darkPrimary,
-                      dotColor: ColorManager.primary,
-                      dotHeight: 10,
-                      dotWidth: 20),
+                  children: [
+                    _onboardingScreen1(context),
+                    _onboardingScreen2(context),
+                    _onboardingScreen3(context),
+                    const OnboardingScreen4()
+                  ],
                 ),
-              ],
-            ),
+              ),
+              SmoothPageIndicator(
+                count: 4,
+                controller: pageController,
+                effect: WormEffect(
+                    activeDotColor: ColorManager.darkPrimary,
+                    dotColor: ColorManager.primary,
+                    dotHeight: 10,
+                    dotWidth: 20),
+              ),
+            ],
           ),
         ),
       ),

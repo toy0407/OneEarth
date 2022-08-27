@@ -102,7 +102,7 @@ class _NewsPageState extends State<NewsPage> {
                   color: ColorManager.darkGrey,
                   fontSize: FontSize.s16,
                 ),
-                maxLines: 5,
+                maxLines: 8,
               ),
               TextButton(
                   onPressed: () => _launchUrl(data![index].url.toString()),
