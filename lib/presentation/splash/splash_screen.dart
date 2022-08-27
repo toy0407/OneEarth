@@ -27,7 +27,8 @@ class SplashScreen extends StatelessWidget {
         children: [
           Hero(
               tag: 'imageHero',
-              child: Lottie.asset(LottieAnimAssets.splashLogoAnim)),
+              child:
+                  Lottie.asset(LottieAnimAssets.splashLogoAnim, repeat: false)),
           Text(
             'One Earth',
             style: getRegularStyle(

@@ -4,7 +4,7 @@ import 'package:one_earth/presentation/dialogs/generic_dialog.dart';
 Future<bool> showLogOutDialog(BuildContext context) {
   return showGenericDialog<bool>(
     context: context,
-    title: 'Log out',
+    title: 'Log Out',
     content: 'Are you sure you want to log out?',
     optionsBuilder: () => {
       'Cancel': false,
