@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:one_earth/data/tutorial/tutorial_data.dart';
 import 'package:one_earth/presentation/resources/color_manager.dart';
 import 'package:one_earth/presentation/resources/styles_manager.dart';
 
 class TutorialPage extends StatefulWidget {
-  final List? data;
+  final List<TutorialData>? data;
   const TutorialPage({Key? key, this.data}) : super(key: key);
 
   @override
@@ -13,7 +14,7 @@ class TutorialPage extends StatefulWidget {
 class _TutorialPageState extends State<TutorialPage> {
   @override
   void initState() {
-    print((widget.data![0] as dynamic)['title']);
+    print(widget.data![1].image);
     super.initState();
   }
 

@@ -5,6 +5,8 @@ import 'package:one_earth/presentation/login/bloc/login_bloc.dart';
 import 'package:one_earth/presentation/login/bloc/login_event.dart';
 import 'package:one_earth/presentation/main/bloc/bottom_navigation_bloc.dart';
 import 'package:one_earth/presentation/main/bloc/bottom_bavigation_event.dart';
+import 'package:one_earth/presentation/main/pageviews/events/bloc/events_cubit.dart';
+import 'package:one_earth/presentation/main/pageviews/events/bloc/events_state.dart';
 import 'package:one_earth/presentation/main/pageviews/events/events_page.dart';
 import 'package:one_earth/presentation/main/pageviews/home/home_page.dart';
 import 'package:one_earth/presentation/main/pageviews/news/bloc/news_cubit.dart';
@@ -150,7 +152,29 @@ class _MainScreenState extends State<MainScreen> {
               return NewsPage(data: state.data!);
             },
           ),
-          const EventsPage()
+
+          // EVENTS TAB
+
+          BlocBuilder<EventsCubit, EventsGenericState>(
+              builder: (context, state) {
+            // print(state.data);
+
+            if (state.isFailed) {
+              return const Text("Failed to fetch Events");
+            }
+
+            if (state.isLoading) {
+              return Center(
+                child: CircularProgressIndicator(
+                  color: ColorManager.darkPrimary,
+                ),
+              );
+            }
+
+            return EventsPage(
+              data: state.data,
+            );
+          }),
         ],
       ),
       bottomNavigationBar: BottomNavigationBar(

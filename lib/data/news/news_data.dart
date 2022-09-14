@@ -17,6 +17,8 @@ class NewsRepository {
           var localNews =
               await RemoteService().getLocalNews(++localCurrentPage);
           // print(localNews?.results?.elementAt(0));
+          localNews?.articles!
+              .sort((a, b) => b.publishedAt!.compareTo(a.publishedAt!));
           return localNews?.articles;
 
         case "energyNews":

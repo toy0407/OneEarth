@@ -1,10 +1,10 @@
-import 'package:one_earth/data/tutorial/tutorial_data.dart';
+import 'package:one_earth/data/events/events_data.dart';
 
-class TutorialGenericState {
+class EventsGenericState {
   ///
   /// Categories data
   ///
-  final List<TutorialData> data;
+  final List<EventsData> data;
 
   // final bool isConnection;
 
@@ -18,7 +18,7 @@ class TutorialGenericState {
   ///
   final bool isFailed;
 
-  TutorialGenericState({
+  EventsGenericState({
     required this.data,
     this.isLoading = false,
     this.isFailed = false,

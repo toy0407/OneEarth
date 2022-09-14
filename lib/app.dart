@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:one_earth/data/events/events_data.dart';
 import 'package:one_earth/data/home/home_data.dart';
 import 'package:one_earth/data/news/news_data.dart';
 import 'package:one_earth/data/tutorial/tutorial_data.dart';
@@ -11,6 +12,7 @@ import 'package:one_earth/presentation/login/login_screen.dart';
 import 'package:one_earth/presentation/login/register_screen.dart';
 import 'package:one_earth/presentation/main/bloc/bottom_navigation_bloc.dart';
 import 'package:one_earth/presentation/main/main_screen.dart';
+import 'package:one_earth/presentation/main/pageviews/events/bloc/events_cubit.dart';
 import 'package:one_earth/presentation/main/pageviews/home/bloc/leaderboard_tab_cubit.dart';
 import 'package:one_earth/presentation/main/pageviews/home/bloc/my_activities_cubit.dart';
 import 'package:one_earth/presentation/main/pageviews/home/bloc/my_space_tab_cubit.dart';
@@ -74,6 +76,7 @@ class MyApp extends StatelessWidget {
   final HomeRepository homeRepository = HomeRepository();
   final NewsRepository newsRepository = NewsRepository();
   final TutorialRepository tutorialRepository = TutorialRepository();
+  final EventsRepository eventsRepository = EventsRepository();
 
   @override
   Widget build(BuildContext context) {
@@ -98,7 +101,10 @@ class MyApp extends StatelessWidget {
                 NewsCubit(newsRepository: newsRepository)..load()),
         BlocProvider<TutorialCubit>(
             create: (context) =>
-                TutorialCubit(tutorialRepository: tutorialRepository)..load())
+                TutorialCubit(tutorialRepository: tutorialRepository)..load()),
+        BlocProvider<EventsCubit>(
+            create: (context) =>
+                EventsCubit(eventsRepository: eventsRepository)..load())
       ],
       child: MaterialApp(
         title: "One Earth",

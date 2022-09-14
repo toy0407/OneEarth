@@ -29,22 +29,12 @@ class HomeRepository {
 }
 
 class Trivia {
-  late String _question = '';
-  late int _answer = -1;
-  late List<String> _options = [];
+  late String _fact = '';
 
   Trivia();
 
-  String getQuestion() {
-    return _question;
-  }
-
-  int getAnswer() {
-    return _answer;
-  }
-
-  List<String> getOptions() {
-    return _options;
+  String getFact() {
+    return _fact;
   }
 
   getTrivia() async {
@@ -64,8 +54,6 @@ class Trivia {
 
     final triviaData = querySnapshot.docs.map((doc) => doc.data()).toList();
 
-    _question = ((triviaData[0] as dynamic)['question']);
-    _answer = ((triviaData[0] as dynamic)['answer']);
-    _options = List<String>.from(((triviaData[0] as dynamic)['options']));
+    _fact = ((triviaData[0] as dynamic)['fact']);
   }
 }

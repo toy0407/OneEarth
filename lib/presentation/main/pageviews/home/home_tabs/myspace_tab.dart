@@ -45,42 +45,10 @@ class _MySpaceTabViewState extends State<MySpaceTabView> {
             ),
           ]),
           const SizedBox(height: AppSize.s16),
-          Text('Q. ' + trivia.getQuestion(),
+          Text(trivia.getFact(),
               style: getMediumStyle(
                 color: ColorManager.darkGrey,
               )),
-          const SizedBox(height: AppSize.s12),
-          Text('A. ' + trivia.getOptions()[trivia.getAnswer()],
-              style: getMediumStyle(
-                color: ColorManager.darkGrey,
-              )),
-          // ListView.separated(
-          //     shrinkWrap: true,
-          //     itemCount: trivia.getOptions().length,
-          //     physics: const NeverScrollableScrollPhysics(),
-          //     separatorBuilder: ((ctx, index) => const SizedBox(height: 1)),
-          //     itemBuilder: (ctx, index) {
-          //       return OutlinedButton(
-          //         onPressed: () {
-          //           if (index == trivia.getAnswer()) {
-          //             //Correct
-          //           } else {
-          //             //Wrong
-          //           }
-          //         },
-          //         style: ButtonStyle(
-          //           shape: MaterialStateProperty.all(RoundedRectangleBorder(
-          //               borderRadius: BorderRadius.circular(AppSize.s16))),
-          //         ),
-          //         child: Padding(
-          //           padding: const EdgeInsets.all(AppPadding.p8),
-          //           child: Text(
-          //             trivia.getOptions()[index],
-          //             style: getMediumStyle(color: ColorManager.darkGrey),
-          //           ),
-          //         ),
-          //       );
-          //     })
         ]),
       ),
     );
