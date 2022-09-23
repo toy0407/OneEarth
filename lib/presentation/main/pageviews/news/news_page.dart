@@ -9,6 +9,7 @@ import 'package:one_earth/presentation/resources/values_manager.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:http/http.dart' as http;
+import 'package:intl/intl.dart';
 
 import 'package:flutter_offline/flutter_offline.dart';
 
@@ -91,12 +92,21 @@ class _NewsPageState extends State<NewsPage> {
         Padding(
           padding: const EdgeInsets.all(AppPadding.p12),
           child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(data![index].title.toString(),
                   style: getBoldStyle(
                     color: ColorManager.black,
                     fontSize: FontSize.s20,
                   )),
+              const SizedBox(
+                height: AppSize.s12,
+              ),
+              Text(DateFormat('dd/MM/yyyy  kk:mm a')
+                  .format(data![index].publishedAt!)),
+              const SizedBox(
+                height: AppSize.s16,
+              ),
               Text(
                 data![index].description.toString() + '...',
                 style: getRegularStyle(

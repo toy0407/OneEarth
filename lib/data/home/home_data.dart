@@ -13,8 +13,11 @@ class HomeRepository {
         case "my_space":
           List allMySpaceData = [];
           Trivia trivia = Trivia();
+          AirQualityInformation aqi = AirQualityInformation();
           await trivia.getTrivia();
           allMySpaceData.add(trivia);
+          await aqi.getAirQualityInformation();
+          allMySpaceData.add(aqi);
           return allMySpaceData;
 
         case "my_activities":
@@ -55,5 +58,41 @@ class Trivia {
     final triviaData = querySnapshot.docs.map((doc) => doc.data()).toList();
 
     _fact = ((triviaData[0] as dynamic)['fact']);
+  }
+}
+
+class AirQualityInformation {
+  late double aqi, co, no, no2, o3, so2, pm2_5, pm10, nh3;
+  late String place;
+  double latitude = 0, longtitude = 0;
+
+  getDataFromApi(double latitude, double longtitude) {
+    /**
+     * Create url from string
+     * Fetch the data using the url
+     * Reference: https://docs.flutter.dev/cookbook/networking/fetch-data
+     */
+  }
+
+  getLocation() async {
+    /**
+     * Get latitude and longitude from Geolocator (Must use last location)
+     * https://pub.dev/packages/geolocator
+     */
+  }
+
+  getPlaceFromLL(double latitude, double longtitude) {
+    /**
+     * Get Name of the location from the givern latitude and longitude by GeoCoding package
+     * https://pub.dev/packages/geocoding
+     */
+  }
+
+  getAirQualityInformation() async {
+    /**
+     * getLocation() => store it into this.latitude and this.longitude 
+     * getPlaceFromLL() => store place name into this.place
+     * getLocation() => this.aqi, this.co, this.no, this.no2, this.o3, this.so2, this.pm2_5, this.pm10, this.nh3
+     */
   }
 }

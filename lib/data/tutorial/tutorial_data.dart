@@ -1,5 +1,4 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:video_thumbnail/video_thumbnail.dart';
 
 class TutorialRepository {
   Future<List<TutorialData>> getData(String type) async {
@@ -44,7 +43,7 @@ class TutorialRepository {
     //   quality: 75,
     // );
     String id = url.substring(url.length - 11);
-    String image = "https://img.youtube.com/vi/$id/0.jpg";
+    String image = "https://img.youtube.com/vi/$id/maxresdefault.jpg";
     return image;
   }
 }

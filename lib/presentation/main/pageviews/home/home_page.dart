@@ -67,7 +67,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                 width: 12,
               ),
               Text(
-                'Hi ' + name,
+                name,
                 style: getLightStyle(
                     color: ColorManager.black, fontSize: FontSize.s30),
               ),

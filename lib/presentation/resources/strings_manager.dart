@@ -4,6 +4,7 @@ class AppStrings {
   static const String welcomeMessage =
       'You are now One-Earthineer. Let’s make it count. For each one of us has the power to transform the earth to a better tomorrow.';
   static const String newsDataApiKey = 'd5c7fb114b254a6db1e92b63be2c19e9';
+  static const String openWeatherMapApiKey = 'd7025ca7ccec3e61d36ae2152d94495a';
 
   static const String onboardingHeading1 = 'Be aware';
   static const String onboardingDescription1 =

@@ -1,5 +1,4 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:video_thumbnail/video_thumbnail.dart';
 
 class EventsRepository {
   Future<List<EventsData>> getData(String type) async {
