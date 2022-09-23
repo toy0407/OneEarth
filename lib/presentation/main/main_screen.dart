@@ -199,9 +199,8 @@ class _MainScreenState extends State<MainScreen> {
             if (value == 2) _bottomNavigationBloc.add(const HomePageTapped());
             if (value == 3) _bottomNavigationBloc.add(const NewsPageTapped());
             if (value == 4) _bottomNavigationBloc.add(const EventsPageTapped());
-            _pageController.animateToPage(value,
-                curve: Curves.easeIn,
-                duration: const Duration(milliseconds: 350));
+            _pageController.jumpToPage(value);
+            // _pageController.animateToPage(value, duration: , curve: )
           }),
     );
   }
