@@ -9,7 +9,7 @@ import 'package:one_earth/presentation/resources/values_manager.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:http/http.dart' as http;
-import 'package:intl/intl.dart';
+// import 'package:intl/intl.dart';
 
 import 'package:flutter_offline/flutter_offline.dart';
 
@@ -102,8 +102,8 @@ class _NewsPageState extends State<NewsPage> {
               const SizedBox(
                 height: AppSize.s12,
               ),
-              Text(DateFormat('dd/MM/yyyy  kk:mm a')
-                  .format(data![index].publishedAt!)),
+              // Text(DateFormat('dd/MM/yyyy  kk:mm a')
+              //     .format(data![index].publishedAt!)),
               const SizedBox(
                 height: AppSize.s16,
               ),

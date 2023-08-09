@@ -1,6 +1,7 @@
 // ignore_for_file: prefer_if_null_operators
 
 import 'dart:convert';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:http/http.dart' as http;
 import 'package:one_earth/presentation/resources/strings_manager.dart';
 
@@ -22,11 +23,8 @@ class NewsRepository {
           return localNews?.articles;
 
         case "energyNews":
-
         case "waterNews":
-
         case "soilNews":
-
         default:
           return [];
       }
@@ -39,7 +37,7 @@ class NewsRepository {
 class RemoteService {
   var client = http.Client();
   Future<NewsData?> getLocalNews(int nextPage) async {
-    String apiKey = AppStrings.newsDataApiKey;
+    String apiKey = dotenv.env['NEWSDATA_API_KEY'] ?? '';
     String language = 'en';
     String query = 'sustainability';
     String url =
